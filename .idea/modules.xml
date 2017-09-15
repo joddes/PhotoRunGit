@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PhotoRun.iml" filepath="$PROJECT_DIR$/PhotoRun.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PhotoRunGit.iml" filepath="$PROJECT_DIR$/PhotoRunGit.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
