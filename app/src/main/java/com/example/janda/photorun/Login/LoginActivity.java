@@ -5,4 +5,5 @@ package com.example.janda.photorun.Login;
  */
 
 public class LoginActivity {
+
 }

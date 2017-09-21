@@ -1,68 +1,21 @@
 {
   "project_info": {
-    "project_number": "756899905541",
-    "firebase_url": "https://photorun-44e78.firebaseio.com",
-    "project_id": "photorun-44e78",
-    "storage_bucket": "photorun-44e78.appspot.com"
+    "project_number": "489475707708",
+    "firebase_url": "https://photorun-3f474.firebaseio.com",
+    "project_id": "photorun-3f474",
+    "storage_bucket": "photorun-3f474.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:756899905541:android:fdc33ab21067bd78",
-        "android_client_info": {
-          "package_name": "de.photorun"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "756899905541-tj8a4n4t0865mtmmdof8kvnaplli7709.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "de.photorun",
-            "certificate_hash": "6b28f119bdb2ba48fa467766c8237c3454690ddf"
-          }
-        },
-        {
-          "client_id": "756899905541-fh7u6m8c731cfaoed92fufqv5vd2i6ej.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDaoMVB7H9jpMuhLy96FUyx8wXE7fCUOJk"
-        },
-        {
-          "current_key": "AIzaSyCWjkRiAnA_DPWaVkTzsPhJq19_erXiEpk"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "756899905541-fh7u6m8c731cfaoed92fufqv5vd2i6ej.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:756899905541:android:72a1e3c676e61dac",
+        "mobilesdk_app_id": "1:489475707708:android:72a1e3c676e61dac",
         "android_client_info": {
           "package_name": "com.example.janda.photorun"
         }
       },
       "oauth_client": [
         {
-          "client_id": "756899905541-9jhomeue6p66p9424lee55fr0al618aq.apps.googleusercontent.com",
+          "client_id": "489475707708-7ubi4salr3u8rdkgu325gut8875vodqv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.janda.photorun",
@@ -70,16 +23,13 @@
           }
         },
         {
-          "client_id": "756899905541-fh7u6m8c731cfaoed92fufqv5vd2i6ej.apps.googleusercontent.com",
+          "client_id": "489475707708-h7n77tf5415uns6kut4rvtp7ri1aso6d.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDaoMVB7H9jpMuhLy96FUyx8wXE7fCUOJk"
-        },
-        {
-          "current_key": "AIzaSyCWjkRiAnA_DPWaVkTzsPhJq19_erXiEpk"
+          "current_key": "AIzaSyAIIrnKYDhv192Rf6vvkw6MBJEv77GkYYk"
         }
       ],
       "services": {
@@ -90,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "756899905541-fh7u6m8c731cfaoed92fufqv5vd2i6ej.apps.googleusercontent.com",
+              "client_id": "489475707708-h7n77tf5415uns6kut4rvtp7ri1aso6d.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
