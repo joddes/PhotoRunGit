@@ -13,8 +13,10 @@ public class photoruns {
     private String photorun_id;
     private String starting_tiem;
     private String title;
+    private String start_point;
+    private String end_point;
 
-    public photoruns(String date, String description, String estimaed_duration, String max_participators, String photorun_id, String starting_tiem, String title) {
+    public photoruns(String date, String description, String estimaed_duration, String max_participators, String photorun_id, String starting_tiem, String title, String start_point, String end_point) {
         this.date = date;
         this.description = description;
         this.estimaed_duration = estimaed_duration;
@@ -22,6 +24,8 @@ public class photoruns {
         this.photorun_id = photorun_id;
         this.starting_tiem = starting_tiem;
         this.title = title;
+        this.start_point = start_point;
+        this.end_point = end_point;
     }
 
     public photoruns(){
@@ -84,6 +88,22 @@ public class photoruns {
         this.title = title;
     }
 
+    public String getStart_point() {
+        return start_point;
+    }
+
+    public void setStart_point(String start_point) {
+        this.start_point = start_point;
+    }
+
+    public String getEnd_point() {
+        return end_point;
+    }
+
+    public void setEnd_point(String end_point) {
+        this.end_point = end_point;
+    }
+
     @Override
     public String toString() {
         return "photoruns{" +
@@ -94,6 +114,8 @@ public class photoruns {
                 ", photorun_id='" + photorun_id + '\'' +
                 ", starting_tiem='" + starting_tiem + '\'' +
                 ", title='" + title + '\'' +
+                ", start_point='" + start_point + '\'' +
+                ", end_point='" + end_point + '\'' +
                 '}';
     }
 }
