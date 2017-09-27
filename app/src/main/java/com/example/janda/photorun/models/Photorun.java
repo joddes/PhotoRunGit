@@ -48,12 +48,12 @@ public class Photorun {
         this.description = description;
     }
 
-    public String getEstimaed_duration() {
+    public String getEstimated_duration() {
         return estimated_duration;
     }
 
-    public void setEstimaed_duration(String estimaed_duration) {
-        this.estimated_duration = estimaed_duration;
+    public void setEstimated_duration(String estimated_duration) {
+        this.estimated_duration = estimated_duration;
     }
 
     public String getMax_participators() {
@@ -72,12 +72,12 @@ public class Photorun {
         this.photorun_id = photorun_id;
     }
 
-    public String getStarting_tiem() {
+    public String getStarting_time() {
         return starting_time;
     }
 
-    public void setStarting_tiem(String starting_tiem) {
-        this.starting_time = starting_tiem;
+    public void setStarting_time(String starting_time) {
+        this.starting_time = starting_time;
     }
 
     public String getTitle() {
@@ -109,10 +109,10 @@ public class Photorun {
         return "Photorun{" +
                 "date='" + date + '\'' +
                 ", description='" + description + '\'' +
-                ", estimaed_duration='" + estimated_duration + '\'' +
+                ", estimated_duration='" + estimated_duration + '\'' +
                 ", max_participators='" + max_participators + '\'' +
                 ", photorun_id='" + photorun_id + '\'' +
-                ", starting_tiem='" + starting_time + '\'' +
+                ", starting_time='" + starting_time + '\'' +
                 ", title='" + title + '\'' +
                 ", start_point='" + start_point + '\'' +
                 ", end_point='" + end_point + '\'' +
