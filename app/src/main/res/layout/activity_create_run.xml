@@ -1,9 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.janda.photorun.Photorun.CreateRun">
+    android:background="@drawable/background"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible"
+        android:id="@+id/list"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
-</android.support.constraint.ConstraintLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_marginTop="32dp"
+            android:layout_height="26dp"
+            android:text="description"
+            android:background="@drawable/orange_rounded_button"
+            android:id="@+id/description"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_marginTop="32dp"
+            android:layout_height="26dp"
+            android:text="date"
+            android:background="@drawable/orange_rounded_button"
+            android:id="@+id/date"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_marginTop="32dp"
+            android:layout_height="26dp"
+            android:text="run_title"
+            android:background="@drawable/orange_rounded_button"
+            android:id="@+id/run_title"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_marginTop="32dp"
+            android:layout_height="26dp"
+            android:text="start_point"
+            android:background="@drawable/orange_rounded_button"
+            android:id="@+id/start_point"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_marginTop="32dp"
+            android:layout_height="26dp"
+            android:text="end_point"
+            android:background="@drawable/orange_rounded_button"
+            android:id="@+id/end_point"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_marginTop="32dp"
+            android:layout_height="26dp"
+            android:text="starting_time"
+            android:background="@drawable/orange_rounded_button"
+            android:id="@+id/starting_time"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_marginTop="32dp"
+            android:layout_height="26dp"
+            android:text="estimated_duration"
+            android:background="@drawable/orange_rounded_button"
+            android:id="@+id/estimated_duration"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_marginTop="32dp"
+            android:layout_height="26dp"
+            android:text="max_participantors"
+            android:background="@drawable/orange_rounded_button"
+            android:id="@+id/max_participators"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/submit_run"/>
+    </LinearLayout>
+
+</RelativeLayout>
