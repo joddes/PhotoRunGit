@@ -4,28 +4,25 @@ package com.example.janda.photorun.models;
  * Created by user on 25.09.17.
  */
 
-import com.google.firebase.database.IgnoreExtraProperties;
-
-@IgnoreExtraProperties
 public class photoruns {
 
     private String date;
     private String description;
-    private long estimated_duration;
-    private long max_participators;
+    private String estimaed_duration;
+    private String max_participators;
     private String photorun_id;
-    private String starting_time;
+    private String starting_tiem;
     private String title;
     private String start_point;
     private String end_point;
 
-    public photoruns(String date, String description, long estimated_duration, long max_participators, String photorun_id, String starting_time, String title, String start_point, String end_point) {
+    public photoruns(String date, String description, String estimaed_duration, String max_participators, String photorun_id, String starting_tiem, String title, String start_point, String end_point) {
         this.date = date;
         this.description = description;
-        this.estimated_duration = 0;
-        this.max_participators = 0;
+        this.estimaed_duration = estimaed_duration;
+        this.max_participators = max_participators;
         this.photorun_id = photorun_id;
-        this.starting_time = starting_time;
+        this.starting_tiem = starting_tiem;
         this.title = title;
         this.start_point = start_point;
         this.end_point = end_point;
@@ -51,19 +48,19 @@ public class photoruns {
         this.description = description;
     }
 
-    public long getEstimated_duration() {
-        return estimated_duration;
+    public String getEstimaed_duration() {
+        return estimaed_duration;
     }
 
-    public void setEstimated_duration(long estimated_duration) {
-        this.estimated_duration = estimated_duration;
+    public void setEstimaed_duration(String estimaed_duration) {
+        this.estimaed_duration = estimaed_duration;
     }
 
-    public long getMax_participators() {
+    public String getMax_participators() {
         return max_participators;
     }
 
-    public void setMax_participators(long max_participators) {
+    public void setMax_participators(String max_participators) {
         this.max_participators = max_participators;
     }
 
@@ -75,12 +72,12 @@ public class photoruns {
         this.photorun_id = photorun_id;
     }
 
-    public String getStarting_time() {
-        return starting_time;
+    public String getStarting_tiem() {
+        return starting_tiem;
     }
 
-    public void setStarting_time(String starting_time) {
-        this.starting_time = starting_time;
+    public void setStarting_tiem(String starting_tiem) {
+        this.starting_tiem = starting_tiem;
     }
 
     public String getTitle() {
@@ -112,10 +109,10 @@ public class photoruns {
         return "photoruns{" +
                 "date='" + date + '\'' +
                 ", description='" + description + '\'' +
-                ", estimated_duration='" + estimated_duration + '\'' +
+                ", estimaed_duration='" + estimaed_duration + '\'' +
                 ", max_participators='" + max_participators + '\'' +
                 ", photorun_id='" + photorun_id + '\'' +
-                ", starting_time='" + starting_time + '\'' +
+                ", starting_tiem='" + starting_tiem + '\'' +
                 ", title='" + title + '\'' +
                 ", start_point='" + start_point + '\'' +
                 ", end_point='" + end_point + '\'' +
