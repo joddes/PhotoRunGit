@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Login.ProfileActivity"></activity>
+        <activity android:name=".Photorun.CreateRun"></activity>
     </application>
 
 </manifest>

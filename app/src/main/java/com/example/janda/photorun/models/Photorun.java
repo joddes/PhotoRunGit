@@ -4,31 +4,31 @@ package com.example.janda.photorun.models;
  * Created by user on 25.09.17.
  */
 
-public class photoruns {
+public class Photorun {
 
     private String date;
     private String description;
-    private String estimaed_duration;
+    private String estimated_duration;
     private String max_participators;
     private String photorun_id;
-    private String starting_tiem;
+    private String starting_time;
     private String title;
     private String start_point;
     private String end_point;
 
-    public photoruns(String date, String description, String estimaed_duration, String max_participators, String photorun_id, String starting_tiem, String title, String start_point, String end_point) {
+    public Photorun(String date, String description, String estimated_duration, String max_participators, String photorun_id, String starting_time, String title, String start_point, String end_point) {
         this.date = date;
         this.description = description;
-        this.estimaed_duration = estimaed_duration;
+        this.estimated_duration = estimated_duration;
         this.max_participators = max_participators;
         this.photorun_id = photorun_id;
-        this.starting_tiem = starting_tiem;
+        this.starting_time = starting_time;
         this.title = title;
         this.start_point = start_point;
         this.end_point = end_point;
     }
 
-    public photoruns(){
+    public Photorun(){
 
     }
 
@@ -49,11 +49,11 @@ public class photoruns {
     }
 
     public String getEstimaed_duration() {
-        return estimaed_duration;
+        return estimated_duration;
     }
 
     public void setEstimaed_duration(String estimaed_duration) {
-        this.estimaed_duration = estimaed_duration;
+        this.estimated_duration = estimaed_duration;
     }
 
     public String getMax_participators() {
@@ -73,11 +73,11 @@ public class photoruns {
     }
 
     public String getStarting_tiem() {
-        return starting_tiem;
+        return starting_time;
     }
 
     public void setStarting_tiem(String starting_tiem) {
-        this.starting_tiem = starting_tiem;
+        this.starting_time = starting_tiem;
     }
 
     public String getTitle() {
@@ -106,13 +106,13 @@ public class photoruns {
 
     @Override
     public String toString() {
-        return "photoruns{" +
+        return "Photorun{" +
                 "date='" + date + '\'' +
                 ", description='" + description + '\'' +
-                ", estimaed_duration='" + estimaed_duration + '\'' +
+                ", estimaed_duration='" + estimated_duration + '\'' +
                 ", max_participators='" + max_participators + '\'' +
                 ", photorun_id='" + photorun_id + '\'' +
-                ", starting_tiem='" + starting_tiem + '\'' +
+                ", starting_tiem='" + starting_time + '\'' +
                 ", title='" + title + '\'' +
                 ", start_point='" + start_point + '\'' +
                 ", end_point='" + end_point + '\'' +
