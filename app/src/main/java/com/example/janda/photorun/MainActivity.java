@@ -1,40 +1,47 @@
 package com.example.janda.photorun;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
+        import android.app.ProgressDialog;
+        import android.content.DialogInterface;
+        import android.content.Intent;
+        import android.support.annotation.NonNull;
+        import android.support.v4.app.ActivityOptionsCompat;
+        import android.support.v7.app.AppCompatActivity;
+        import android.os.Bundle;
+        import android.text.TextUtils;
+        import android.view.View;
+        import android.view.animation.Animation;
+        import android.view.animation.AnimationUtils;
+        import android.view.animation.LinearInterpolator;
+        import android.widget.Button;
+        import android.widget.EditText;
+        import android.widget.ImageButton;
+        import android.widget.ImageView;
+        import android.widget.LinearLayout;
+        import android.widget.ProgressBar;
+        import android.widget.TextView;
+        import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+        import com.example.janda.photorun.Photorun.ProfileActivity;
+        import com.google.android.gms.tasks.OnCompleteListener;
+        import com.google.android.gms.tasks.Task;
+        import com.google.firebase.auth.AuthResult;
+        import com.google.firebase.auth.FirebaseAuth;
 
 
 
 public class MainActivity extends Activity implements View.OnClickListener{
 
     private Button buttonRegister;
-    private EditText editTextEmail;
+    private EditText editTextEmaillogin;
     //private EditText editTextUsername;
     private EditText editTextPassword;
+    private Button buttonSignIn;
+    private EditText editTextEmail;
+    private EditText editTextPasswordlogin;
+
+
+
 
     //private ProgressDialog progressDialog;
 
@@ -106,7 +113,59 @@ public class MainActivity extends Activity implements View.OnClickListener{
             }
         });
 
+        if(firebaseAuth.getCurrentUser() != null){
+            //close this activity
+            finish();
+            //opening profile activity
+            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+        }
+
+        editTextEmaillogin = (EditText) findViewById(R.id.input_email_login);
+        editTextPasswordlogin = (EditText) findViewById(R.id.input_password_login);
+        buttonSignIn = (Button) findViewById(R.id.btn_login);
+
+        buttonSignIn.setOnClickListener(this);
+
     }
+
+    private void userLogin(){
+        String email = editTextEmaillogin.getText().toString().trim();
+        String password  = editTextPasswordlogin.getText().toString().trim();
+
+
+        //checking if email and passwords are empty
+        if(TextUtils.isEmpty(email)){
+            Toast.makeText(this,"Please enter email",Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if(TextUtils.isEmpty(password)){
+            Toast.makeText(this,"Please enter password",Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        //if the email and password are not empty
+        //displaying a progress dialog
+
+
+
+        //logging in the user
+        firebaseAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        //if the task is successfull
+                        if(task.isSuccessful()){
+                            //start the profile activity
+
+                            finish();
+                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                        }
+                    }
+                });
+
+    }
+
 
     @Override
     public void onStart(){
@@ -142,8 +201,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
             return;
         }
 
-       // progressDialog.setMessage("Registrating user ..");
-       // progressDialog.show();
+        // progressDialog.setMessage("Registrating user ..");
+        // progressDialog.show();
 
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -161,7 +220,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                     }
                 });
 
-        }
+    }
 
 
     @Override
@@ -170,8 +229,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
         if(view == buttonRegister){
             registerUser();
         }
-
-
+        if(view == buttonSignIn){
+            userLogin();
+        }
 
     }
 }
