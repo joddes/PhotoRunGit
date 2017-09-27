@@ -1,11 +1,10 @@
 package com.example.janda.photorun.models;
 
-import com.google.firebase.database.IgnoreExtraProperties;
 
 /**
  * Created by user on 25.09.17.
  */
-@IgnoreExtraProperties
+
 public class photoruns {
 
     private String date;
@@ -18,18 +17,11 @@ public class photoruns {
     private String start_point;
     private String end_point;
 
-<<<<<<< HEAD
-    public photoruns(String date, String description, long estimated_duration, String photorun_id, String starting_tiem, String title, String start_point, String end_point) {
-        this.date = date;
-        this.description = description;
-        this.estimated_duration = estimated_duration;
-=======
     public photoruns(String date, String description, long estimated_duration, long max_participators, String photorun_id, String starting_tiem, String title, String start_point, String end_point) {
         this.date = date;
         this.description = description;
         this.estimated_duration = estimated_duration;
         this.max_participators = max_participators;
->>>>>>> 4c143702250f947ba0e8ab5a39f19981b614cb99
         this.photorun_id = photorun_id;
         this.starting_time = starting_tiem;
         this.title = title;
@@ -57,13 +49,6 @@ public class photoruns {
         this.description = description;
     }
 
-    public long getEstimated_duration() {
-        return estimated_duration;
-    }
-
-    public void setEstimated_duration(long estimaed_duration) {
-        this.estimated_duration = estimaed_duration;
-=======
     public long getEstimaed_duration() {
         return estimated_duration;
     }
@@ -78,7 +63,6 @@ public class photoruns {
 
     public void setMax_participators(long max_participators) {
         this.max_participators = max_participators;
->>>>>>> 4c143702250f947ba0e8ab5a39f19981b614cb99
     }
 
     public String getPhotorun_id() {
