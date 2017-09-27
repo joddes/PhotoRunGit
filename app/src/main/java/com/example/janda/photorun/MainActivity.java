@@ -22,7 +22,7 @@ import android.app.Activity;
         import android.widget.TextView;
         import android.widget.Toast;
 
-        import com.example.janda.photorun.Photorun.ProfileActivity;
+        import com.example.janda.photorun.Login.ProfileActivity;
         import com.google.android.gms.tasks.OnCompleteListener;
         import com.google.android.gms.tasks.Task;
         import com.google.firebase.auth.AuthResult;

@@ -22,12 +22,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.janda.photorun.Photorun.ProfileActivity;
+
 import com.example.janda.photorun.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.example.janda.photorun.Login.ProfileActivity;
 
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
