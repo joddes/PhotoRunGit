@@ -1,8 +1,15 @@
 package com.example.janda.photorun.Login;
 
-/**
- * Created by janda on 15.09.2017.
- */
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 
-public class RegistrationActivity {
+import com.example.janda.photorun.R;
+
+public class RegistrationActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register);
+    }
 }

@@ -1,9 +1,21 @@
 package com.example.janda.photorun.Login;
 
-/**
- * Created by janda on 15.09.2017.
- */
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 
-public class LoginActivity {
+import com.example.janda.photorun.HomeActivity;
+import com.example.janda.photorun.R;
 
+public class LoginActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+    }
+
+    public static Intent makeIntent(HomeActivity homeActivity) {
+        return new Intent(homeActivity, LoginActivity.class);
+    }
 }
