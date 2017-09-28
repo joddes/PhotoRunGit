@@ -6,23 +6,31 @@
         android:enabled="true"
         android:icon="@drawable/exit_icon"
         android:title="Ausloggen"
-        app:showAsAction="ifRoom" />
+        android:onClick="clickExit"
+        app:showAsAction="ifRoom"
+        />
     <item
         android:id="@+id/action_search"
         android:enabled="true"
         android:icon="@drawable/search_icon"
         android:title="Suche"
-        app:showAsAction="ifRoom" />
+        android:onClick="clickSearch"
+        app:showAsAction="ifRoom"
+        />
     <item
         android:id="@+id/action_profile"
         android:enabled="true"
         android:icon="@drawable/profile_icon"
         android:title="Profil"
-        app:showAsAction="ifRoom" />
+        android:onClick="clickProfile"
+        app:showAsAction="ifRoom"
+        />
     <item
         android:id="@+id/action_photorun"
         android:enabled="true"
         android:icon="@drawable/run_icon"
         android:title="Photorun"
-        app:showAsAction="ifRoom" />
+        android:onClick="clickRun"
+        app:showAsAction="ifRoom"
+        />
 </menu>
