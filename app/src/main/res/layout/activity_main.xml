@@ -39,6 +39,8 @@ tools:context="com.example.janda.photorun.Login.ProfileActivity">
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
 
-    </LinearLayout>
 
+
+    </LinearLayout>
+    <include layout="@layout/layout_bottom_navigation_view"/>
 </RelativeLayout>
