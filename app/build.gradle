@@ -34,7 +34,6 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:10.2.6'
     compile 'com.android.support:design:26.0.0-alpha1'
     compile 'com.google.firebase:firebase-database:10.2.6'
-    //BottomNavigationViewEx library
 }
 //Firebase
 apply plugin: 'com.google.gms.google-services'
