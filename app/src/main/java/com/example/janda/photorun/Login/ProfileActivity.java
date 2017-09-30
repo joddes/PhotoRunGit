@@ -1,13 +1,8 @@
 package com.example.janda.photorun.Login;
 
-import android.content.ClipData;
 import android.content.Intent;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,25 +12,17 @@ import com.example.janda.photorun.Photorun.CreateRun;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import android.view.MenuItem.OnMenuItemClickListener;
-import android.widget.Toast;
-
 import com.example.janda.photorun.R;
 
-
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     //firebase auth object
     private FirebaseAuth firebaseAuth;
 
     //view objects
     private TextView textViewUserEmail;
-   // private Button buttonLogout;
-    // private Button buttonPhotorun;
-    private Menu bottomMenu;
-
-
-
+    private Button buttonLogout;
+    private Button buttonPhotorun;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,22 +46,18 @@ public class ProfileActivity extends AppCompatActivity {
 
         //initializing views
         textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
-        //buttonLogout = (Button) findViewById(R.id.buttonLogout);
-       // buttonPhotorun = (Button) findViewById(R.id.createRunbutton);
-
-
-
+        buttonLogout = (Button) findViewById(R.id.buttonLogout);
+        buttonPhotorun = (Button) findViewById(R.id.createRunbutton);
 
         //displaying logged in user name
-        textViewUserEmail.setText("Logged in as: "+user.getEmail());
+        textViewUserEmail.setText("Welcome "+user.getEmail() + " you are now logged in!");
 
         //adding listener to button
-        //buttonLogout.setOnClickListener(this);
-        //buttonPhotorun.setOnClickListener(this);
-
+        buttonLogout.setOnClickListener(this);
+        buttonPhotorun.setOnClickListener(this);
     }
 
-    /*@Override
+    @Override
     public void onClick(View view) {
 
         //if logout is pressed
@@ -92,47 +75,5 @@ public class ProfileActivity extends AppCompatActivity {
             startActivity(new Intent(this, CreateRun.class));
         }
 
-        }*/
-
-
-
-    public void clickExit(MenuItem item){
-
-        //logging out the user
-        firebaseAuth.signOut();
-        //closing activity
-        finish();
-        //starting login activity
-        startActivity(new Intent(this, LoginActivity.class));
-
     }
-
-    public void clickSearch(MenuItem item){
-
-        Toast.makeText(this, "Search not available yet.", Toast.LENGTH_LONG).show();
-    }
-
-    public void clickProfile(MenuItem item){
-
-        Toast.makeText(this, "Profile not available yet.", Toast.LENGTH_LONG).show();
-    }
-
-    public void clickRun(MenuItem item){
-
-        finish();
-        //go back to Create Photorun
-        startActivity(new Intent(this, CreateRun.class));
-
-    }
-
-  /*  @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.bottom_navigation_menu, menu);
-        bottomMenu = (Menu) findViewById(R.id.bottom_navigation);
-        return true;
-    }*/
-
-
-
 }
