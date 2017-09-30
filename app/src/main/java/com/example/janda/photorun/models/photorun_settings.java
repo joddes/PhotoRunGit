@@ -1,18 +1,20 @@
 package com.example.janda.photorun.models;
 
-import java.util.List;
-
 /**
  * Created by user on 25.09.17.
  */
 
 public class photorun_settings {
 
-    private List participators;
+    private boolean participators;
     private String status;
 
-    public photorun_settings(List participators, String status) {
+    public photorun_settings(boolean participators, String status) {
         this.participators = participators;
+        this.status = status;
+    }
+
+    public photorun_settings(String status) {
         this.status = status;
     }
 
@@ -20,11 +22,11 @@ public class photorun_settings {
 
     }
 
-    public List getParticipators() {
+    public boolean getParticipators() {
         return participators;
     }
 
-    public void setParticipators(List participators) {
+    public void setParticipators(boolean participators) {
         this.participators = participators;
     }
 
