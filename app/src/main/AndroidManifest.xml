@@ -20,7 +20,6 @@
         </activity>
         <activity android:name=".Login.ProfileActivity"></activity>
         <activity android:name=".Photorun.CreateRun"></activity>
-        <activity android:name=".Photorun.ViewSinglePhotoRun"></activity>
     </application>
 
 </manifest>

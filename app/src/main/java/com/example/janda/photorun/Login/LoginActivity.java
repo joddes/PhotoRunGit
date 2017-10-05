@@ -39,8 +39,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         private Button buttonSignIn;
         private EditText editTextEmail;
         private EditText editTextPasswordlogin;
-        public static int logVar=0;
-
 
 
         //private ProgressDialog progressDialog;
@@ -63,21 +61,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 editTextPassword = (EditText) findViewById(R.id.input_password);
 
                 buttonRegister.setOnClickListener(this);
+
                 //Button animation
                 final ImageButton btnstart = (ImageButton) findViewById(R.id.login_btn);
                 final TextView btnsignup = (TextView) findViewById(R.id.link_signup);
                 final TextView btnlogin = (TextView) findViewById(R.id.link_login);
                 final ImageView btnlogo = (ImageView) findViewById(R.id.logo);
                 final Animation slide_up = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
-                final Animation slide_down = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
                 final Animation logoanim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.logo_animation);
-                final Animation logoanim_back = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.logo_animation_back);
                 final Animation slide_left = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
                 final Animation slide_left_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left_out);
+                final Animation slide_down = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
                 final Animation slide_right_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right_out);
                 final Animation slide_right = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right);
 
-                //--Button Action Key
                 btnstart.setOnClickListener(new View.OnClickListener() {
 
                         @Override
@@ -87,11 +84,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 findViewById(R.id.logo).startAnimation(logoanim);
                                 findViewById(R.id.login).setVisibility(View.VISIBLE);
                                 findViewById(R.id.login_btn).setVisibility(View.GONE);
-                                logVar=1;
                         }
                 });
 
-                //--Button register now
                 btnsignup.setOnClickListener(new View.OnClickListener() {
 
                         @Override
@@ -101,11 +96,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 findViewById(R.id.register).setVisibility(View.VISIBLE);
                                 findViewById(R.id.login).startAnimation(slide_left_out);
                                 findViewById(R.id.login).setVisibility(View.GONE);
-                                logVar=2;
                         }
                 });
 
-                //--Button back to login
                 btnlogin.setOnClickListener(new View.OnClickListener() {
 
                         @Override
@@ -115,7 +108,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 findViewById(R.id.login).setVisibility(View.VISIBLE);
                                 findViewById(R.id.register).startAnimation(slide_right_out);
                                 findViewById(R.id.register).setVisibility(View.GONE);
-                                logVar=1;
                         }
                 });
 
@@ -242,37 +234,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         userLogin();
                 }
 
-        }
-
-        @Override
-        public void onBackPressed() {
-                final ImageButton btnstart = (ImageButton) findViewById(R.id.login_btn);
-                final TextView btnsignup = (TextView) findViewById(R.id.link_signup);
-                final TextView btnlogin = (TextView) findViewById(R.id.link_login);
-                final ImageView btnlogo = (ImageView) findViewById(R.id.logo);
-                final Animation slide_up = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
-                final Animation slide_down = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
-                final Animation logoanim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.logo_animation);
-                final Animation logoanim_back = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.logo_animation_back);
-                final Animation slide_left = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
-                final Animation slide_left_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left_out);
-                final Animation slide_right_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right_out);
-                final Animation slide_right = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right);
-                if(logVar==0){
-                        
-                }if(logVar==1){
-                        findViewById(R.id.login).startAnimation(slide_down);
-                        findViewById(R.id.logo).startAnimation(logoanim_back);
-                        findViewById(R.id.login).setVisibility(View.GONE);
-                        findViewById(R.id.login_btn).setVisibility(View.VISIBLE);
-                        logVar=0;
-                }if(logVar==2){
-                        findViewById(R.id.login).startAnimation(slide_right);
-                        findViewById(R.id.login).setVisibility(View.VISIBLE);
-                        findViewById(R.id.register).startAnimation(slide_right_out);
-                        findViewById(R.id.register).setVisibility(View.GONE);
-                        logVar=1;
-                }
         }
 
 
