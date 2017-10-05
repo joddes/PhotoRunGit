@@ -33,7 +33,11 @@ public class ViewSinglePhotoRun extends AppCompatActivity  {
 
     private FirebaseAuth mAuth;
 
-    String photorun_id = "-Kv4LCpRCMAcWSBzN_Nn";
+
+    DatabaseReference Test;
+
+    String photorun_id;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +57,10 @@ public class ViewSinglePhotoRun extends AppCompatActivity  {
         description_Textview = (TextView) findViewById(R.id.descriptionTV);
 
         joinRunButton = (Button) findViewById(R.id.JoinButton);
+
+        Intent intent = getIntent();
+
+        photorun_id = intent.getStringExtra(ViewPhotorunList.PHOTORUN_ID);
 
         //need to get photorun-ID from another activity!!!
 /*
@@ -97,6 +105,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity  {
 
     public void displayPhotoRun(String photorun_id) {
         DatabaseReference titleValue = mDatabase.child(photorun_id).child("title");
+
         titleValue.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
