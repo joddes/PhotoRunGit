@@ -41,9 +41,7 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
         photorun_settingsEndPoint = mDatabaseRefrence.child("photorun_settings");
 
         submitButton = (Button) findViewById(R.id.submit_run);
-        backButton = (Button) findViewById(R.id.backbutton);
         submitButton.setOnClickListener(this);
-        backButton.setOnClickListener(this);
 
 
         TitleEditText = (EditText) findViewById(R.id.run_title);
@@ -147,12 +145,13 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
         if(view == submitButton){
             createRun();
         }
-        if (view == backButton){
-            finish();
-            //go back to Create Photorun
-            startActivity(new Intent(this, ProfileActivity.class));
-        }
 
+    }
+    @Override
+    public void onBackPressed() {
+        finish();
+        //go back to Create Photorun
+        startActivity(new Intent(this, ProfileActivity.class));
     }
 
 
