@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.janda.photorun.MainActivity;
 import com.example.janda.photorun.Photorun.CreateRun;
+import com.example.janda.photorun.Photorun.ViewPhotorunList;
 import com.example.janda.photorun.Photorun.ViewSinglePhotoRun;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -109,8 +110,9 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void clickSearch(MenuItem item){
-
-        Toast.makeText(this, "Search not available yet.", Toast.LENGTH_LONG).show();
+        finish();
+        //go back to Create Photorun
+        startActivity(new Intent(this, ViewPhotorunList.class));
     }
 
     public void clickProfile(MenuItem item){
