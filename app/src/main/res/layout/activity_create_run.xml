@@ -148,18 +148,4 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true" />
 
-    <android.support.v7.widget.AppCompatButton
-        android:layout_width="85dp"
-        android:layout_height="38dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="20dp"
-        android:transitionName="login"
-        android:layout_gravity="center"
-        android:text="back"
-        android:textSize="12dp"
-        android:id="@+id/backbutton"
-        android:padding="12dp"
-        android:background="@drawable/orange_rounded_button"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true" />
 </RelativeLayout>

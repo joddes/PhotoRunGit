@@ -176,20 +176,6 @@
         android:text="Join Run"
         android:textSize="12dp"
         android:transitionName="login" />
-    <android.support.v7.widget.AppCompatButton
-        android:layout_width="85dp"
-        android:layout_height="38dp"
-        android:layout_marginBottom="40dp"
-        android:layout_marginLeft="40dp"
-        android:transitionName="login"
-        android:layout_gravity="center"
-        android:text="back"
-        android:textSize="12dp"
-        android:id="@+id/backbutton"
-        android:padding="12dp"
-        android:background="@drawable/orange_rounded_button"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true" />
 </RelativeLayout>
 
 
