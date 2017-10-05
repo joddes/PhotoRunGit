@@ -47,7 +47,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity  {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Photorun");
         joinDatabase = FirebaseDatabase.getInstance().getReference().child("photorun_settings");
 
-        title_Textview = (TextView) findViewById(R.id.run_titleTextView); //not sure if link directs to the right button?
+        title_Textview = (TextView) findViewById(R.id.run_title); //not sure if link directs to the right button?
         date_Textview = (TextView) findViewById(R.id.dateTextView);
         startpoint_Textview = (TextView) findViewById(R.id.start_pointTextView);
         endpoint_Textview = (TextView) findViewById(R.id.end_pointTextView);

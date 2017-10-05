@@ -8,43 +8,76 @@
     android:paddingTop="10dp"
     android:paddingBottom="10dp">
 
-    <TextView
-        android:id="@+id/run_titleTextView"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:background="@drawable/text_box"
-        android:hint="Title"
-        android:paddingLeft="5dp"
-        android:paddingTop="10dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/attendee_list"
-        android:layout_alignStart="@+id/attendee_list" />
-    <TextView
-        android:id="@+id/photorun_icon"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@drawable/photo_logo"
-        android:layout_marginTop="0dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:paddingTop="10dp"
-        android:paddingLeft="5dp" />
+    <include layout="@layout/layout_photorun_list" />
 
     <TextView
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:text="Open on Maps"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:layout_alignBottom="@+id/maps"
+        android:layout_toRightOf="@+id/maps"
+        android:layout_toEndOf="@+id/maps" />
+    <TextView
         android:id="@+id/max_participatorsTextView"
-        android:layout_width="60dp"
+        android:layout_width="50dp"
         android:layout_height="40dp"
         android:paddingLeft="5dp"
         android:paddingTop="10dp"
+        android:layout_marginTop="10dp"
         android:text="(Max. Part.)"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="10dp"
-        android:layout_below="@+id/run_titleTextView"
-        android:layout_alignLeft="@+id/run_titleTextView"
-        android:layout_alignStart="@+id/run_titleTextView" />
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/estimated_durationTextView"/>
 
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/participants_icon"
+        android:background="@drawable/participants_icon"
+        android:layout_toLeftOf="@+id/max_participatorsTextView"
+        android:layout_below="@+id/duration_icon"/>
+" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/duration_icon"
+        android:background="@drawable/duration_icon"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/date_icon"
+        android:layout_toLeftOf="@+id/estimated_durationTextView"/>
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/date_icon"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/date_icon"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/layout_photorun_list"/>
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/time_icon"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/time_icon"
+        android:layout_below="@+id/layout_photorun_list"
+        android:layout_toLeftOf="@+id/starting_timeTextView"/>
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/flag_icon"
+        android:background="@drawable/flag_icon"
+        android:layout_below="@+id/way_icon"
+        android:layout_marginTop="10dp"/>
     <TextView
         android:id="@+id/ownerTextView"
         android:layout_width="120dp"
@@ -54,87 +87,83 @@
         android:text="(Owner)"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="10dp"
-        android:layout_alignBaseline="@+id/max_participatorsTextView"
-        android:layout_alignBottom="@+id/max_participatorsTextView"
-        android:layout_alignRight="@+id/run_titleTextView"
-        android:layout_alignEnd="@+id/run_titleTextView" />
+        android:layout_above="@+id/attendee_list"
+        android:layout_toLeftOf="@+id/starting_timeTextView"
+        android:layout_toStartOf="@+id/starting_timeTextView"
+        android:layout_marginBottom="17dp" />
 
     <TextView
         android:id="@+id/dateTextView"
-        android:layout_width="115dp"
+        android:layout_width="120dp"
         android:layout_height="40dp"
         android:background="@drawable/text_box"
         android:hint="Date"
         android:paddingLeft="5dp"
         android:paddingTop="10dp"
-        android:layout_below="@+id/photorun_icon"
-        android:layout_toLeftOf="@+id/max_participatorsTextView"
-        android:layout_toStartOf="@+id/max_participatorsTextView"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/layout_photorun_list"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/date_icon"/>
 
     <TextView
         android:id="@+id/starting_timeTextView"
-        android:layout_width="115dp"
+        android:layout_width="120dp"
         android:layout_height="40dp"
         android:background="@drawable/text_box"
         android:hint="Date"
         android:paddingLeft="5dp"
         android:paddingTop="10dp"
-        android:layout_alignBaseline="@+id/dateTextView"
-        android:layout_alignBottom="@+id/dateTextView"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/layout_photorun_list"/>
 
     <TextView
         android:id="@+id/estimated_durationTextView"
-        android:layout_width="115dp"
+        android:layout_width="50dp"
         android:layout_height="40dp"
         android:background="@drawable/text_box"
         android:hint="duration"
         android:paddingLeft="5dp"
         android:paddingTop="10dp"
-        android:layout_alignBaseline="@+id/starting_timeTextView"
-        android:layout_alignBottom="@+id/starting_timeTextView"
+        android:layout_below="@+id/dateTextView"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"/>
 
     <ImageView
         android:id="@+id/way_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignBottom="@+id/start_pointTextView"
-        android:layout_alignLeft="@+id/descriptionTV"
-        android:layout_alignStart="@+id/descriptionTV"
-        android:background="@drawable/way_icon"/>
+        android:background="@drawable/way_icon"
+        android:layout_below="@+id/date_icon"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:id="@+id/start_pointTextView"
-        android:layout_width="100dp"
+        android:layout_width="200dp"
         android:layout_height="40dp"
         android:background="@drawable/white_grey_border_bottom"
         android:hint="start"
         android:paddingLeft="5dp"
         android:paddingTop="10dp"
-        android:layout_alignBaseline="@+id/end_pointTextView"
-        android:layout_alignBottom="@+id/end_pointTextView"
-        android:layout_alignLeft="@+id/dateTextView"
-        android:layout_alignStart="@+id/dateTextView"
-        android:layout_alignRight="@+id/dateTextView"
-        android:layout_alignEnd="@+id/dateTextView" />
+        android:layout_below="@id/dateTextView"
+        android:layout_toRightOf="@+id/way_icon"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"/>
 
     <TextView
         android:id="@+id/end_pointTextView"
-        android:layout_width="60dp"
+        android:layout_width="200dp"
         android:layout_height="40dp"
         android:background="@drawable/white_grey_border_bottom"
         android:hint="destination"
         android:paddingLeft="5dp"
         android:paddingTop="10dp"
-        android:layout_alignTop="@+id/maps"
-        android:layout_alignLeft="@+id/starting_timeTextView"
-        android:layout_alignStart="@+id/starting_timeTextView"
-        android:layout_marginTop="8dp"
-        android:layout_toLeftOf="@+id/ownerTextView"
-        android:layout_toStartOf="@+id/ownerTextView" />
+        android:layout_marginLeft="5dp"
+        android:layout_below="@+id/start_pointTextView"
+        android:layout_toRightOf="@+id/flag_icon"
+        android:layout_marginTop="10dp"/>
 
     <ImageButton
         android:id="@+id/maps"
@@ -142,30 +171,26 @@
         android:layout_height="60dp"
         android:background="@drawable/maps_icon"
         android:hint="Google Maps"
-        android:layout_marginTop="17dp"
-        android:layout_marginRight="19dp"
-        android:layout_marginEnd="19dp"
-        android:layout_below="@+id/estimated_durationTextView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/flag_icon"
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:id="@+id/descriptionTV"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginTop="19dp"
         android:background="@drawable/text_box"
         android:hint="description"
+        android:layout_marginTop="10dp"
         android:paddingLeft="10dp"
         android:paddingTop="5dp"
-        android:layout_below="@+id/maps"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/maps"/>
 
     <android.support.v7.widget.AppCompatButton
         android:layout_width="160dp"
         android:layout_height="100dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="10dp"
         android:transitionName="login"
         android:layout_gravity="center"
         android:text="Visit attendee list"

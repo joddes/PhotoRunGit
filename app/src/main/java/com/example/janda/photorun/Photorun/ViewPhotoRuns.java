@@ -43,7 +43,7 @@ public class ViewPhotoRuns extends ArrayAdapter<Photorun> {
 
         View listViewItem = inflater.inflate(R.layout.layout_photorun_list, null, true);
 
-        TextView textViewTitle = (TextView) listViewItem.findViewById(R.id.textViewTitle);
+        TextView textViewTitle = (TextView) listViewItem.findViewById(R.id.run_title);
         TextView textViewDate = (TextView) listViewItem.findViewById(R.id.textViewDate);
 
         Photorun photorun = photorunList.get(position);

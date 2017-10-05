@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:orientation="vertical" android:layout_width="match_parent"
-android:layout_height="match_parent">
+android:layout_height="wrap_content"
+    android:transitionName="@string/app_name"
+    android:id="@+id/layout_photorun_list">
 
     <ImageView
         android:layout_width="84dp"
@@ -14,7 +16,7 @@ android:layout_height="match_parent">
     <TextView
         android:text="Visit beautiful Wilhelma"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:id="@+id/textViewTitle"
+        android:id="@+id/run_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/logo"
@@ -27,9 +29,19 @@ android:layout_height="match_parent">
         android:id="@+id/textViewDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewTitle"
+        android:layout_below="@+id/run_title"
         android:layout_toRightOf="@+id/logo"
         android:layout_toEndOf="@+id/logo" />
 
+    <TextView
+        android:id="@+id/ownerTextView"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:text="by Max0850"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_below="@+id/run_title"
+        android:layout_toRightOf="@+id/textViewDate"
+        android:layout_toEndOf="@+id/textViewDate"
+        android:layout_marginLeft="5dp"/>
 
 </RelativeLayout>
