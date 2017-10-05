@@ -21,6 +21,9 @@
         <activity android:name=".Login.ProfileActivity"></activity>
         <activity android:name=".Photorun.CreateRun"></activity>
         <activity android:name=".Photorun.ViewSinglePhotoRun"></activity>
+        <activity android:name=".Photorun.ViewPhotorunList"></activity>
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".HomeActivity"></activity>
     </application>
 
 </manifest>
