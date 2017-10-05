@@ -14,6 +14,7 @@ package com.example.janda.photorun.Photorun;
         import android.widget.ListView;
         import android.widget.TextView;
 
+        import com.example.janda.photorun.Login.ProfileActivity;
         import com.example.janda.photorun.MainActivity;
         import com.example.janda.photorun.Photorun.ViewPhotoRuns;
         import com.example.janda.photorun.models.Photorun;
@@ -90,6 +91,12 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
 
         }
+
+    public void onBackPressed() {
+        finish();
+        //go back to Create Photorun
+        startActivity(new Intent(this, ProfileActivity.class));
+    }
 
     }
 
