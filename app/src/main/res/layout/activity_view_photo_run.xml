@@ -2,154 +2,170 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
 
     <TextView
         android:id="@+id/run_titleTextView"
-        android:layout_width="240dp"
+        android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="25dp"
         android:background="@drawable/text_box"
         android:hint="Title"
         android:paddingLeft="5dp"
-        android:paddingTop="10dp" />
+        android:paddingTop="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/attendee_list"
+        android:layout_alignStart="@+id/attendee_list" />
     <TextView
         android:id="@+id/photorun_icon"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:background="@drawable/photo_logo"
         android:layout_marginTop="0dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="20dp"
         android:paddingTop="10dp"
         android:paddingLeft="5dp" />
 
     <TextView
         android:id="@+id/max_participatorsTextView"
-        android:layout_width="120dp"
+        android:layout_width="60dp"
         android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="125dp"
-        android:layout_marginTop="60dp"
         android:paddingLeft="5dp"
         android:paddingTop="10dp"
         android:text="(Max. Part.)"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="10dp" />
+        android:textSize="10dp"
+        android:layout_below="@+id/run_titleTextView"
+        android:layout_alignLeft="@+id/run_titleTextView"
+        android:layout_alignStart="@+id/run_titleTextView" />
 
     <TextView
         android:id="@+id/ownerTextView"
         android:layout_width="120dp"
         android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="60dp"
         android:paddingLeft="5dp"
         android:paddingTop="10dp"
         android:text="(Owner)"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="10dp" />
+        android:textSize="10dp"
+        android:layout_alignBaseline="@+id/max_participatorsTextView"
+        android:layout_alignBottom="@+id/max_participatorsTextView"
+        android:layout_alignRight="@+id/run_titleTextView"
+        android:layout_alignEnd="@+id/run_titleTextView" />
 
     <TextView
         android:id="@+id/dateTextView"
         android:layout_width="115dp"
         android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="120dp"
         android:background="@drawable/text_box"
         android:hint="Date"
         android:paddingLeft="5dp"
-        android:paddingTop="10dp" />
+        android:paddingTop="10dp"
+        android:layout_below="@+id/photorun_icon"
+        android:layout_toLeftOf="@+id/max_participatorsTextView"
+        android:layout_toStartOf="@+id/max_participatorsTextView"
+        android:layout_marginTop="12dp" />
 
     <TextView
         android:id="@+id/starting_timeTextView"
         android:layout_width="115dp"
         android:layout_height="40dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="120dp"
         android:background="@drawable/text_box"
         android:hint="Date"
         android:paddingLeft="5dp"
-        android:paddingTop="10dp" />
+        android:paddingTop="10dp"
+        android:layout_alignBaseline="@+id/dateTextView"
+        android:layout_alignBottom="@+id/dateTextView"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/estimated_durationTextView"
         android:layout_width="115dp"
         android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="120dp"
         android:background="@drawable/text_box"
         android:hint="duration"
         android:paddingLeft="5dp"
-        android:paddingTop="10dp" />
+        android:paddingTop="10dp"
+        android:layout_alignBaseline="@+id/starting_timeTextView"
+        android:layout_alignBottom="@+id/starting_timeTextView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:id="@+id/way_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/start_pointTextView"
+        android:layout_alignLeft="@+id/descriptionTV"
+        android:layout_alignStart="@+id/descriptionTV"
+        android:background="@drawable/way_icon"/>
 
     <TextView
         android:id="@+id/start_pointTextView"
-        android:layout_width="115dp"
+        android:layout_width="100dp"
         android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="190dp"
-        android:background="@drawable/text_box"
+        android:background="@drawable/white_grey_border_bottom"
         android:hint="start"
         android:paddingLeft="5dp"
-        android:paddingTop="10dp" />
+        android:paddingTop="10dp"
+        android:layout_alignBaseline="@+id/end_pointTextView"
+        android:layout_alignBottom="@+id/end_pointTextView"
+        android:layout_alignLeft="@+id/dateTextView"
+        android:layout_alignStart="@+id/dateTextView"
+        android:layout_alignRight="@+id/dateTextView"
+        android:layout_alignEnd="@+id/dateTextView" />
 
     <TextView
         android:id="@+id/end_pointTextView"
-        android:layout_width="115dp"
-        android:layout_height="40dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="190dp"
-        android:background="@drawable/text_box"
-        android:hint="destination"
-        android:paddingLeft="5dp"
-        android:paddingTop="10dp" />
-    <TextView
-        android:id="@+id/maps"
         android:layout_width="60dp"
         android:layout_height="40dp"
-        android:layout_marginTop="190dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/text_box"
+        android:background="@drawable/white_grey_border_bottom"
+        android:hint="destination"
+        android:paddingLeft="5dp"
+        android:paddingTop="10dp"
+        android:layout_alignTop="@+id/maps"
+        android:layout_alignLeft="@+id/starting_timeTextView"
+        android:layout_alignStart="@+id/starting_timeTextView"
+        android:layout_marginTop="8dp"
+        android:layout_toLeftOf="@+id/ownerTextView"
+        android:layout_toStartOf="@+id/ownerTextView" />
+
+    <ImageButton
+        android:id="@+id/maps"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/maps_icon"
         android:hint="Google Maps"
-        android:paddingTop="5dp"
-        android:paddingLeft="10dp" />
+        android:layout_marginTop="17dp"
+        android:layout_marginRight="19dp"
+        android:layout_marginEnd="19dp"
+        android:layout_below="@+id/estimated_durationTextView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:id="@+id/descriptionTV"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="260dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="19dp"
         android:background="@drawable/text_box"
         android:hint="description"
         android:paddingLeft="10dp"
-        android:paddingTop="5dp" />
+        android:paddingTop="5dp"
+        android:layout_below="@+id/maps"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <android.support.v7.widget.AppCompatButton
-        android:layout_width="130dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="340dp"
-        android:layout_marginLeft="20dp"
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="35dp"
         android:transitionName="login"
         android:layout_gravity="center"
         android:text="Visit attendee list"
@@ -158,9 +174,10 @@
         android:padding="10dp"
         android:paddingTop="5dp"
         android:paddingLeft="5dp"
-        android:background="@drawable/orange_rounded_button"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true" />
+        android:gravity="center_horizontal"
+        android:background="@drawable/more_png"
+        android:layout_below="@+id/descriptionTV"
+        android:layout_centerHorizontal="true" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/JoinButton"

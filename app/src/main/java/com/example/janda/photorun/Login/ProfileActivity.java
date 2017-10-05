@@ -110,22 +110,22 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void clickSearch(MenuItem item){
-        finish();
-        //go back to Create Photorun
-        startActivity(new Intent(this, ViewPhotorunList.class));
+        Toast.makeText(this, "Search is not implemented", Toast.LENGTH_SHORT).show();
+        //stopping the function
+        return;
     }
 
     public void clickProfile(MenuItem item){
-        finish();
-        //go back to Create Photorun
-        startActivity(new Intent(this, ViewSinglePhotoRun.class));
+        Toast.makeText(this, "Profile is not available yet", Toast.LENGTH_SHORT).show();
+        //stopping the function
+        return;
     }
 
     public void clickRun(MenuItem item){
 
         finish();
         //go back to Create Photorun
-        startActivity(new Intent(this, CreateRun.class));
+        startActivity(new Intent(this, ViewPhotorunList.class));
 
     }
 

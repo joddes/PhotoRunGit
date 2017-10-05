@@ -7,6 +7,7 @@ package com.example.janda.photorun.Photorun;
 
 
         import android.content.Intent;
+        import android.support.design.widget.FloatingActionButton;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
         import android.view.View;
@@ -57,6 +58,17 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
         //list to store Photoruns
         photoruns = new ArrayList<>();
 
+        //Create Button
+        final FloatingActionButton createButton = (FloatingActionButton) findViewById(R.id.goToCreateRun);
+
+        createButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent myIntent = new Intent(ViewPhotorunList.this, CreateRun.class);
+                startActivity(myIntent);
+            }
+        });
+
         listViewPhotorun.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -75,7 +87,8 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
             }
         });
 
-        }
+
+    }
 
 
     @Override
@@ -113,14 +126,13 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
 
         }
-
     public void onBackPressed() {
         finish();
         //go back to Create Photorun
         startActivity(new Intent(this, ProfileActivity.class));
     }
 
-    }
+}
 
 
 

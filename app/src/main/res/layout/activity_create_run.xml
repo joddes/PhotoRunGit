@@ -6,9 +6,6 @@
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:paddingTop="20dp">
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content" />
 
 
     <TextView
@@ -147,5 +144,6 @@
         android:background="@drawable/orange_rounded_button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true" />
+
 
 </RelativeLayout>
