@@ -10,6 +10,7 @@ package com.example.janda.photorun.Photorun;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
         import android.view.View;
+        import android.widget.AdapterView;
         import android.widget.Button;
         import android.widget.ListView;
         import android.widget.TextView;
@@ -34,6 +35,9 @@ package com.example.janda.photorun.Photorun;
 
 public class ViewPhotorunList extends AppCompatActivity implements View.OnClickListener{
 
+    public static final String PHOTORUN_TITLE = "com.example.janda.photorun.models.title";
+    public static final String PHOTORUN_ID = "com.example.janda.photorun.models.photorun_id";
+
 
     DatabaseReference databasePhotorun;
 
@@ -52,6 +56,24 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
 
         //list to store Photoruns
         photoruns = new ArrayList<>();
+
+        listViewPhotorun.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //getting the selected artist
+                Photorun photorun = photoruns.get(i);
+
+                //creating an intent
+                Intent intent = new Intent(getApplicationContext(), ViewSinglePhotoRun.class);
+
+                //putting artist name and id to intent
+                intent.putExtra(PHOTORUN_ID, photorun.getPhotorun_id());
+                intent.putExtra(PHOTORUN_TITLE, photorun.getTitle());
+
+                //starting the activity with intent
+                startActivity(intent);
+            }
+        });
 
         }
 
