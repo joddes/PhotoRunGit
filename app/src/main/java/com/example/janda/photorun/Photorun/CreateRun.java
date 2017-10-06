@@ -1,5 +1,6 @@
 package com.example.janda.photorun.Photorun;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -7,11 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.content.Intent;
 
 import com.example.janda.photorun.Login.ProfileActivity;
 import com.example.janda.photorun.R;
 import com.example.janda.photorun.models.Photorun;
+import com.example.janda.photorun.models.photorun_settings;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -124,7 +125,12 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
         //create phtoruns object
         Photorun newPhotorun = new Photorun(date, description, estimated_duration, max_participators, photorun_id, starting_time, title, start_point, end_point);
 
+        //default value for photorun settings
+        String status = "future";
+        photorun_settings newPhotorunSettings = new photorun_settings(status);
+
         mDatabaseRefrence.child("Photorun").child(photorun_id).setValue(newPhotorun);
+        mDatabaseRefrence.child("photorun_settings").child(photorun_id).setValue(newPhotorunSettings);
 
         Toast.makeText(this, "Photorun created...", Toast.LENGTH_LONG).show();
 
