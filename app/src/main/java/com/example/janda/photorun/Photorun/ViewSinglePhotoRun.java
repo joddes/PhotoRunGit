@@ -57,6 +57,8 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         description_Textview = (TextView) findViewById(R.id.descriptionTV);
 
         joinRunButton = (Button) findViewById(R.id.JoinButton);
+        joinRunButton.setOnClickListener(this);
+
 
         Intent intent = getIntent();
 
@@ -224,9 +226,10 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
     }
 
    public void joinPhotorun(){
+
        FirebaseUser currentuser = mAuth.getInstance().getCurrentUser();
        //String userID = currentuser.getUid();
-       String participatorID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+       String participatorID = mAuth.getInstance().getCurrentUser().getUid();
 
 
        //photorun_participators newParticipator = new photorun_participators(participatorID);
@@ -289,7 +292,6 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
        joinDatabase.child(photorun_id).child("participators").setValue("true");
 
        Toast.makeText(this, "Successfully joined...", Toast.LENGTH_LONG).show();
-
 
 }
 

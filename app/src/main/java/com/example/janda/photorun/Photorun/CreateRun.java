@@ -118,7 +118,6 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
             return;
         }
 
-
         // get an ID as Primary Key
         String photorun_id = mDatabaseRefrence.push().getKey();
 
@@ -127,10 +126,10 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
 
         //default value for photorun settings
         String status = "future";
-        photorun_settings newPhotorunSettings = new photorun_settings(status);
+        photorun_settings prSettings = new photorun_settings(status);
 
         mDatabaseRefrence.child("Photorun").child(photorun_id).setValue(newPhotorun);
-        mDatabaseRefrence.child("photorun_settings").child(photorun_id).setValue(newPhotorunSettings);
+        mDatabaseRefrence.child("photorun_settings").child(photorun_id).setValue(prSettings);
 
         Toast.makeText(this, "Photorun created...", Toast.LENGTH_LONG).show();
 
