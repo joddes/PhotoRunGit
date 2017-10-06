@@ -19,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class ViewSinglePhotoRun extends AppCompatActivity  {
+public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClickListener  {
 
     //implements View.OnClickListener
 
@@ -224,15 +224,72 @@ public class ViewSinglePhotoRun extends AppCompatActivity  {
     }
 
    public void joinPhotorun(){
+       FirebaseUser currentuser = mAuth.getInstance().getCurrentUser();
+       //String userID = currentuser.getUid();
+       String participatorID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        FirebaseAuth.getInstance().getCurrentUser();
 
-        FirebaseUser currentuser = mAuth.getCurrentUser();
-        String uid = currentuser.getUid();
+       //photorun_participators newParticipator = new photorun_participators(participatorID);
 
-        joinDatabase.child(photorun_id).child("participators").child(uid).setValue(true);
+      /* //check if there is still space for more participants
+       DatabaseReference maxparticipatorsValue = mDatabase.child(photorun_id).child("max_participators");
+       maxparticipatorsValue.addValueEventListener(new ValueEventListener() {
+           @Override
+           public void onDataChange (DataSnapshot dataSnapshot){
+               max_participators = dataSnapshot.getValue(String.class);
+               int partNumber = Integer.parseInt(max_participators);
+           }
 
-        Toast.makeText(this, "Successfully joined...", Toast.LENGTH_LONG).show();
+           @Override
+           public void onCancelled (DatabaseError databaseError){
+
+           }
+       });
+
+       DatabaseReference currentParticipators = joinDatabase.child("participants").child(participatorID);
+       int participatorsCount;
+       currentParticipators.addChildEventListener(new ChildEventListener() {
+           int participatorsCount
+           @Override
+           public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+               participatorsCount = (int) dataSnapshot.getChildrenCount();
+           }
+
+           @Override
+           public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+           }
+
+           @Override
+           public void onChildRemoved(DataSnapshot dataSnapshot) {
+               participatorsCount = (int) dataSnapshot.getChildrenCount();
+           }
+
+           @Override
+           public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+           }
+
+           @Override
+           public void onCancelled(DatabaseError databaseError) {
+
+           }
+       });
+
+      // if (participatorsCount == maxparticipatorsValue)
+
+      */
+
+
+
+       //check if user already joined: join should only be possible once
+
+
+       joinDatabase.child(photorun_id).child("participants").child(participatorID).setValue("true");
+       joinDatabase.child(photorun_id).child("participators").setValue("true");
+
+       Toast.makeText(this, "Successfully joined...", Toast.LENGTH_LONG).show();
+
 
 }
 
