@@ -230,9 +230,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
        FirebaseUser currentuser = mAuth.getInstance().getCurrentUser();
        //String userID = currentuser.getUid();
        String participatorID = mAuth.getInstance().getCurrentUser().getUid();
-
-
-       //photorun_participators newParticipator = new photorun_participators(participatorID);
+       
 
       /* //check if there is still space for more participants
        DatabaseReference maxparticipatorsValue = mDatabase.child(photorun_id).child("max_participators");
@@ -288,7 +286,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
        //check if user already joined: join should only be possible once
 
 
-       joinDatabase.child(photorun_id).child("participants").child(participatorID).setValue("true");
+       joinDatabase.child(photorun_id).child("participants").child(participatorID).setValue("enrolled");
        joinDatabase.child(photorun_id).child("participators").setValue("true");
 
        Toast.makeText(this, "Successfully joined...", Toast.LENGTH_LONG).show();
