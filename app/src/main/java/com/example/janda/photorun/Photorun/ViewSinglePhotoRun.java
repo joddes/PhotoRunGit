@@ -33,7 +33,6 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
     private FirebaseAuth mAuth;
 
-
     DatabaseReference Test;
 
     String photorun_id;
@@ -227,33 +226,51 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
    public void joinPhotorun(){
 
+       /*
+       maxParticipators: Maximale Anzahl der Teilnehmer (Long)
+        - maxParticipatorsRef: Datenbank-Referenz
+        - maxParticipatorsString: Wertz aus Firebase als String (aktuell)
+
+       curParticipators: Aktuelle Anzahl der Teilnehmer (Long)
+        - ...
+        */
+
        FirebaseUser currentuser = mAuth.getInstance().getCurrentUser();
        //String userID = currentuser.getUid();
        String participatorID = mAuth.getInstance().getCurrentUser().getUid();
-       
 
-      /* //check if there is still space for more participants
-       DatabaseReference maxparticipatorsValue = mDatabase.child(photorun_id).child("max_participators");
-       maxparticipatorsValue.addValueEventListener(new ValueEventListener() {
-           @Override
-           public void onDataChange (DataSnapshot dataSnapshot){
-               max_participators = dataSnapshot.getValue(String.class);
-               int partNumber = Integer.parseInt(max_participators);
-           }
 
-           @Override
-           public void onCancelled (DatabaseError databaseError){
+       //check if there is still space for more participants
 
-           }
-       });
 
-       DatabaseReference currentParticipators = joinDatabase.child("participants").child(participatorID);
-       int participatorsCount;
-       currentParticipators.addChildEventListener(new ChildEventListener() {
-           int participatorsCount
+       //DatabaseReference curParticipatorsRef = joinDatabase.child("participants").child(participatorID);
+
+
+/*
+       curParticipatorsRef.addChildEventListener(new ChildEventListener() {
+
            @Override
            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-               participatorsCount = (int) dataSnapshot.getChildrenCount();
+               DatabaseReference maxParticipatorsRef = mDatabase.child(photorun_id).child("max_participators");
+               maxParticipatorsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                   @Override
+                   public void onDataChange(DataSnapshot dataSnapshot) {
+                       String maxParticipatorsString = dataSnapshot.getValue(String.class);
+                       final long maxParticipators = Long.parseLong(max_participators);
+
+                       long curParticipators = dataSnapshot.getChildrenCount();
+
+                       if (curParticipators == maxParticipators) {
+                          //  Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+                           System.out.println("Here should be a text");
+                       }
+                   }
+
+                   @Override
+                   public void onCancelled(DatabaseError databaseError) {
+
+                   }
+               });
            }
 
            @Override
@@ -263,7 +280,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
            @Override
            public void onChildRemoved(DataSnapshot dataSnapshot) {
-               participatorsCount = (int) dataSnapshot.getChildrenCount();
+               curParticipators = (int) dataSnapshot.getChildrenCount();
            }
 
            @Override
@@ -277,17 +294,11 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
            }
        });
 
-      // if (participatorsCount == maxparticipatorsValue)
-
-      */
+*/
 
 
-
-       //check if user already joined: join should only be possible once
-
-
-       joinDatabase.child(photorun_id).child("participants").child(participatorID).setValue("enrolled");
-       joinDatabase.child(photorun_id).child("participators").setValue("true");
+       mDatabase.child(photorun_id).child("participants").child(participatorID).setValue("enrolled");
+       mDatabase.child(photorun_id).child("participators").setValue("true");
 
        Toast.makeText(this, "Successfully joined...", Toast.LENGTH_LONG).show();
 

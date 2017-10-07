@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.example.janda.photorun.Login.ProfileActivity;
 import com.example.janda.photorun.R;
 import com.example.janda.photorun.models.Photorun;
-import com.example.janda.photorun.models.photorun_settings;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -121,15 +120,14 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
         // get an ID as Primary Key
         String photorun_id = mDatabaseRefrence.push().getKey();
 
+        String status = "future";
+
         //create phtoruns object
-        Photorun newPhotorun = new Photorun(date, description, estimated_duration, max_participators, photorun_id, starting_time, title, start_point, end_point);
+        Photorun newPhotorun = new Photorun(date, description, estimated_duration, max_participators, photorun_id, starting_time, title, start_point, end_point, status);
 
         //default value for photorun settings
-        String status = "future";
-        photorun_settings prSettings = new photorun_settings(status);
 
         mDatabaseRefrence.child("Photorun").child(photorun_id).setValue(newPhotorun);
-        mDatabaseRefrence.child("photorun_settings").child(photorun_id).setValue(prSettings);
 
         Toast.makeText(this, "Photorun created...", Toast.LENGTH_LONG).show();
 

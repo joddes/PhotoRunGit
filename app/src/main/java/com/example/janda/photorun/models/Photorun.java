@@ -1,5 +1,7 @@
 package com.example.janda.photorun.models;
 
+import java.util.Map;
+
 /**
  * Created by user on 25.09.17.
  */
@@ -15,8 +17,10 @@ public class Photorun {
     private String title;
     private String start_point;
     private String end_point;
+    private String status;
+    private Map<String, String> participants;
 
-    public Photorun(String date, String description, String estimated_duration, String max_participators, String photorun_id, String starting_time, String title, String start_point, String end_point) {
+    public Photorun(String date, String description, String estimated_duration, String max_participators, String photorun_id, String starting_time, String title, String start_point, String end_point, String status) {
         this.date = date;
         this.description = description;
         this.estimated_duration = estimated_duration;
@@ -26,6 +30,26 @@ public class Photorun {
         this.title = title;
         this.start_point = start_point;
         this.end_point = end_point;
+        this.status = status;
+    }
+
+    public Photorun(String photorun_id,  String title) {
+        this.photorun_id = photorun_id;
+        this.title = title;
+    }
+
+    public Photorun(String date, String description, String estimated_duration, String max_participators, String photorun_id, String starting_time, String title, String start_point, String end_point, String status, Map<String, String> participants) {
+        this.date = date;
+        this.description = description;
+        this.estimated_duration = estimated_duration;
+        this.max_participators = max_participators;
+        this.photorun_id = photorun_id;
+        this.starting_time = starting_time;
+        this.title = title;
+        this.start_point = start_point;
+        this.end_point = end_point;
+        this.status = status;
+        this.participants = participants;
     }
 
     public Photorun(){
@@ -104,6 +128,22 @@ public class Photorun {
         this.end_point = end_point;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Map<String, String> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(Map<String, String> participants) {
+        this.participants = participants;
+    }
+
     @Override
     public String toString() {
         return "Photorun{" +
@@ -116,6 +156,7 @@ public class Photorun {
                 ", title='" + title + '\'' +
                 ", start_point='" + start_point + '\'' +
                 ", end_point='" + end_point + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }
