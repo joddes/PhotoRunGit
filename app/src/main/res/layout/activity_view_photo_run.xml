@@ -2,13 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp">
+    android:layout_height="match_parent">
 
-    <include layout="@layout/layout_photorun_list" />
+    <include layout="@layout/layout_photorun_list"/>
 
     <TextView
         android:layout_width="150dp"
@@ -40,7 +36,6 @@
         android:background="@drawable/participants_icon"
         android:layout_toLeftOf="@+id/max_participatorsTextView"
         android:layout_below="@+id/duration_icon"/>
-" />
 
     <ImageView
         android:layout_width="40dp"

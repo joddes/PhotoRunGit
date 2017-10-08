@@ -40,7 +40,6 @@
   <component name="ProjectPlainTextFileTypeManager">
     <file url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_profile.xml" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_start.xml" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_view_photo_runs.xml" />
   </component>

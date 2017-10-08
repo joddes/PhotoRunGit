@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.janda.photorun.Login.ProfileActivity;
@@ -23,7 +24,7 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
     private Button backButton;
 
     private EditText TitleEditText, DateEditText, Start_timeEditText, Estimated_durationEditText, Start_pointEditText, End_pointEditText ,Max_participatorsEditText, DescriptionEditText;
-
+    private TextView toolbar_Textview;
     private DatabaseReference mDatabaseRefrence;
 
 
@@ -53,7 +54,9 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
         Max_participatorsEditText = (EditText) findViewById(R.id.max_participators);
         DescriptionEditText = (EditText) findViewById(R.id.description);
 
-
+        //TOP TOOLBAR
+        toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
+        toolbar_Textview.setText("Photowalk erstellen");
 
 
     }
@@ -154,7 +157,7 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
     public void onBackPressed() {
         finish();
         //go back to Create Photorun
-        startActivity(new Intent(this, ProfileActivity.class));
+        startActivity(new Intent(this, ViewPhotorunList.class));
     }
 
 

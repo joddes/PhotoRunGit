@@ -3,6 +3,7 @@ package com.example.janda.photorun.Login;
 import android.content.ClipData;
 import android.content.Intent;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.janda.photorun.MainActivity;
@@ -36,8 +38,7 @@ public class ProfileActivity extends AppCompatActivity {
     // private Button buttonPhotorun;
     private Menu bottomMenu;
 
-
-
+    private TextView toolbar_Textview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,68 @@ public class ProfileActivity extends AppCompatActivity {
         //buttonLogout.setOnClickListener(this);
         //buttonPhotorun.setOnClickListener(this);
 
+        //Create Button
+        final ImageButton profileBtn = (ImageButton) findViewById(R.id.Profilbtn);
+        final ImageButton runBtn = (ImageButton) findViewById(R.id.Photorunbtn);
+        final ImageButton searchBtn = (ImageButton) findViewById(R.id.Suchbtn);
+
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+
+            }
+        });
+
+        runBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent myIntent = new Intent(ProfileActivity.this, ViewPhotorunList.class);
+
+                finish();
+
+                startActivity(myIntent);
+            }
+        });
+
+
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+
+            }
+        });
+
+        //Logout Button von der Top toolbar, muss in jeder Activity da sein.
+
+        final ImageButton logoutBtn = (ImageButton) findViewById(R.id.logout_icon);
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                //logging out the user
+                firebaseAuth.signOut();
+                //closing activity
+                finish();
+                //starting login activity
+                Intent myIntent = new Intent(ProfileActivity.this, LoginActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
+        //Help Button, muss auf jeder Seite sein
+        final ImageButton helpBtn = (ImageButton) findViewById(R.id.help_icon);
+
+        helpBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                //Help reinsliden
+            }
+        });
+
+        //TOP TOOLBAR
+        toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
+        toolbar_Textview.setText("Startseite");
+
     }
 
     /*@Override
@@ -96,38 +159,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         }*/
 
-
-
-    public void clickExit(MenuItem item){
-
-        //logging out the user
-        firebaseAuth.signOut();
-        //closing activity
-        finish();
-        //starting login activity
-        startActivity(new Intent(this, LoginActivity.class));
-
-    }
-
-    public void clickSearch(MenuItem item){
-        Toast.makeText(this, "Search is not implemented", Toast.LENGTH_SHORT).show();
-        //stopping the function
-        return;
-    }
-
-    public void clickProfile(MenuItem item){
-        Toast.makeText(this, "Profile is not available yet", Toast.LENGTH_SHORT).show();
-        //stopping the function
-        return;
-    }
-
-    public void clickRun(MenuItem item){
-
-        finish();
-        //go back to Create Photorun
-        startActivity(new Intent(this, ViewPhotorunList.class));
-
-    }
 
   /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {
