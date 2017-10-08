@@ -101,7 +101,7 @@
         android:layout_width="160dp"
         android:layout_height="30dp"
         android:hint=" Starting point..."
-        android:textSize="15dp"
+        android:textSize="12dp"
         android:id="@+id/start_point"
         android:background="@drawable/text_box"
         android:layout_alignParentTop="true"
@@ -109,10 +109,10 @@
         android:paddingLeft="5dp"
         android:layout_marginLeft="10dp"/>
     <EditText
-        android:layout_width="130dp"
+        android:layout_width="160dp"
         android:layout_height="30dp"
         android:hint=" Destination..."
-        android:textSize="15dp"
+        android:textSize="12dp"
         android:id="@+id/end_point"
         android:background="@drawable/text_box"
         android:layout_alignParentTop="true"
@@ -124,7 +124,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:hint=" Invite attendees..."
+        android:hint="Maximal participators"
         android:textSize="15dp"
         android:id="@+id/max_participators"
         android:background="@drawable/text_box"

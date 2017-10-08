@@ -7,6 +7,13 @@ tools:context="com.example.janda.photorun.Photorun.ViewPhotorunList">
 
     <include layout="@layout/layout_top_bar"/>
 
+    <ProgressBar
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/progressBar"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+
     <ListView
         android:id="@+id/PhotoRunList"
         android:layout_width="match_parent"

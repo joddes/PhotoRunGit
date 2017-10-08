@@ -98,6 +98,7 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onStart() {
         super.onStart();
+        findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
         databasePhotorun.addValueEventListener(new ValueEventListener() {
             @Override
@@ -110,6 +111,7 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
                     Photorun photorun = photorunSnapshot.getValue(Photorun.class);
 
                     photoruns.add(photorun);
+                    findViewById(R.id.progressBar).setVisibility(View.GONE);
                 }
 
                 ViewPhotoRuns adapter = new ViewPhotoRuns(ViewPhotorunList.this, photoruns);

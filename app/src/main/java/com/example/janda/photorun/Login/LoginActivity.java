@@ -135,6 +135,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
         private void userLogin(){
+                findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
                 String email = editTextEmaillogin.getText().toString().trim();
                 String password  = editTextPasswordlogin.getText().toString().trim();
 
@@ -153,22 +154,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 //if the email and password are not empty
                 //displaying a progress dialog
 
-
-
                 //logging in the user
                 firebaseAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
+
                                         //if the task is successfull
                                         if(task.isSuccessful()){
                                                 //start the profile activity
-
+                                                findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
                                                 finish();
                                                 startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                                                findViewById(R.id.progressBar).setVisibility(View.GONE);
                                         }
                                         else{
                                                 Toast.makeText(LoginActivity.this,"Wrong password entered.",Toast.LENGTH_LONG).show();
+                                                findViewById(R.id.progressBar).setVisibility(View.GONE);
                                         }
                                 }
                         });
@@ -186,6 +188,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
         private void registerUser(){
+                findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
                 String email = editTextEmail.getText().toString().trim();
                 //String username = editTextUsername.getText().toString().trim();
@@ -222,9 +225,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         if(task.isSuccessful()){
                                                 //display some message here
                                                 Toast.makeText(LoginActivity.this,"Successfully registered",Toast.LENGTH_LONG).show();
+                                                findViewById(R.id.progressBar).setVisibility(View.GONE);
                                         }else{
                                                 //display some message here
                                                 Toast.makeText(LoginActivity.this,"Registration Error",Toast.LENGTH_LONG).show();
+                                                findViewById(R.id.progressBar).setVisibility(View.GONE);
                                         }
                                 }
                         });

@@ -2,6 +2,7 @@ package com.example.janda.photorun.Photorun;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +26,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
     private TextView title_Textview, date_Textview, startpoint_Textview, endpoint_Textview, starttime_Textview, duration_Textview, participants_Textview, description_Textview;
 
-    private Button joinRunButton;
+    private FloatingActionButton joinRunButton;
 
     private String date, description, end_point, estimated_duration, max_participators, start_point, starting_time, title;
 
@@ -55,7 +56,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         participants_Textview = (TextView) findViewById(R.id.max_participatorsTextView);
         description_Textview = (TextView) findViewById(R.id.descriptionTV);
 
-        joinRunButton = (Button) findViewById(R.id.JoinButton);
+        joinRunButton = (FloatingActionButton) findViewById(R.id.JoinButton);
         joinRunButton.setOnClickListener(this);
 
 
