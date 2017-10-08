@@ -24,13 +24,10 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
     private Button submitButton;
     private Button backButton;
 
-<<<<<<< HEAD
-    private EditText TitleEditText, DateEditText, Start_timeEditText, Estimated_durationEditText, Start_pointEditText, End_pointEditText, DescriptionEditText;
 
-=======
     private EditText TitleEditText, DateEditText, Start_timeEditText, Estimated_durationEditText, Start_pointEditText, End_pointEditText ,Max_participatorsEditText, DescriptionEditText;
     private TextView toolbar_Textview;
->>>>>>> 335f6a34a8fed84d20573d5888b2ea0c153e1e87
+
     private DatabaseReference mDatabaseRefrence;
 
     private DatabaseReference photorunsEndPoint;
