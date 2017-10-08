@@ -121,6 +121,8 @@
         android:paddingLeft="5dp"
         android:layout_marginRight="10dp"/>
 
+<<<<<<< HEAD
+=======
     <EditText
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -133,6 +135,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"/>
 
+>>>>>>> 335f6a34a8fed84d20573d5888b2ea0c153e1e87
     <android.support.v7.widget.AppCompatButton
         android:layout_width="85dp"
         android:layout_height="38dp"

@@ -14,20 +14,16 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:layout_alignBottom="@+id/maps"
         android:layout_toRightOf="@+id/maps"
-        android:layout_toEndOf="@+id/maps" />
-    <TextView
-        android:id="@+id/max_participatorsTextView"
-        android:layout_width="50dp"
-        android:layout_height="40dp"
-        android:paddingLeft="5dp"
-        android:paddingTop="10dp"
-        android:layout_marginTop="10dp"
-        android:text="(Max. Part.)"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="10dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/estimated_durationTextView"/>
+        android:layout_toEndOf="@+id/maps" /><![CDATA[
 
+<<<<<<< HEAD
+
+    " />
+
+
+
+    ]]>
+=======
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -37,6 +33,7 @@
         android:background="@drawable/participants_icon"
         android:layout_toLeftOf="@+id/max_participatorsTextView"
         android:layout_below="@+id/duration_icon"/>
+>>>>>>> 335f6a34a8fed84d20573d5888b2ea0c153e1e87
 
     <ImageView
         android:layout_width="40dp"
