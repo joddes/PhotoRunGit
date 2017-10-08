@@ -5,8 +5,8 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context="com.example.janda.photorun.Login.ProfileActivity">
 
-
-    <include layout="@layout/layout_bottom_navigation_view"/>
+    <include layout="@layout/layout_top_bar"/>
+    <include layout="@layout/layout_bottom_navigation"/>
 
     <TextView
         android:id="@+id/textViewUserEmail"

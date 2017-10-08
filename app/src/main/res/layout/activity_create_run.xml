@@ -2,35 +2,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:paddingTop="20dp">
+    android:layout_height="match_parent">
 
 
-    <TextView
-        android:id="@+id/create_photowalk"
-        android:layout_width="368dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center_horizontal"
-        android:text="Create Photowalk"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <include layout="@layout/layout_top_bar"/>
+
     <ImageView
         android:layout_width="84dp"
         android:layout_height="61dp"
         android:src="@drawable/photo_logo"
         android:layout_gravity="center"
         android:id="@+id/logo"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="60dp"/>
     <EditText
         android:id="@+id/run_title"
-        android:layout_width="240dp"
+        android:layout_width="260dp"
         android:layout_height="41dp"
         android:hint="Add title..."
         android:inputType="textEmailAddress"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="10dp"/>
     <TextView
         android:layout_width="368dp"
         android:layout_height="40dp"
@@ -39,23 +31,26 @@
         android:layout_alignParentTop="true"
         android:text="Description"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="16dp"/>
+        android:textSize="16dp"
+        android:layout_marginLeft="10dp"/>
     <EditText
         android:layout_width="364dp"
         android:layout_height="53dp"
         android:layout_marginTop="140dp"
         android:id="@+id/description"
         android:background="@drawable/text_box"
-        android:layout_alignParentTop="true"/>
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"/>
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="Date"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="16dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="210dp"/>
+        android:layout_marginTop="210dp"
+        android:layout_marginLeft="10dp"/>
     <EditText
         android:layout_width="160dp"
         android:layout_height="30dp"
@@ -65,7 +60,8 @@
         android:layout_marginTop="230dp"
         android:hint="date"
         android:paddingLeft="5dp"
-        android:textSize="15dp"/>
+        android:textSize="15dp"
+        android:layout_marginLeft="10dp"/>
     <EditText
         android:layout_width="100dp"
         android:layout_height="30dp"
@@ -76,7 +72,8 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="230dp"
         android:paddingLeft="5dp"
-        android:textSize="15dp"/>
+        android:textSize="15dp"
+        android:layout_marginRight="10dp"/>
     <EditText
         android:layout_width="100dp"
         android:layout_height="30dp"
@@ -87,17 +84,19 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="280dp"
         android:paddingLeft="5dp"
-        android:textSize="15dp"/>
+        android:textSize="15dp"
+        android:layout_marginRight="10dp"/>
     <TextView
         android:id="@+id/location"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="Location"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="16dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="300dp"/>
+        android:layout_marginTop="300dp"
+        android:layout_marginLeft="10dp"/>
     <EditText
         android:layout_width="160dp"
         android:layout_height="30dp"
@@ -107,7 +106,8 @@
         android:background="@drawable/text_box"
         android:layout_alignParentTop="true"
         android:layout_marginTop="320dp"
-        android:paddingLeft="5dp"/>
+        android:paddingLeft="5dp"
+        android:layout_marginLeft="10dp"/>
     <EditText
         android:layout_width="130dp"
         android:layout_height="30dp"
@@ -118,8 +118,24 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="320dp"
-        android:paddingLeft="5dp"/>
+        android:paddingLeft="5dp"
+        android:layout_marginRight="10dp"/>
 
+<<<<<<< HEAD
+=======
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint=" Invite attendees..."
+        android:textSize="15dp"
+        android:id="@+id/max_participators"
+        android:background="@drawable/text_box"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="370dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+
+>>>>>>> 335f6a34a8fed84d20573d5888b2ea0c153e1e87
     <android.support.v7.widget.AppCompatButton
         android:layout_width="85dp"
         android:layout_height="38dp"
