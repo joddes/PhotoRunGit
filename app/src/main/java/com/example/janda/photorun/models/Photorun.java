@@ -11,7 +11,6 @@ public class Photorun {
     private String date;
     private String description;
     private String estimated_duration;
-    private String max_participators;
     private String photorun_id;
     private String starting_time;
     private String title;
@@ -19,18 +18,19 @@ public class Photorun {
     private String end_point;
     private String status;
     private Map<String, String> participants;
+    private String ownerName;
 
-    public Photorun(String date, String description, String estimated_duration, String max_participators, String photorun_id, String starting_time, String title, String start_point, String end_point, String status) {
+    public Photorun(String date, String description, String estimated_duration, String photorun_id, String starting_time, String title, String start_point, String end_point, String status, String ownerName) {
         this.date = date;
         this.description = description;
         this.estimated_duration = estimated_duration;
-        this.max_participators = max_participators;
         this.photorun_id = photorun_id;
         this.starting_time = starting_time;
         this.title = title;
         this.start_point = start_point;
         this.end_point = end_point;
         this.status = status;
+        this.ownerName = ownerName;
     }
 
     public Photorun(String photorun_id,  String title) {
@@ -42,7 +42,6 @@ public class Photorun {
         this.date = date;
         this.description = description;
         this.estimated_duration = estimated_duration;
-        this.max_participators = max_participators;
         this.photorun_id = photorun_id;
         this.starting_time = starting_time;
         this.title = title;
@@ -78,14 +77,6 @@ public class Photorun {
 
     public void setEstimated_duration(String estimated_duration) {
         this.estimated_duration = estimated_duration;
-    }
-
-    public String getMax_participators() {
-        return max_participators;
-    }
-
-    public void setMax_participators(String max_participators) {
-        this.max_participators = max_participators;
     }
 
     public String getPhotorun_id() {
@@ -144,13 +135,20 @@ public class Photorun {
         this.participants = participants;
     }
 
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
     @Override
     public String toString() {
         return "Photorun{" +
                 "date='" + date + '\'' +
                 ", description='" + description + '\'' +
                 ", estimated_duration='" + estimated_duration + '\'' +
-                ", max_participators='" + max_participators + '\'' +
                 ", photorun_id='" + photorun_id + '\'' +
                 ", starting_time='" + starting_time + '\'' +
                 ", title='" + title + '\'' +

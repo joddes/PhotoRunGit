@@ -37,6 +37,10 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
     String photorun_id;
 
+    private long curPart, maxPart;
+
+    private String maxPartBuffer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +48,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_view_photo_run);
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Photorun");
-        joinDatabase = FirebaseDatabase.getInstance().getReference().child("photorun_settings");
+        //joinDatabase = FirebaseDatabase.getInstance().getReference().child("photorun_settings");
 
         title_Textview = (TextView) findViewById(R.id.run_title); //not sure if link directs to the right button?
         date_Textview = (TextView) findViewById(R.id.dateTextView);
@@ -52,7 +56,6 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         endpoint_Textview = (TextView) findViewById(R.id.end_pointTextView);
         starttime_Textview = (TextView) findViewById(R.id.starting_timeTextView);
         duration_Textview = (TextView) findViewById(R.id.estimated_durationTextView);
-        participants_Textview = (TextView) findViewById(R.id.max_participatorsTextView);
         description_Textview = (TextView) findViewById(R.id.descriptionTV);
 
         joinRunButton = (Button) findViewById(R.id.JoinButton);
@@ -192,20 +195,6 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
             }
         });
 
-        DatabaseReference maxparticipatorsValue = mDatabase.child(photorun_id).child("max_participators");
-        maxparticipatorsValue.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange (DataSnapshot dataSnapshot){
-                max_participators = dataSnapshot.getValue(String.class);
-                participants_Textview.setText(max_participators);
-            }
-
-            @Override
-            public void onCancelled (DatabaseError databaseError){
-
-            }
-        });
-
         DatabaseReference descriptionValue = mDatabase.child(photorun_id).child("description");
         descriptionValue.addValueEventListener(new ValueEventListener() {
             @Override
@@ -224,7 +213,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
     }
 
-   public void joinPhotorun(){
+  /* public void checkPhotorun(){
 
        /*
        maxParticipators: Maximale Anzahl der Teilnehmer (Long)
@@ -235,56 +224,11 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         - ...
         */
 
-       FirebaseUser currentuser = mAuth.getInstance().getCurrentUser();
-       //String userID = currentuser.getUid();
-       String participatorID = mAuth.getInstance().getCurrentUser().getUid();
-
-
-       //check if there is still space for more participants
-
-
-       //DatabaseReference curParticipatorsRef = joinDatabase.child("participants").child(participatorID);
-
-
-/*
-       curParticipatorsRef.addChildEventListener(new ChildEventListener() {
-
+        //get all the values needed to check it there are free spaces left
+     /*  mDatabase.child("max_participators").addListenerForSingleValueEvent(new ValueEventListener() {
            @Override
-           public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-               DatabaseReference maxParticipatorsRef = mDatabase.child(photorun_id).child("max_participators");
-               maxParticipatorsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                   @Override
-                   public void onDataChange(DataSnapshot dataSnapshot) {
-                       String maxParticipatorsString = dataSnapshot.getValue(String.class);
-                       final long maxParticipators = Long.parseLong(max_participators);
-
-                       long curParticipators = dataSnapshot.getChildrenCount();
-
-                       if (curParticipators == maxParticipators) {
-                          //  Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
-                           System.out.println("Here should be a text");
-                       }
-                   }
-
-                   @Override
-                   public void onCancelled(DatabaseError databaseError) {
-
-                   }
-               });
-           }
-
-           @Override
-           public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-           }
-
-           @Override
-           public void onChildRemoved(DataSnapshot dataSnapshot) {
-               curParticipators = (int) dataSnapshot.getChildrenCount();
-           }
-
-           @Override
-           public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+           public void onDataChange(DataSnapshot dataSnapshot) {
+               String maxPartBuffer = dataSnapshot.getValue(String.class);
 
            }
 
@@ -294,15 +238,61 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
            }
        });
 
-*/
+       mDatabase.addChildEventListener(new ChildEventListener() {
+           @Override
+           public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+               curPart = dataSnapshot.child("participants").getChildrenCount();
+               maxPartBuffer = dataSnapshot.child("max_participators").getValue(String.class);
+               joinPhotorun();
+           }
+
+           @Override
+           public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+           }
+
+           @Override
+           public void onChildRemoved(DataSnapshot dataSnapshot) {
+               curPart = dataSnapshot.child("participants").getChildrenCount();
+               maxPartBuffer = dataSnapshot.child("max_participators").getValue(String.class);
+               joinPhotorun();
+           }
+
+           @Override
+           public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+           }
+
+           @Override
+           public void onCancelled(DatabaseError databaseError) {
+               maxPart = 5;
+               curPart = 0;
+               joinPhotorun();
+           }
+       });} */
 
 
-       mDatabase.child(photorun_id).child("participants").child(participatorID).setValue("enrolled");
-       mDatabase.child(photorun_id).child("participators").setValue("true");
+       public void joinPhotorun(){
 
-       Toast.makeText(this, "Successfully joined...", Toast.LENGTH_LONG).show();
+           FirebaseUser currentuser = mAuth.getInstance().getCurrentUser();
+           //String userID = currentuser.getUid();
+           String participatorID = mAuth.getInstance().getCurrentUser().getUid();
 
-}
+         /*  maxPart = Long.parseLong(maxPartBuffer);
+
+           if (maxPart == curPart) {
+
+           Toast.makeText(this, "Sorry, this photorun is booked out. Please go back and choose another one.", Toast.LENGTH_LONG).show();
+
+           } else { */
+
+           mDatabase.child(photorun_id).child("participants").child(participatorID).setValue("enrolled");
+
+           Toast.makeText(this, "Successfully joined...", Toast.LENGTH_LONG).show();
+       }
+
+
+
 
     public void onClick(View view){
         if (view == joinRunButton){

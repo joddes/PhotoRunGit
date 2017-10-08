@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.janda.photorun.Login.ProfileActivity;
 import com.example.janda.photorun.R;
 import com.example.janda.photorun.models.Photorun;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -22,13 +23,14 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
     private Button submitButton;
     private Button backButton;
 
-    private EditText TitleEditText, DateEditText, Start_timeEditText, Estimated_durationEditText, Start_pointEditText, End_pointEditText ,Max_participatorsEditText, DescriptionEditText;
+    private EditText TitleEditText, DateEditText, Start_timeEditText, Estimated_durationEditText, Start_pointEditText, End_pointEditText, DescriptionEditText;
 
     private DatabaseReference mDatabaseRefrence;
 
+    private DatabaseReference photorunsEndPoint;
+    private DatabaseReference photorun_settingsEndPoint;
 
-    DatabaseReference photorunsEndPoint;
-    DatabaseReference photorun_settingsEndPoint;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,6 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
         End_pointEditText = (EditText) findViewById(R.id.end_point);
         Start_timeEditText= (EditText) findViewById(R.id.starting_time);
         Estimated_durationEditText = (EditText) findViewById(R.id.estimated_duration);
-        Max_participatorsEditText = (EditText) findViewById(R.id.max_participators);
         DescriptionEditText = (EditText) findViewById(R.id.description);
 
 
@@ -66,8 +67,6 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
         String starting_time = Start_timeEditText.getText().toString().trim();
         String estimated_duration = Estimated_durationEditText.getText().toString().trim();
         //long estimated_duration = Long.parseLong(estimated_durationString);
-        String max_participators = Max_participatorsEditText.getText().toString().trim();
-       // long max_participators = Long.parseLong(max_participatorsString);
         String description = DescriptionEditText.getText().toString().trim();
 
         if(TextUtils.isEmpty(title)) {
@@ -87,11 +86,6 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
             return;
         }
 
-        if(TextUtils.isEmpty(max_participators)) {
-            Toast.makeText(this, "Please enter participators", Toast.LENGTH_SHORT).show();
-            //stopping the function
-            return;
-        }
 
         if(TextUtils.isEmpty(start_point)) {
             Toast.makeText(this, "Please enter start point", Toast.LENGTH_SHORT).show();
@@ -122,10 +116,11 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
 
         String status = "future";
 
-        //create phtoruns object
-        Photorun newPhotorun = new Photorun(date, description, estimated_duration, max_participators, photorun_id, starting_time, title, start_point, end_point, status);
+        //get the owner
+        String owner = mAuth.getInstance().getCurrentUser().getUid();
 
-        //default value for photorun settings
+        //create phtoruns object
+        Photorun newPhotorun = new Photorun(date, description, estimated_duration, photorun_id, starting_time, title, start_point, end_point, status, owner);
 
         mDatabaseRefrence.child("Photorun").child(photorun_id).setValue(newPhotorun);
 
@@ -137,7 +132,6 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
         End_pointEditText.setText("");
         Start_timeEditText.setText("");
         Estimated_durationEditText.setText("");
-        Max_participatorsEditText.setText("");
         DescriptionEditText.setText("");
 
     }

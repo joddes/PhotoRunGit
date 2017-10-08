@@ -120,16 +120,6 @@
         android:layout_marginTop="320dp"
         android:paddingLeft="5dp"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:hint=" Invite attendees..."
-        android:textSize="15dp"
-        android:id="@+id/max_participators"
-        android:background="@drawable/text_box"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="370dp"/>
-
     <android.support.v7.widget.AppCompatButton
         android:layout_width="85dp"
         android:layout_height="38dp"
