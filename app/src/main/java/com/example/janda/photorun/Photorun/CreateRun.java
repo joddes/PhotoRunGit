@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.janda.photorun.Helpers.DatePickerFragment;
 import com.example.janda.photorun.Helpers.TimePickerFragment;
+import com.example.janda.photorun.Login.ProfileActivity;
 import com.example.janda.photorun.R;
 import com.example.janda.photorun.models.Photorun;
 import com.google.firebase.auth.FirebaseAuth;
@@ -131,6 +132,11 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
         profileBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
+                Intent myIntent = new Intent(CreateRun.this, ProfileActivity.class);
+
+                finish();
+
+                startActivity(myIntent);
 
             }
         });

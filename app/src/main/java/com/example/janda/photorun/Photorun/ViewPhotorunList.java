@@ -156,7 +156,11 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
         profileBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
+                Intent myIntent = new Intent(ViewPhotorunList.this, ProfileActivity.class);
 
+                finish();
+
+                startActivity(myIntent);
             }
         });
 //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
