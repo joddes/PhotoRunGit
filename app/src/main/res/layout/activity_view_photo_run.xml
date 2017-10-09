@@ -2,154 +2,169 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:transitionName="PhotoRun">
+
+    <include layout="@layout/layout_photorun_list"/>
 
     <TextView
-        android:id="@+id/run_titleTextView"
-        android:layout_width="240dp"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:text="Open on Maps"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:layout_alignBottom="@+id/maps"
+        android:layout_toRightOf="@+id/maps"
+        android:layout_toEndOf="@+id/maps" />
+
+    <ImageView
+        android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/text_box"
-        android:hint="Title"
-        android:paddingLeft="5dp"
-        android:paddingTop="10dp" />
-    <TextView
-        android:id="@+id/photorun_icon"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@drawable/photo_logo"
-        android:layout_marginTop="0dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingLeft="5dp" />
+        android:id="@+id/duration_icon"
+        android:background="@drawable/duration_icon"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/date_icon"
+        android:layout_toLeftOf="@+id/estimated_durationTextView"/>
 
-    <TextView
-        android:id="@+id/max_participatorsTextView"
-        android:layout_width="120dp"
+    <ImageView
+        android:layout_width="40dp"
         android:layout_height="40dp"
+        android:id="@+id/date_icon"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/date_icon"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="125dp"
-        android:layout_marginTop="60dp"
-        android:paddingLeft="5dp"
-        android:paddingTop="10dp"
-        android:text="(Max. Part.)"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="10dp" />
+        android:layout_below="@+id/layout_photorun_list"/>
 
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/time_icon"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/time_icon"
+        android:layout_below="@+id/layout_photorun_list"
+        android:layout_toLeftOf="@+id/starting_timeTextView"/>
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/flag_icon"
+        android:background="@drawable/flag_icon"
+        android:layout_below="@+id/way_icon"
+        android:layout_marginTop="10dp"/>
     <TextView
         android:id="@+id/ownerTextView"
         android:layout_width="120dp"
         android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="60dp"
         android:paddingLeft="5dp"
         android:paddingTop="10dp"
         android:text="(Owner)"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="10dp" />
+        android:textSize="10dp"
+        android:layout_above="@+id/attendee_list"
+        android:layout_toLeftOf="@+id/starting_timeTextView"
+        android:layout_toStartOf="@+id/starting_timeTextView"
+        android:layout_marginBottom="17dp" />
 
     <TextView
         android:id="@+id/dateTextView"
-        android:layout_width="115dp"
+        android:layout_width="120dp"
         android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="120dp"
         android:background="@drawable/text_box"
         android:hint="Date"
         android:paddingLeft="5dp"
-        android:paddingTop="10dp" />
+        android:paddingTop="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/layout_photorun_list"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/date_icon"/>
 
     <TextView
         android:id="@+id/starting_timeTextView"
-        android:layout_width="115dp"
+        android:layout_width="120dp"
         android:layout_height="40dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="120dp"
         android:background="@drawable/text_box"
         android:hint="Date"
         android:paddingLeft="5dp"
-        android:paddingTop="10dp" />
+        android:paddingTop="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/layout_photorun_list"/>
 
     <TextView
         android:id="@+id/estimated_durationTextView"
-        android:layout_width="115dp"
+        android:layout_width="50dp"
         android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="120dp"
         android:background="@drawable/text_box"
         android:hint="duration"
         android:paddingLeft="5dp"
-        android:paddingTop="10dp" />
+        android:paddingTop="10dp"
+        android:layout_below="@+id/dateTextView"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"/>
+
+    <ImageView
+        android:id="@+id/way_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/way_icon"
+        android:layout_below="@+id/date_icon"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:id="@+id/start_pointTextView"
-        android:layout_width="115dp"
+        android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="190dp"
-        android:background="@drawable/text_box"
+        android:background="@drawable/white_grey_border_bottom"
         android:hint="start"
         android:paddingLeft="5dp"
-        android:paddingTop="10dp" />
+        android:paddingTop="10dp"
+        android:layout_below="@id/dateTextView"
+        android:layout_toRightOf="@+id/way_icon"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"/>
 
     <TextView
         android:id="@+id/end_pointTextView"
-        android:layout_width="115dp"
+        android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="190dp"
-        android:background="@drawable/text_box"
+        android:background="@drawable/white_grey_border_bottom"
         android:hint="destination"
         android:paddingLeft="5dp"
-        android:paddingTop="10dp" />
-    <TextView
+        android:paddingTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@+id/start_pointTextView"
+        android:layout_toRightOf="@+id/flag_icon"
+        android:layout_marginTop="10dp"/>
+
+    <ImageButton
         android:id="@+id/maps"
         android:layout_width="60dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="190dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/text_box"
+        android:layout_height="60dp"
+        android:background="@drawable/maps_icon"
         android:hint="Google Maps"
-        android:paddingTop="5dp"
-        android:paddingLeft="10dp" />
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/flag_icon"
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:id="@+id/descriptionTV"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="260dp"
+        android:layout_height="100dp"
         android:background="@drawable/text_box"
         android:hint="description"
+        android:layout_marginTop="10dp"
         android:paddingLeft="10dp"
-        android:paddingTop="5dp" />
+        android:paddingTop="5dp"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/maps"/>
+
     <android.support.v7.widget.AppCompatButton
-        android:layout_width="130dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="340dp"
-        android:layout_marginLeft="20dp"
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
         android:transitionName="login"
         android:layout_gravity="center"
         android:text="Visit attendee list"
@@ -158,38 +173,26 @@
         android:padding="10dp"
         android:paddingTop="5dp"
         android:paddingLeft="5dp"
-        android:background="@drawable/orange_rounded_button"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true" />
+        android:gravity="center_horizontal"
+        android:background="@drawable/more_png"
+        android:layout_below="@+id/descriptionTV"
+        android:layout_centerHorizontal="true" />
 
-    <android.support.v7.widget.AppCompatButton
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/join_icon"
         android:id="@+id/JoinButton"
-        android:layout_width="85dp"
-        android:layout_height="38dp"
+        android:src="@drawable/join_icon"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_gravity="center"
-        android:layout_marginBottom="40dp"
-        android:layout_marginRight="40dp"
-        android:background="@drawable/orange_rounded_button"
-        android:padding="12dp"
-        android:text="Join Run"
-        android:textSize="12dp"
-        android:transitionName="login" />
-    <android.support.v7.widget.AppCompatButton
-        android:layout_width="85dp"
-        android:layout_height="38dp"
-        android:layout_marginBottom="40dp"
-        android:layout_marginLeft="40dp"
-        android:transitionName="login"
-        android:layout_gravity="center"
-        android:text="back"
-        android:textSize="12dp"
-        android:id="@+id/backbutton"
-        android:padding="12dp"
-        android:background="@drawable/orange_rounded_button"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="67dp" />
+
+    <include layout="@layout/layout_bottom_navigation"/>
 </RelativeLayout>
 
 

@@ -30,6 +30,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
         private Button buttonRegister;
@@ -39,6 +40,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         private Button buttonSignIn;
         private EditText editTextEmail;
         private EditText editTextPasswordlogin;
+        public static int logVar=0;
+
 
 
         //private ProgressDialog progressDialog;
@@ -61,20 +64,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 editTextPassword = (EditText) findViewById(R.id.input_password);
 
                 buttonRegister.setOnClickListener(this);
-
                 //Button animation
                 final ImageButton btnstart = (ImageButton) findViewById(R.id.login_btn);
                 final TextView btnsignup = (TextView) findViewById(R.id.link_signup);
                 final TextView btnlogin = (TextView) findViewById(R.id.link_login);
                 final ImageView btnlogo = (ImageView) findViewById(R.id.logo);
                 final Animation slide_up = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+                final Animation slide_down = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
                 final Animation logoanim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.logo_animation);
+                final Animation logoanim_back = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.logo_animation_back);
                 final Animation slide_left = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
                 final Animation slide_left_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left_out);
-                final Animation slide_down = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
                 final Animation slide_right_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right_out);
                 final Animation slide_right = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right);
 
+                //--Button Action Key
                 btnstart.setOnClickListener(new View.OnClickListener() {
 
                         @Override
@@ -84,9 +88,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 findViewById(R.id.logo).startAnimation(logoanim);
                                 findViewById(R.id.login).setVisibility(View.VISIBLE);
                                 findViewById(R.id.login_btn).setVisibility(View.GONE);
+                                logVar=1;
                         }
                 });
 
+                //--Button register now
                 btnsignup.setOnClickListener(new View.OnClickListener() {
 
                         @Override
@@ -96,9 +102,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 findViewById(R.id.register).setVisibility(View.VISIBLE);
                                 findViewById(R.id.login).startAnimation(slide_left_out);
                                 findViewById(R.id.login).setVisibility(View.GONE);
+                                logVar=2;
                         }
                 });
 
+                //--Button back to login
                 btnlogin.setOnClickListener(new View.OnClickListener() {
 
                         @Override
@@ -108,6 +116,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 findViewById(R.id.login).setVisibility(View.VISIBLE);
                                 findViewById(R.id.register).startAnimation(slide_right_out);
                                 findViewById(R.id.register).setVisibility(View.GONE);
+                                logVar=1;
                         }
                 });
 
@@ -127,6 +136,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
         private void userLogin(){
+                findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
                 String email = editTextEmaillogin.getText().toString().trim();
                 String password  = editTextPasswordlogin.getText().toString().trim();
 
@@ -134,33 +144,37 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 //checking if email and passwords are empty
                 if(TextUtils.isEmpty(email)){
                         Toast.makeText(this,"Please enter email",Toast.LENGTH_LONG).show();
+                        findViewById(R.id.progressBar).setVisibility(View.GONE);
                         return;
+
                 }
 
                 if(TextUtils.isEmpty(password)){
                         Toast.makeText(this,"Please enter password",Toast.LENGTH_LONG).show();
+                        findViewById(R.id.progressBar).setVisibility(View.GONE);
                         return;
                 }
 
                 //if the email and password are not empty
                 //displaying a progress dialog
 
-
-
-                //logging in the user
+                //logging in the User
                 firebaseAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
+
                                         //if the task is successfull
                                         if(task.isSuccessful()){
                                                 //start the profile activity
-
+                                                findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
                                                 finish();
                                                 startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                                                findViewById(R.id.progressBar).setVisibility(View.GONE);
                                         }
                                         else{
                                                 Toast.makeText(LoginActivity.this,"Wrong password entered.",Toast.LENGTH_LONG).show();
+                                                findViewById(R.id.progressBar).setVisibility(View.GONE);
                                         }
                                 }
                         });
@@ -178,6 +192,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
         private void registerUser(){
+                findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
                 String email = editTextEmail.getText().toString().trim();
                 //String username = editTextUsername.getText().toString().trim();
@@ -187,6 +202,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         //email is empty
                         Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
                         //stopping the function
+                        findViewById(R.id.progressBar).setVisibility(View.GONE);
                         return;
                 }
         /*if(TextUtils.isEmpty(username)) {
@@ -199,10 +215,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         //password is empty
                         Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
                         //stopping the function
+                        findViewById(R.id.progressBar).setVisibility(View.GONE);
                         return;
                 }
 
-                // progressDialog.setMessage("Registrating user ..");
+                // progressDialog.setMessage("Registrating User ..");
                 // progressDialog.show();
 
                 firebaseAuth.createUserWithEmailAndPassword(email, password)
@@ -214,9 +231,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         if(task.isSuccessful()){
                                                 //display some message here
                                                 Toast.makeText(LoginActivity.this,"Successfully registered",Toast.LENGTH_LONG).show();
+                                                findViewById(R.id.progressBar).setVisibility(View.GONE);
                                         }else{
                                                 //display some message here
                                                 Toast.makeText(LoginActivity.this,"Registration Error",Toast.LENGTH_LONG).show();
+                                                findViewById(R.id.progressBar).setVisibility(View.GONE);
                                         }
                                 }
                         });
@@ -234,6 +253,37 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         userLogin();
                 }
 
+        }
+
+        @Override
+        public void onBackPressed() {
+                final ImageButton btnstart = (ImageButton) findViewById(R.id.login_btn);
+                final TextView btnsignup = (TextView) findViewById(R.id.link_signup);
+                final TextView btnlogin = (TextView) findViewById(R.id.link_login);
+                final ImageView btnlogo = (ImageView) findViewById(R.id.logo);
+                final Animation slide_up = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+                final Animation slide_down = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
+                final Animation logoanim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.logo_animation);
+                final Animation logoanim_back = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.logo_animation_back);
+                final Animation slide_left = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
+                final Animation slide_left_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left_out);
+                final Animation slide_right_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right_out);
+                final Animation slide_right = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right);
+                if(logVar==0){
+                        
+                }if(logVar==1){
+                        findViewById(R.id.login).startAnimation(slide_down);
+                        findViewById(R.id.logo).startAnimation(logoanim_back);
+                        findViewById(R.id.login).setVisibility(View.GONE);
+                        findViewById(R.id.login_btn).setVisibility(View.VISIBLE);
+                        logVar=0;
+                }if(logVar==2){
+                        findViewById(R.id.login).startAnimation(slide_right);
+                        findViewById(R.id.login).setVisibility(View.VISIBLE);
+                        findViewById(R.id.register).startAnimation(slide_right_out);
+                        findViewById(R.id.register).setVisibility(View.GONE);
+                        logVar=1;
+                }
         }
 
 

@@ -1,24 +1,24 @@
 package com.example.janda.photorun.models;
 
 /**
- * Created by user on 25.09.17.
+ * Created by User on 25.09.17.
  */
 
-public class user {
+public class User {
 
     private String user_id;
     private String email;
     private String full_name;
     private String username;
 
-    public user(String user_id, String email, String full_name, String username) {
+    public User(String user_id, String email, String full_name, String username) {
         this.user_id = user_id;
         this.email = email;
         this.full_name = full_name;
         this.username = username;
     }
 
-    public user (){
+    public User(){
 
     }
 
@@ -56,7 +56,7 @@ public class user {
 
     @Override
     public String toString() {
-        return "user{" +
+        return "User{" +
                 "user_id='" + user_id + '\'' +
                 ", email='" + email + '\'' +
                 ", full_name='" + full_name + '\'' +
