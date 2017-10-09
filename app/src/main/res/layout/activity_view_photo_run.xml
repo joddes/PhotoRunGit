@@ -14,26 +14,7 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:layout_alignBottom="@+id/maps"
         android:layout_toRightOf="@+id/maps"
-        android:layout_toEndOf="@+id/maps" /><![CDATA[
-
-<<<<<<< HEAD
-
-    " />
-
-
-
-    ]]>
-=======
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/participants_icon"
-        android:background="@drawable/participants_icon"
-        android:layout_toLeftOf="@+id/max_participatorsTextView"
-        android:layout_below="@+id/duration_icon"/>
->>>>>>> 335f6a34a8fed84d20573d5888b2ea0c153e1e87
+        android:layout_toEndOf="@+id/maps" />
 
     <ImageView
         android:layout_width="40dp"

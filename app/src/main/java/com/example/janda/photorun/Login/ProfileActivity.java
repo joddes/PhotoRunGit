@@ -10,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -125,17 +127,30 @@ public class ProfileActivity extends AppCompatActivity {
 
         //Help Button, muss auf jeder Seite sein
         final ImageButton helpBtn = (ImageButton) findViewById(R.id.help_icon);
-
+        final FloatingActionButton cancel_btn = (FloatingActionButton) findViewById(R.id.cancel_btn);
+        final Animation slide_left = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
+        final Animation slide_right_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right_out);
         helpBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                //Help reinsliden
+                findViewById(R.id.help_seite).startAnimation(slide_left);
+                findViewById(R.id.help_seite).setVisibility(View.VISIBLE);
+            }
+        });
+
+        cancel_btn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                findViewById(R.id.help_seite).startAnimation(slide_right_out);
+                findViewById(R.id.help_seite).setVisibility(View.GONE);
             }
         });
 
         //TOP TOOLBAR
         toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
         toolbar_Textview.setText("Startseite");
+
+
 
     }
 

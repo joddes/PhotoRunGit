@@ -2,6 +2,7 @@ package com.example.janda.photorun.Photorun;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -21,7 +22,7 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
 
     //public static final String Firebase_Server_URL = "https://photorun-3f474.firebaseio.com/";
 
-    private Button submitButton;
+    private FloatingActionButton submitButton;
     private Button backButton;
 
 
@@ -45,7 +46,7 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
         photorunsEndPoint = mDatabaseRefrence.child("Photorun");
         photorun_settingsEndPoint = mDatabaseRefrence.child("photorun_settings");
 
-        submitButton = (Button) findViewById(R.id.submit_run);
+        submitButton = (FloatingActionButton) findViewById(R.id.submit_run);
         submitButton.setOnClickListener(this);
 
 

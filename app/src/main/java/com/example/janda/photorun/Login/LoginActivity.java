@@ -143,11 +143,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 //checking if email and passwords are empty
                 if(TextUtils.isEmpty(email)){
                         Toast.makeText(this,"Please enter email",Toast.LENGTH_LONG).show();
+                        findViewById(R.id.progressBar).setVisibility(View.GONE);
                         return;
+
                 }
 
                 if(TextUtils.isEmpty(password)){
                         Toast.makeText(this,"Please enter password",Toast.LENGTH_LONG).show();
+                        findViewById(R.id.progressBar).setVisibility(View.GONE);
                         return;
                 }
 
@@ -198,6 +201,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         //email is empty
                         Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
                         //stopping the function
+                        findViewById(R.id.progressBar).setVisibility(View.GONE);
                         return;
                 }
         /*if(TextUtils.isEmpty(username)) {
@@ -210,6 +214,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         //password is empty
                         Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
                         //stopping the function
+                        findViewById(R.id.progressBar).setVisibility(View.GONE);
                         return;
                 }
 
