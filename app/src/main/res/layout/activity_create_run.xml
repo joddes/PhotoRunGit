@@ -146,5 +146,6 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="67dp" />
 
-
+    <include layout="@layout/layout_bottom_navigation"/>
+    <include layout="@layout/help_seite"/>
 </RelativeLayout>

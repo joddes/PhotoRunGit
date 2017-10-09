@@ -132,24 +132,25 @@ public class ProfileActivity extends AppCompatActivity {
 
         //Help Button, muss auf jeder Seite sein
         final ImageButton helpBtn = (ImageButton) findViewById(R.id.help_icon);
-        final FloatingActionButton cancel_btn = (FloatingActionButton) findViewById(R.id.cancel_btn);
         final Animation slide_left = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
         final Animation slide_right_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right_out);
         helpBtn.setOnClickListener(new View.OnClickListener() {
-
+            int var = 1;
             public void onClick(View view) {
-                findViewById(R.id.help_seite).startAnimation(slide_left);
-                findViewById(R.id.help_seite).setVisibility(View.VISIBLE);
+                if(var==1) {
+                    findViewById(R.id.help_seite).startAnimation(slide_left);
+                    findViewById(R.id.help_seite).setVisibility(View.VISIBLE);
+                    findViewById(R.id.help_icon).setBackgroundResource(R.drawable.cancel_icon);
+                    var = 0;
+                }else{
+                    findViewById(R.id.help_seite).startAnimation(slide_right_out);
+                    findViewById(R.id.help_seite).setVisibility(View.GONE);
+                    findViewById(R.id.help_icon).setBackgroundResource(R.drawable.help_icon);
+                    var = 1;
+                }
             }
         });
 
-        cancel_btn.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-                findViewById(R.id.help_seite).startAnimation(slide_right_out);
-                findViewById(R.id.help_seite).setVisibility(View.GONE);
-            }
-        });
 
         //TOP TOOLBAR
         toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
