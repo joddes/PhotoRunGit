@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.janda.photorun.Helpers.DatePickerFragment;
 import com.example.janda.photorun.Helpers.TimePickerFragment;
 import com.example.janda.photorun.R;
 import com.example.janda.photorun.models.Photorun;
@@ -56,6 +57,8 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
 
         TitleEditText = (EditText) findViewById(R.id.run_title);
         DateEditText = (EditText) findViewById(R.id.datum);
+        DateEditText.setOnClickListener(this);
+
         Start_pointEditText = (EditText) findViewById(R.id.start_point);
         End_pointEditText = (EditText) findViewById(R.id.end_point);
         Start_timeEditText= (EditText) findViewById(R.id.starting_time);
@@ -221,6 +224,9 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
         if (view == Start_timeEditText){
             showTimePickerDialog(Start_timeEditText);
         }
+        if (view == DateEditText){
+            showDatePickerDialog(DateEditText);
+        }
 
     }
     @Override
@@ -231,8 +237,13 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
     }
 
     public void showTimePickerDialog(View v){
-        DialogFragment newFragment = new TimePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "timePicker");
+        DialogFragment timeFragment = new TimePickerFragment();
+        timeFragment.show(getSupportFragmentManager(), "timePicker");
+    }
+
+    public void showDatePickerDialog(View v){
+        DialogFragment dateFragment = new DatePickerFragment();
+        dateFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
 }
