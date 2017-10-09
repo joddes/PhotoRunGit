@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="20dp">
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:text="ACCOUNT"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="30dp"
+        android:text="Edit profile"/>
+
+    <EditText
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_alignParentTop="true"
+    android:layout_marginTop="65dp"
+    android:text="Change Password"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="100dp"
+        android:text="My photowalks"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="140dp"
+        android:text="SETTINGS"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="170dp"
+        android:text="Contacts"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="200dp"
+        android:text="Language"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="235dp"
+        android:text="Notifications"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="275dp"
+        android:text="HELP"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="295dp"
+        android:text="PhotoWalk Help Center"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="330dp"
+        android:text="Report a Problem"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="370dp"
+        android:text="ABOUT"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+    <EditText
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_alignParentTop="true"
+    android:layout_marginTop="400dp"
+    android:text="Privacy Policy"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="435dp"
+        android:text="Terms of Service"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="85dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="0dp"
+        android:transitionName="login"
+        android:layout_gravity="center"
+        android:text="logout"
+        android:textSize="12dp"
+        android:id="@+id/logoutbutton"
+        android:padding="12dp"
+        android:background="@drawable/orange_rounded_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="85dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="0dp"
+        android:transitionName="login"
+        android:layout_gravity="center"
+        android:text="back"
+        android:textSize="12dp"
+        android:id="@+id/backbutton"
+        android:padding="12dp"
+        android:background="@drawable/orange_rounded_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
+</RelativeLayout>
+
