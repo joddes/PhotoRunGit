@@ -1,70 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:orientation="vertical">
-
-<TextView
-    android:id="@+id/create_photowalk"
-    android:layout_width="368dp"
-    android:layout_height="40dp"
-    android:layout_gravity="center_horizontal"
-    android:text="Create User"
-    android:textAppearance="?android:attr/textAppearanceLarge" />
-
-<TextView
-    android:layout_width="368dp"
-    android:layout_height="40dp"
-    android:layout_alignParentTop="true"
-    android:layout_gravity="center_horizontal"
-    android:layout_marginTop="120dp"
-    android:text="Username"
-    android:textAppearance="?android:attr/textAppearanceLarge"
-    android:textSize="16dp" />
-
-<EditText
-    android:id="@+id/username"
-    android:layout_width="364dp"
-    android:layout_height="53dp"
-    android:layout_alignParentTop="true"
-    android:layout_marginTop="140dp"
-    android:background="@drawable/text_box"
-    android:hint="username" />
-
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="40dp"
-    android:layout_alignParentTop="true"
-    android:layout_gravity="center_horizontal"
-    android:layout_marginTop="210dp"
-    android:text="Full name:"
-    android:textAppearance="?android:attr/textAppearanceLarge"
-    android:textSize="16dp" />
-
-<EditText
-    android:id="@+id/fullname"
-    android:layout_width="160dp"
-    android:layout_height="30dp"
-    android:layout_alignParentTop="true"
-    android:layout_marginTop="230dp"
-    android:background="@drawable/text_box"
-    android:hint="Enter full name"
-    android:paddingLeft="5dp"
-    android:textSize="15dp" />
-
-<android.support.v7.widget.AppCompatButton
-    android:id="@+id/submit_user"
-    android:layout_width="85dp"
-    android:layout_height="38dp"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentRight="true"
-    android:layout_gravity="center"
-    android:layout_marginBottom="20dp"
-    android:layout_marginRight="20dp"
-    android:background="@drawable/orange_rounded_button"
-    android:padding="12dp"
-    android:text="Create"
-    android:textSize="12dp"
-    android:transitionName="login" />
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="20dp">
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:src="@drawable/go_profile_icon"
+        android:layout_gravity="center"
+        android:id="@+id/logo"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/text_box"/>
+    <EditText
+        android:id="@+id/fullname"
+        android:layout_width="240dp"
+        android:layout_height="41dp"
+        android:hint="First name, last name"
+        android:inputType="textEmailAddress"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="16dp"/>
+    <TextView
+        android:layout_width="368dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="120dp"
+        android:layout_alignParentTop="true"
+        android:text="Contact details"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="16dp"/>
+    <EditText
+        android:layout_width="210dp"
+        android:layout_height="30dp"
+        android:id="@+id/mail"
+        android:layout_marginTop="140dp"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/text_box"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="5dp"
+        android:hint="E-mail"
+        android:textSize="15dp" />
+    <EditText
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:id="@+id/phonenumber"
+        android:layout_marginTop="140dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/text_box"
+        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/mail"
+        android:paddingLeft="5dp"
+        android:hint="Phone Number"
+        android:textSize="15dp" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/address"
+        android:background="@drawable/text_box"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="180dp"
+        android:hint="Street with House Nr., Zip Code Town"
+        android:paddingLeft="5dp"
+        android:textSize="15dp"/>
+    <TextView
+        android:layout_width="368dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="240dp"
+        android:layout_alignParentTop="true"
+        android:text="Carrier:"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="16dp"/>
+    <Spinner
+        android:layout_width="280dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="240dp"
+        android:layout_alignParentRight="true"
+        android:textSize="15dp"
+        android:id="@+id/spin"
+        android:entries="@array/carrier_options"></Spinner>
+    <TextView
+        android:layout_width="368dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="330dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:text="About me"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="16dp"
+        android:id="@+id/textView" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/personal_information"
+        android:background="@drawable/text_box"
+        android:layout_marginTop="17dp"
+        android:hint="Hobbies and interests/Work Experience/..."
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:gravity="top|left"
+        android:textSize="15dp"
+        android:layout_alignTop="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="85dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:transitionName="login"
+        android:layout_gravity="center"
+        android:text="Update"
+        android:textSize="12dp"
+        android:id="@+id/submit_user"
+        android:padding="12dp"
+        android:background="@drawable/orange_rounded_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="85dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:transitionName="login"
+        android:layout_gravity="center"
+        android:text="back"
+        android:textSize="12dp"
+        android:id="@+id/backbutton"
+        android:padding="12dp"
+        android:background="@drawable/orange_rounded_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" />
 </RelativeLayout>
-

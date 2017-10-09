@@ -46,7 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_profile);
 
         //initializing firebase authentication object
         firebaseAuth = FirebaseAuth.getInstance();
@@ -72,11 +72,25 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         //displaying logged in User name
-        textViewUserEmail.setText("Logged in as: "+user.getEmail());
+        //textViewUserEmail.setText("Logged in as: "+user.getEmail());
 
         //adding listener to button
         //buttonLogout.setOnClickListener(this);
         //buttonPhotorun.setOnClickListener(this);
+
+        //Floating button settings
+        final FloatingActionButton settingsBtn = (FloatingActionButton) findViewById(R.id.goToSettings);
+
+        settingsBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent myIntent = new Intent(ProfileActivity.this, CreateProfile.class);
+
+                finish();
+
+                startActivity(myIntent);
+            }
+        });
 
         //Create Button
         final ImageButton profileBtn = (ImageButton) findViewById(R.id.Profilbtn);

@@ -25,7 +25,7 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
 
     private Button submitButton;
 
-    private EditText username, name;
+    private EditText number, name;
 
     private DatabaseReference databaseProfiles;
 
@@ -49,18 +49,8 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         submitButton.setOnClickListener(this);
 
 
-        username = (EditText) findViewById(R.id.username);
+        number = (EditText) findViewById(R.id.phonenumber);
         name = (EditText) findViewById(R.id.fullname);
-
-
-
-
-
-
-
-
-
-
 
     }
 
@@ -68,7 +58,7 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         databaseProfiles =  FirebaseDatabase.getInstance().getReference();
         aktuelleUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        String user_name = username.getText().toString().trim();
+        String user_name = number.getText().toString().trim();
         String full_name = name.getText().toString().trim();
         String email =  user.getEmail();
         String user_id = aktuelleUserID;

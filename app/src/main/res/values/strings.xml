@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">PhotoRun</string>
     <string name="title_activity_maps">Map</string>
+    <string-array name="carrier_options">
+        <item>Photographer</item>
+        <item>Model</item>
+        <item>Else</item>
+    </string-array>
 </resources>
