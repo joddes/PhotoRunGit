@@ -37,7 +37,7 @@ android:orientation="vertical">
     android:layout_alignParentTop="true"
     android:layout_gravity="center_horizontal"
     android:layout_marginTop="210dp"
-    android:text="email"
+    android:text="Full name:"
     android:textAppearance="?android:attr/textAppearanceLarge"
     android:textSize="16dp" />
 
@@ -48,7 +48,7 @@ android:orientation="vertical">
     android:layout_alignParentTop="true"
     android:layout_marginTop="230dp"
     android:background="@drawable/text_box"
-    android:hint="email"
+    android:hint="Enter full name"
     android:paddingLeft="5dp"
     android:textSize="15dp" />
 
