@@ -6,10 +6,10 @@ package com.example.janda.photorun.models;
 
 public class photorun_settings {
 
-    private boolean participators;
+    private String participators;
     private String status;
 
-    public photorun_settings(boolean participators, String status) {
+    public photorun_settings(String participators, String status) {
         this.participators = participators;
         this.status = status;
     }
@@ -18,7 +18,7 @@ public class photorun_settings {
 
     }
 
-    public boolean getParticipators() {
+    public String getParticipators() {
         return participators;
     }
 
@@ -26,7 +26,7 @@ public class photorun_settings {
         this.status = status;
     }
 
-    public void setParticipators(boolean participators) {
+    public void setParticipators(String participators) {
         this.participators = participators;
     }
 

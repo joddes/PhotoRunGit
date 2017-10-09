@@ -2,6 +2,7 @@ package com.example.janda.photorun.Photorun;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +30,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
     private TextView title_Textview, date_Textview, startpoint_Textview, endpoint_Textview, starttime_Textview, duration_Textview, participants_Textview, description_Textview;
 
-    private Button joinRunButton;
+    private FloatingActionButton joinRunButton;
 
     private String date, description, end_point, estimated_duration, max_participators, start_point, starting_time, title;
 
@@ -37,10 +38,13 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
     private FirebaseAuth mAuth;
 
-
     DatabaseReference Test;
 
     String photorun_id;
+
+    private long curPart, maxPart;
+
+    private String maxPartBuffer;
 
 
     @Override
@@ -49,7 +53,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_view_photo_run);
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Photorun");
-        joinDatabase = FirebaseDatabase.getInstance().getReference().child("photorun_settings");
+        //joinDatabase = FirebaseDatabase.getInstance().getReference().child("photorun_settings");
 
         title_Textview = (TextView) findViewById(R.id.run_title); //not sure if link directs to the right button?
         date_Textview = (TextView) findViewById(R.id.dateTextView);
@@ -57,10 +61,9 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         endpoint_Textview = (TextView) findViewById(R.id.end_pointTextView);
         starttime_Textview = (TextView) findViewById(R.id.starting_timeTextView);
         duration_Textview = (TextView) findViewById(R.id.estimated_durationTextView);
-        participants_Textview = (TextView) findViewById(R.id.max_participatorsTextView);
         description_Textview = (TextView) findViewById(R.id.descriptionTV);
 
-        joinRunButton = (Button) findViewById(R.id.JoinButton);
+        joinRunButton = (FloatingActionButton) findViewById(R.id.JoinButton);
         joinRunButton.setOnClickListener(this);
 
 
@@ -197,20 +200,6 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
             }
         });
 
-        DatabaseReference maxparticipatorsValue = mDatabase.child(photorun_id).child("max_participators");
-        maxparticipatorsValue.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange (DataSnapshot dataSnapshot){
-                max_participators = dataSnapshot.getValue(String.class);
-                participants_Textview.setText(max_participators);
-            }
-
-            @Override
-            public void onCancelled (DatabaseError databaseError){
-
-            }
-        });
-
         DatabaseReference descriptionValue = mDatabase.child(photorun_id).child("description");
         descriptionValue.addValueEventListener(new ValueEventListener() {
             @Override
@@ -243,51 +232,22 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
     }
 
-   public void joinPhotorun(){
+  /* public void checkPhotorun(){
 
-       FirebaseUser currentuser = mAuth.getInstance().getCurrentUser();
-       //String userID = currentuser.getUid();
-       String participatorID = mAuth.getInstance().getCurrentUser().getUid();
+       /*
+       maxParticipators: Maximale Anzahl der Teilnehmer (Long)
+        - maxParticipatorsRef: Datenbank-Referenz
+        - maxParticipatorsString: Wertz aus Firebase als String (aktuell)
 
+       curParticipators: Aktuelle Anzahl der Teilnehmer (Long)
+        - ...
+        */
 
-       //photorun_participators newParticipator = new photorun_participators(participatorID);
-
-      /* //check if there is still space for more participants
-       DatabaseReference maxparticipatorsValue = mDatabase.child(photorun_id).child("max_participators");
-       maxparticipatorsValue.addValueEventListener(new ValueEventListener() {
+        //get all the values needed to check it there are free spaces left
+     /*  mDatabase.child("max_participators").addListenerForSingleValueEvent(new ValueEventListener() {
            @Override
-           public void onDataChange (DataSnapshot dataSnapshot){
-               max_participators = dataSnapshot.getValue(String.class);
-               int partNumber = Integer.parseInt(max_participators);
-           }
-
-           @Override
-           public void onCancelled (DatabaseError databaseError){
-
-           }
-       });
-
-       DatabaseReference currentParticipators = joinDatabase.child("participants").child(participatorID);
-       int participatorsCount;
-       currentParticipators.addChildEventListener(new ChildEventListener() {
-           int participatorsCount
-           @Override
-           public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-               participatorsCount = (int) dataSnapshot.getChildrenCount();
-           }
-
-           @Override
-           public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-           }
-
-           @Override
-           public void onChildRemoved(DataSnapshot dataSnapshot) {
-               participatorsCount = (int) dataSnapshot.getChildrenCount();
-           }
-
-           @Override
-           public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+           public void onDataChange(DataSnapshot dataSnapshot) {
+               String maxPartBuffer = dataSnapshot.getValue(String.class);
 
            }
 
@@ -297,21 +257,61 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
            }
        });
 
-      // if (participatorsCount == maxparticipatorsValue)
+       mDatabase.addChildEventListener(new ChildEventListener() {
+           @Override
+           public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+               curPart = dataSnapshot.child("participants").getChildrenCount();
+               maxPartBuffer = dataSnapshot.child("max_participators").getValue(String.class);
+               joinPhotorun();
+           }
 
-      */
+           @Override
+           public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+           }
+
+           @Override
+           public void onChildRemoved(DataSnapshot dataSnapshot) {
+               curPart = dataSnapshot.child("participants").getChildrenCount();
+               maxPartBuffer = dataSnapshot.child("max_participators").getValue(String.class);
+               joinPhotorun();
+           }
+
+           @Override
+           public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+           }
+
+           @Override
+           public void onCancelled(DatabaseError databaseError) {
+               maxPart = 5;
+               curPart = 0;
+               joinPhotorun();
+           }
+       });} */
+
+
+       public void joinPhotorun(){
+
+           FirebaseUser currentuser = mAuth.getInstance().getCurrentUser();
+           //String userID = currentuser.getUid();
+           String participatorID = mAuth.getInstance().getCurrentUser().getUid();
+
+         /*  maxPart = Long.parseLong(maxPartBuffer);
+
+           if (maxPart == curPart) {
+
+           Toast.makeText(this, "Sorry, this photorun is booked out. Please go back and choose another one.", Toast.LENGTH_LONG).show();
+
+           } else { */
+
+           mDatabase.child(photorun_id).child("participants").child(participatorID).setValue("enrolled");
+
+           Toast.makeText(this, "Successfully joined...", Toast.LENGTH_LONG).show();
+       }
 
 
 
-       //check if user already joined: join should only be possible once
-
-
-       joinDatabase.child(photorun_id).child("participants").child(participatorID).setValue("true");
-       joinDatabase.child(photorun_id).child("participators").setValue("true");
-
-       Toast.makeText(this, "Successfully joined...", Toast.LENGTH_LONG).show();
-
-}
 
     public void onClick(View view){
         if (view == joinRunButton){
@@ -323,7 +323,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
     public void onBackPressed() {
         finish();
         //go back to Create Photorun
-        startActivity(new Intent(this, ProfileActivity.class));
+        startActivity(new Intent(this, ViewPhotorunList.class));
     }
 
 

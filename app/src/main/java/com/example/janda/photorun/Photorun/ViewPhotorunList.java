@@ -39,6 +39,8 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
     public static final String PHOTORUN_TITLE = "com.example.janda.photorun.models.title";
     public static final String PHOTORUN_ID = "com.example.janda.photorun.models.photorun_id";
 
+    private TextView toolbar_Textview;
+
 
     DatabaseReference databasePhotorun;
 
@@ -81,19 +83,22 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
                 //putting artist name and id to intent
                 intent.putExtra(PHOTORUN_ID, photorun.getPhotorun_id());
                 intent.putExtra(PHOTORUN_TITLE, photorun.getTitle());
-
                 //starting the activity with intent
                 startActivity(intent);
+
             }
         });
 
-
+        //TOP TOOLBAR
+        toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
+        toolbar_Textview.setText("Alle Photowalks");
     }
 
 
     @Override
     protected void onStart() {
         super.onStart();
+        findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
         databasePhotorun.addValueEventListener(new ValueEventListener() {
             @Override
@@ -106,6 +111,7 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
                     Photorun photorun = photorunSnapshot.getValue(Photorun.class);
 
                     photoruns.add(photorun);
+                    findViewById(R.id.progressBar).setVisibility(View.GONE);
                 }
 
                 ViewPhotoRuns adapter = new ViewPhotoRuns(ViewPhotorunList.this, photoruns);

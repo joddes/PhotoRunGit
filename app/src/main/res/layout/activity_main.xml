@@ -5,8 +5,9 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context="com.example.janda.photorun.Login.ProfileActivity">
 
+    <include layout="@layout/layout_top_bar"/>
+    <include layout="@layout/layout_bottom_navigation"/>
 
-    <include layout="@layout/layout_bottom_navigation_view"/>
 
     <TextView
         android:id="@+id/textViewUserEmail"
@@ -20,4 +21,6 @@ tools:context="com.example.janda.photorun.Login.ProfileActivity">
         android:layout_marginRight="10dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <include layout="@layout/help_seite"/>
 </RelativeLayout>
