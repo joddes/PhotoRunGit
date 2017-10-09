@@ -30,11 +30,24 @@ public class DatePickerFragment extends DialogFragment
         // Do something with the date chosen by the user
 
         day = view.getDayOfMonth();
+        String dayfix;
+        if (day<10){
+            dayfix = "0"+day;
+        }else {
+            dayfix = ""+day;
+        }
+
         month = view.getMonth()+1;
+        String monthfix;
+        if (month<10){
+            monthfix = "0"+month;
+        }else{
+            monthfix = ""+month;
+        }
         year = view.getYear();
 
         TextView dateTV = getActivity().findViewById(R.id.datum);
-        dateTV.setText(day+"/"+month+"/"+year);
+        dateTV.setText(dayfix+"/"+monthfix+"/"+year);
 
     }
 }

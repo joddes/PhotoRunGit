@@ -47,11 +47,24 @@ public class TimePickerFragment extends DialogFragment
         view.setIs24HourView(true);
 
         int hour = view.getCurrentHour();
+        String hourfix;
+        if (hour<10){
+            hourfix = "0"+hour;
+        }else{
+            hourfix = ""+hour;
+        }
+
         int min = view.getCurrentMinute();
+        String minfix;
+        if (min<10){
+            minfix = "0"+min;
+        }else{
+            minfix = ""+ min;
+        }
 
        // String startTime = "" + hour +":"+min+":00";
         TextView timeTV = getActivity().findViewById(R.id.starting_time);
-        timeTV.setText(hour +":"+min+":00");
+        timeTV.setText(hourfix +":"+minfix+":00");
 
 
 
