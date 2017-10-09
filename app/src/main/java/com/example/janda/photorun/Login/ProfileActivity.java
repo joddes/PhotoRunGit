@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.janda.photorun.MainActivity;
+import com.example.janda.photorun.Photorun.CreateProfile;
 import com.example.janda.photorun.Photorun.CreateRun;
 import com.example.janda.photorun.Photorun.ViewPhotorunList;
 import com.example.janda.photorun.Photorun.ViewSinglePhotoRun;
@@ -50,8 +51,8 @@ public class ProfileActivity extends AppCompatActivity {
         //initializing firebase authentication object
         firebaseAuth = FirebaseAuth.getInstance();
 
-        //if the user is not logged in
-        //that means current user will return null
+        //if the User is not logged in
+        //that means current User will return null
         if(firebaseAuth.getCurrentUser() == null){
             //closing this activity
             finish();
@@ -59,7 +60,7 @@ public class ProfileActivity extends AppCompatActivity {
             startActivity(new Intent(this, LoginActivity.class));
         }
 
-        //getting current user
+        //getting current User
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         //initializing views
@@ -70,7 +71,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-        //displaying logged in user name
+        //displaying logged in User name
         textViewUserEmail.setText("Logged in as: "+user.getEmail());
 
         //adding listener to button
@@ -104,7 +105,11 @@ public class ProfileActivity extends AppCompatActivity {
         profileBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
+                Intent myIntent = new Intent(ProfileActivity.this, CreateProfile.class);
 
+                finish();
+
+                startActivity(myIntent);
             }
         });
 
@@ -115,7 +120,7 @@ public class ProfileActivity extends AppCompatActivity {
         logoutBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                //logging out the user
+                //logging out the User
                 firebaseAuth.signOut();
                 //closing activity
                 finish();
@@ -159,7 +164,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         //if logout is pressed
         if(view == buttonLogout){
-            //logging out the user
+            //logging out the User
             firebaseAuth.signOut();
             //closing activity
             finish();

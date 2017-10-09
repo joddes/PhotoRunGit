@@ -158,7 +158,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 //if the email and password are not empty
                 //displaying a progress dialog
 
-                //logging in the user
+                //logging in the User
                 firebaseAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -219,7 +219,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         return;
                 }
 
-                // progressDialog.setMessage("Registrating user ..");
+                // progressDialog.setMessage("Registrating User ..");
                 // progressDialog.show();
 
                 firebaseAuth.createUserWithEmailAndPassword(email, password)

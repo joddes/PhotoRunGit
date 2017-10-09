@@ -1,7 +1,7 @@
 package com.example.janda.photorun.models;
 
 /**
- * Created by user on 25.09.17.
+ * Created by User on 25.09.17.
  */
 
 public class photorun_settings {

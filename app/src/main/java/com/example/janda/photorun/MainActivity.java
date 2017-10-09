@@ -149,7 +149,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
 
 
-        //logging in the user
+        //logging in the User
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -201,7 +201,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
             return;
         }
 
-        // progressDialog.setMessage("Registrating user ..");
+        // progressDialog.setMessage("Registrating User ..");
         // progressDialog.show();
 
         firebaseAuth.createUserWithEmailAndPassword(email, password)
