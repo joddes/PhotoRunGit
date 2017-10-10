@@ -42,7 +42,8 @@
         <activity android:name=".Chat.Chat" />
         <activity android:name=".Chat.Users" />
         <activity android:name=".Features.MapsActivity"/>
-        <activity android:name=".Photorun.CreateProfile"></activity>
+        <activity android:name=".models.CreateProfile"></activity>
+        <activity android:name=".models.ViewAttendeesList"></activity>
 
         <!--
               The API key for Google Maps-based APIs is defined as a string resource.

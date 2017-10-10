@@ -4,16 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.janda.photorun.Features.MapsActivity;
-import com.example.janda.photorun.Login.LoginActivity;
-import com.example.janda.photorun.Login.ProfileActivity;
 import com.example.janda.photorun.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,7 +30,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
     private String date, description, end_point, estimated_duration, max_participators, start_point, starting_time, title;
 
-    private DatabaseReference mDatabase, joinDatabase;
+    private DatabaseReference mDatabase, joinDatabase, userDatabase;
 
     private FirebaseAuth mAuth;
 
@@ -54,6 +50,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Photorun");
         //joinDatabase = FirebaseDatabase.getInstance().getReference().child("photorun_settings");
+        userDatabase = FirebaseDatabase.getInstance().getReference().child("User");
 
         title_Textview = (TextView) findViewById(R.id.run_title); //not sure if link directs to the right button?
         date_Textview = (TextView) findViewById(R.id.dateTextView);
@@ -306,6 +303,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
            } else { */
 
            mDatabase.child(photorun_id).child("participants").child(participatorID).setValue("enrolled");
+           userDatabase.child(participatorID).child("participatedRuns").child(photorun_id).setValue("enrolled");
 
            Toast.makeText(this, "Successfully joined...", Toast.LENGTH_LONG).show();
        }
