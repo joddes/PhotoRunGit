@@ -20,6 +20,7 @@ package com.example.janda.photorun.Photorun;
         import android.widget.ListView;
         import android.widget.TextView;
 
+        import com.example.janda.photorun.Chat.Users;
         import com.example.janda.photorun.Login.ProfileActivity;
         import com.example.janda.photorun.MainActivity;
         import com.example.janda.photorun.Photorun.ViewPhotoRuns;
@@ -141,7 +142,11 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
         searchBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
+                Intent myIntent = new Intent(ViewPhotorunList.this, Users.class);
 
+                finish();
+
+                startActivity(myIntent);
             }
         });
 

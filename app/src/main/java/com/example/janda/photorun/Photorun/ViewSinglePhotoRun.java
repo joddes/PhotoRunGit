@@ -4,15 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatCallback;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
+<<<<<<< HEAD
 import android.widget.AdapterView;
+=======
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+>>>>>>> 60bbf7d4fb57c675cb6b860bfcc1c2de49d1840d
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.janda.photorun.Features.MapsActivity;
+import com.example.janda.photorun.Chat.Users;
+import com.example.janda.photorun.GoogleMaps.MapsActivity;
+import com.example.janda.photorun.Login.ProfileActivity;
 import com.example.janda.photorun.R;
 import com.example.janda.photorun.models.Photorun;
 import com.example.janda.photorun.models.ViewAttendeesList;
@@ -29,7 +35,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
     //implements View.OnClickListener
 
-    private TextView title_Textview, date_Textview, startpoint_Textview, endpoint_Textview, starttime_Textview, duration_Textview, participants_Textview, description_Textview;
+    private TextView title_Textview, date_Textview, startpoint_Textview, endpoint_Textview, starttime_Textview, duration_Textview, participants_Textview, description_Textview,toolbar_Textview;
 
     private FloatingActionButton joinRunButton;
 
@@ -78,6 +84,87 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
         photorun_id = intent.getStringExtra(ViewPhotorunList.PHOTORUN_ID);
 
+        //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        //TOP TOOLBAR------------------------------------------------------------------
+        toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
+        toolbar_Textview.setText("Photowalk Details");
+
+        final ImageButton logoutBtn = (ImageButton) findViewById(R.id.logout_icon);
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent myIntent = new Intent(ViewSinglePhotoRun.this, ViewPhotorunList.class);
+
+                finish();
+
+                startActivity(myIntent);
+            }
+        });
+
+        //Help Button, muss auf jeder Seite sein
+        final ImageButton helpBtn = (ImageButton) findViewById(R.id.help_icon);
+        final Animation slide_left = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
+        final Animation slide_right_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right_out);
+        helpBtn.setOnClickListener(new View.OnClickListener() {
+            int var = 1;
+            public void onClick(View view) {
+                if(var==1) {
+                    findViewById(R.id.help_seite).startAnimation(slide_left);
+                    findViewById(R.id.help_seite).setVisibility(View.VISIBLE);
+                    findViewById(R.id.help_icon).setBackgroundResource(R.drawable.cancel_icon);
+                    var = 0;
+                }else{
+                    findViewById(R.id.help_seite).startAnimation(slide_right_out);
+                    findViewById(R.id.help_seite).setVisibility(View.GONE);
+                    findViewById(R.id.help_icon).setBackgroundResource(R.drawable.help_icon);
+                    var = 1;
+                }
+            }
+        });
+
+
+        //Bottom Toolbar-----------------------------------------------------------
+        final ImageButton profileBtn = (ImageButton) findViewById(R.id.Profilbtn);
+        final ImageButton runBtn = (ImageButton) findViewById(R.id.Photorunbtn);
+        final ImageButton searchBtn = (ImageButton) findViewById(R.id.Suchbtn);
+
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent myIntent = new Intent(ViewSinglePhotoRun.this, Users.class);
+
+                finish();
+
+                startActivity(myIntent);
+            }
+        });
+
+        runBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent myIntent = new Intent(ViewSinglePhotoRun.this, ViewPhotorunList.class);
+
+                finish();
+
+                startActivity(myIntent);
+            }
+        });
+
+
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent myIntent = new Intent(ViewSinglePhotoRun.this, ProfileActivity.class);
+
+                finish();
+
+                startActivity(myIntent);
+            }
+        });
+//Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
 
         //need to get photorun-ID from another activity!!!
 /*
@@ -118,6 +205,8 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         */
 
         displayPhotoRun(photorun_id);
+
+
     }
 
     public void displayPhotoRun(String photorun_id) {

@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.janda.photorun.Chat.Users;
 import com.example.janda.photorun.Helpers.DatePickerFragment;
 import com.example.janda.photorun.Helpers.TimePickerFragment;
 import com.example.janda.photorun.Login.ProfileActivity;
@@ -115,7 +116,9 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
         searchBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-
+                Intent myIntent = new Intent(CreateRun.this, Users.class);
+                finish();
+                startActivity(myIntent);
             }
         });
 
