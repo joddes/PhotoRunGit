@@ -208,6 +208,7 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
         Photorun newPhotorun = new Photorun(date, description, estimated_duration, photorun_id, starting_time, title, start_point, end_point, status, owner);
 
         mDatabaseRefrence.child("Photorun").child(photorun_id).setValue(newPhotorun);
+        mDatabaseRefrence.child("User").child(owner).child("createdRuns").child(photorun_id).setValue("created");
 
         Toast.makeText(this, "Photorun created...", Toast.LENGTH_LONG).show();
 
