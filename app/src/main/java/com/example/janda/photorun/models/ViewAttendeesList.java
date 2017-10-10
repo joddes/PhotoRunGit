@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.janda.photorun.Login.ProfileActivity;
 import com.example.janda.photorun.Photorun.CreateRun;
@@ -75,6 +76,7 @@ public class ViewAttendeesList extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+
 
         Query queryRef = databasePhotorun.orderByChild("participatedRuns").equalTo(uebergebeneID);
 

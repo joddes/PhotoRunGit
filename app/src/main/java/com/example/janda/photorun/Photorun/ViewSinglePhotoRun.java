@@ -7,12 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatCallback;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.janda.photorun.Features.MapsActivity;
 import com.example.janda.photorun.R;
+import com.example.janda.photorun.models.Photorun;
 import com.example.janda.photorun.models.ViewAttendeesList;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -319,14 +321,22 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
 
 
-
     public void onClick(View view){
         if (view == joinRunButton){
             joinPhotorun();
         }
         if(view == viewAtt){
             finish();
-            startActivity(new Intent(this, ViewAttendeesList.class));
+
+            //creating an intent
+            Intent intent = new Intent(getApplicationContext(), ViewAttendeesList.class);
+
+            //putting artist name and id to intent
+            intent.putExtra(ViewPhotorunList.PHOTORUN_ID, photorun_id);
+            intent.putExtra(ViewPhotorunList.PHOTORUN_TITLE, title);
+            //starting the activity with intent
+            startActivity(intent);
+
         }
     }
 
