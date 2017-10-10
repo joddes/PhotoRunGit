@@ -55,6 +55,10 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
     private String maxPartBuffer;
 
+    public static final String PHOTORUN_STARTPOINT = "com.example.janda.photorun.models.start_point";
+    public static final String PHOTORUN_TITLE = "com.example.janda.photorun.models.title";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -319,9 +323,13 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
                 //closing activity
                 finish();
-                //starting login activity
-                Intent myIntent = new Intent(ViewSinglePhotoRun.this, MapsActivity.class);
-                startActivity(myIntent);
+
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                //putting artist name and id to intent
+                intent.putExtra(PHOTORUN_STARTPOINT, start_point);
+                intent.putExtra(PHOTORUN_TITLE, title);
+                //starting the activity with intent
+                startActivity(intent);
             }
         });
 
