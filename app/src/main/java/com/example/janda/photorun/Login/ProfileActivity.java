@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.janda.photorun.Chat.UserDetails;
+import com.example.janda.photorun.Chat.Users;
 import com.example.janda.photorun.MainActivity;
 import com.example.janda.photorun.Photorun.CreateProfile;
 import com.example.janda.photorun.Photorun.CreateRun;
@@ -100,7 +102,11 @@ public class ProfileActivity extends AppCompatActivity {
         searchBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
+                Intent myIntent = new Intent(ProfileActivity.this, Users.class);
 
+                finish();
+
+                startActivity(myIntent);
             }
         });
 

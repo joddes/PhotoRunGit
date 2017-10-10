@@ -39,6 +39,8 @@
         <activity android:name=".Photorun.ViewPhotorunList" />
         <activity android:name=".MainActivity" />
         <activity android:name=".HomeActivity" />
+        <activity android:name=".Chat.Chat" />
+        <activity android:name=".Chat.Users" />
         <activity android:name=".Features.MapsActivity"/>
         <activity android:name=".Photorun.CreateProfile"></activity>
 
