@@ -80,6 +80,8 @@ public class ViewAttendeesList extends AppCompatActivity {
 
         Query queryRef = databasePhotorun.orderByChild("participatedRuns").equalTo(uebergebeneID);
 
+        Toast.makeText(this, uebergebeneID, Toast.LENGTH_LONG).show();
+
         queryRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
