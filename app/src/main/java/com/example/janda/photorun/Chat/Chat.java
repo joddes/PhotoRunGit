@@ -1,16 +1,23 @@
 package com.example.janda.photorun.Chat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.example.janda.photorun.Login.ProfileActivity;
+import com.example.janda.photorun.Photorun.ViewPhotorunList;
 import com.example.janda.photorun.R;
 
 import com.firebase.client.ChildEventListener;
@@ -30,6 +37,7 @@ public class Chat extends AppCompatActivity {
     EditText messageArea;
     ScrollView scrollView;
     Firebase reference1, reference2;
+    TextView toolbar_Textview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +106,86 @@ public class Chat extends AppCompatActivity {
 
             }
         });
+
+        //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        //TOP TOOLBAR------------------------------------------------------------------
+        toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
+        toolbar_Textview.setText("Schreibe eine Nachricht");
+
+        final ImageButton logoutBtn = (ImageButton) findViewById(R.id.logout_icon);
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent myIntent = new Intent(Chat.this, Users.class);
+
+                finish();
+
+                startActivity(myIntent);
+            }
+        });
+
+        //Help Button, muss auf jeder Seite sein
+        final ImageButton helpBtn = (ImageButton) findViewById(R.id.help_icon);
+        final Animation slide_left = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
+        final Animation slide_right_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right_out);
+        helpBtn.setOnClickListener(new View.OnClickListener() {
+            int var = 1;
+            public void onClick(View view) {
+                if(var==1) {
+                    findViewById(R.id.help_seite).startAnimation(slide_left);
+                    findViewById(R.id.help_seite).setVisibility(View.VISIBLE);
+                    findViewById(R.id.help_icon).setBackgroundResource(R.drawable.cancel_icon);
+                    var = 0;
+                }else{
+                    findViewById(R.id.help_seite).startAnimation(slide_right_out);
+                    findViewById(R.id.help_seite).setVisibility(View.GONE);
+                    findViewById(R.id.help_icon).setBackgroundResource(R.drawable.help_icon);
+                    var = 1;
+                }
+            }
+        });
+
+
+        //Bottom Toolbar-----------------------------------------------------------
+        final ImageButton profileBtn = (ImageButton) findViewById(R.id.Profilbtn);
+        final ImageButton runBtn = (ImageButton) findViewById(R.id.Photorunbtn);
+        final ImageButton searchBtn = (ImageButton) findViewById(R.id.Suchbtn);
+
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent myIntent = new Intent(Chat.this, Users.class);
+
+                finish();
+
+                startActivity(myIntent);
+            }
+        });
+
+        runBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent myIntent = new Intent(Chat.this, ViewPhotorunList.class);
+
+                finish();
+
+                startActivity(myIntent);
+            }
+        });
+
+
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent myIntent = new Intent(Chat.this, ProfileActivity.class);
+
+                finish();
+
+                startActivity(myIntent);
+            }
+        });
+//Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     }
 
     public void addMessageBox(String message, int type){

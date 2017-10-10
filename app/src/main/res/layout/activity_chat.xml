@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_weight="20"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollView">
+        android:id="@+id/scrollView"
+        android:layout_marginTop="50dp">
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                           android:id="@+id/layout2"
                           android:layout_width="match_parent"
@@ -24,9 +25,8 @@
         </RelativeLayout>
     </ScrollView>
 
-    <include
-        layout="@layout/message_area"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+    <include layout="@layout/message_area" />
+    <include layout="@layout/layout_top_bar"/>
+    <include layout="@layout/layout_bottom_navigation"/>
+    <include layout="@layout/help_seite"/>
 </RelativeLayout>
