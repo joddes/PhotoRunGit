@@ -6,14 +6,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.janda.photorun.Login.ProfileActivity;
 import com.example.janda.photorun.R;
-import com.example.janda.photorun.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +25,7 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
 
     private FloatingActionButton submitButton;
 
-    private EditText username, name;
+    private EditText name, phonenumber, personal_information, address, role;
 
     private DatabaseReference databaseProfiles;
 
@@ -56,9 +54,18 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
 
 
         name = (EditText) findViewById(R.id.name);
+
+        phonenumber = (EditText) findViewById(R.id.phonenumber);
+
+        personal_information = (EditText) findViewById(R.id.personal_information);
+
+        address = (EditText) findViewById(R.id.address);
+
         email = (TextView) findViewById(R.id.mail);
 
         email.setText(user.getEmail());
+
+        role = (EditText) findViewById(R.id.role);
 
 
 
@@ -78,27 +85,48 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         databaseProfiles =  FirebaseDatabase.getInstance().getReference();
         aktuelleUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        String user_name = username.getText().toString().trim();
+        String addr = address.getText().toString().trim();
         String full_name = name.getText().toString().trim();
         String email =  user.getEmail();
         String user_id = aktuelleUserID;
+        String phone = phonenumber.getText().toString().trim();
+        String personalinf = personal_information.getText().toString().trim();
+        String rolle = role.getText().toString().trim();
 
 
-        if(TextUtils.isEmpty(user_name)) {
-            Toast.makeText(this, "Please enter username", Toast.LENGTH_SHORT).show();
+        if(TextUtils.isEmpty(addr)) {
+            Toast.makeText(this, "Please enter address", Toast.LENGTH_SHORT).show();
             //stopping the function
             return;
         }
 
         if(TextUtils.isEmpty(full_name)) {
-            Toast.makeText(this, "Please enter Full name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter full name", Toast.LENGTH_SHORT).show();
+            //stopping the function
+            return;
+        }
+
+        if(TextUtils.isEmpty(phone)) {
+            Toast.makeText(this, "Please enter phonenumber", Toast.LENGTH_SHORT).show();
+            //stopping the function
+            return;
+        }
+
+        if(TextUtils.isEmpty(personalinf)) {
+            Toast.makeText(this, "Please enter personal information", Toast.LENGTH_SHORT).show();
+            //stopping the function
+            return;
+        }
+
+        if(TextUtils.isEmpty(rolle)) {
+            Toast.makeText(this, "Please enter role", Toast.LENGTH_SHORT).show();
             //stopping the function
             return;
         }
 
 
         //create phtoruns object
-        User newUserTest = new User(user_id, email, full_name, user_name);
+        User newUserTest = new User(user_id, email, full_name, addr, phone, rolle, personalinf);
 
 
 
@@ -116,9 +144,10 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
 
         if(view == submitButton){
+            createRun();
             finish();
             //go back to Create Photorun
-            startActivity(new Intent(this, com.example.janda.photorun.Photorun.CreateProfile.class));
+            startActivity(new Intent(this, ProfileActivity.class));
         }
 
     }

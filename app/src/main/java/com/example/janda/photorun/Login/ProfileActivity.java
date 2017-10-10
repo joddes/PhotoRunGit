@@ -19,10 +19,12 @@ import android.widget.TextView;
 import com.example.janda.photorun.Chat.UserDetails;
 import com.example.janda.photorun.Chat.Users;
 import com.example.janda.photorun.MainActivity;
-import com.example.janda.photorun.Photorun.CreateProfile;
+
 import com.example.janda.photorun.Photorun.CreateRun;
 import com.example.janda.photorun.Photorun.ViewPhotorunList;
 import com.example.janda.photorun.Photorun.ViewSinglePhotoRun;
+import com.example.janda.photorun.models.CreateProfile;
+import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -30,28 +32,53 @@ import android.view.MenuItem.OnMenuItemClickListener;
 import android.widget.Toast;
 
 import com.example.janda.photorun.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import static android.support.v7.appcompat.R.attr.title;
 
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     //firebase auth object
     private FirebaseAuth firebaseAuth;
 
     //view objects
-    private TextView textViewUserEmail;
+    private TextView textViewUserEmail, textViewphone, textViewname, textViewhobbies, textViewaddress, textViewrole;
    // private Button buttonLogout;
     // private Button buttonPhotorun;
     private Menu bottomMenu;
 
     private TextView toolbar_Textview;
 
+    String userID, mail, phonenumber, name, hobbies, address, role;
+
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+    private DatabaseReference mRef;
+
+    private FloatingActionButton settingsBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+
+        userID = user.getUid();
+
+
+
+        mRef = FirebaseDatabase.getInstance().getReference().child("User");
+
         //initializing firebase authentication object
         firebaseAuth = FirebaseAuth.getInstance();
+
+
+
 
         //if the User is not logged in
         //that means current User will return null
@@ -62,11 +89,15 @@ public class ProfileActivity extends AppCompatActivity {
             startActivity(new Intent(this, LoginActivity.class));
         }
 
-        //getting current User
-        FirebaseUser user = firebaseAuth.getCurrentUser();
 
         //initializing views
-        textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
+        textViewUserEmail = (TextView) findViewById(R.id.mail);
+        textViewaddress = (TextView) findViewById(R.id.address);
+        textViewhobbies = (TextView) findViewById(R.id.personal_information);
+        textViewname = (TextView) findViewById(R.id.name);
+        textViewphone = (TextView) findViewById(R.id.phonenumber);
+        textViewrole = (TextView) findViewById(R.id.role);
+
         //buttonLogout = (Button) findViewById(R.id.buttonLogout);
        // buttonPhotorun = (Button) findViewById(R.id.createRunbutton);
 
@@ -81,7 +112,8 @@ public class ProfileActivity extends AppCompatActivity {
         //buttonPhotorun.setOnClickListener(this);
 
         //Floating button settings
-        final FloatingActionButton settingsBtn = (FloatingActionButton) findViewById(R.id.goToSettings);
+        settingsBtn = (FloatingActionButton) findViewById(R.id.goToSettings);
+        settingsBtn.setOnClickListener(this);
 
         settingsBtn.setOnClickListener(new View.OnClickListener() {
 
@@ -92,6 +124,8 @@ public class ProfileActivity extends AppCompatActivity {
 
                 startActivity(myIntent);
             }
+
+
         });
 
         //Create Button
@@ -176,29 +210,122 @@ public class ProfileActivity extends AppCompatActivity {
         toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
         toolbar_Textview.setText("Startseite");
 
+        displayPhotoRun(userID);
+
 
 
     }
 
-    /*@Override
+    public void displayPhotoRun(String userID) {
+        DatabaseReference email = mRef.child(userID).child("email");
+
+        email.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mail = dataSnapshot.getValue(String.class);
+                textViewUserEmail.setText(mail);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        DatabaseReference addr = mRef.child(userID).child("address");
+
+        addr.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+               address  = dataSnapshot.getValue(String.class);
+                textViewaddress.setText(address);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        DatabaseReference phonenum = mRef.child(userID).child("phonenumber");
+
+        phonenum.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                phonenumber = dataSnapshot.getValue(String.class);
+                textViewphone.setText(phonenumber);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        DatabaseReference fullname = mRef.child(userID).child("full_name");
+
+        fullname.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                name = dataSnapshot.getValue(String.class);
+                textViewname.setText(name);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        DatabaseReference rol = mRef.child(userID).child("role");
+
+        rol.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                role = dataSnapshot.getValue(String.class);
+                textViewrole.setText(role);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        DatabaseReference hob = mRef.child(userID).child("personalInf");
+
+        hob.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                hobbies = dataSnapshot.getValue(String.class);
+                textViewhobbies.setText(hobbies);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+    @Override
     public void onClick(View view) {
 
         //if logout is pressed
-        if(view == buttonLogout){
+        if(view == settingsBtn){
             //logging out the User
-            firebaseAuth.signOut();
             //closing activity
             finish();
             //starting login activity
-            startActivity(new Intent(this, LoginActivity.class));
-        }
-        if(view == buttonPhotorun){
-            finish();
-            //go back to Create Photorun
-            startActivity(new Intent(this, CreateRun.class));
+            startActivity(new Intent(this, CreateProfile.class));
         }
 
-        }*/
+
+        }
 
 
   /*  @Override

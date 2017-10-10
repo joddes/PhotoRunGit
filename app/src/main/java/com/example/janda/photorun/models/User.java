@@ -9,13 +9,21 @@ public class User {
     private String user_id;
     private String email;
     private String full_name;
-    private String username;
+    private String address;
+    private String phonenumber;
+    private String role;
+    private String personalInf;
 
-    public User(String user_id, String email, String full_name, String username) {
+    public User(String user_id, String email, String full_name, String address, String phonenumber, String role, String personalInf) {
         this.user_id = user_id;
         this.email = email;
         this.full_name = full_name;
-        this.username = username;
+        this.address = address;
+        this.phonenumber = phonenumber;
+        this.role = role;
+        this.personalInf = personalInf;
+
+
     }
 
     public User(){
@@ -46,13 +54,39 @@ public class User {
         this.full_name = full_name;
     }
 
-    public String getUsername() {
-        return username;
+    public String getAddress() {
+        return address;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setAddress(String address) {
+        this.address = address;
     }
+
+    public String getPersonalInf() {
+        return personalInf;
+    }
+
+    public void setPersonalInf(String personalInf) {
+        this.personalInf = personalInf;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
 
     @Override
     public String toString() {
@@ -60,7 +94,7 @@ public class User {
                 "user_id='" + user_id + '\'' +
                 ", email='" + email + '\'' +
                 ", full_name='" + full_name + '\'' +
-                ", username='" + username + '\'' +
+                ", address='" + address + '\'' +
                 '}';
     }
 }

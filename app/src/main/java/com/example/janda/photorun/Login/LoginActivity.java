@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.janda.photorun.Photorun.CreateRun;
 import com.example.janda.photorun.R;
+import com.example.janda.photorun.models.CreateProfile;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -169,7 +170,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                 //start the profile activity
                                                 findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
                                                 finish();
-                                                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                                                startActivity(new Intent(getApplicationContext(), CreateProfile.class));
                                                 findViewById(R.id.progressBar).setVisibility(View.GONE);
                                         }
                                         else{
