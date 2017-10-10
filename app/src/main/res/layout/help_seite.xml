@@ -5,7 +5,9 @@
     android:paddingRight="10dp"
     android:id="@+id/help_seite"
     android:visibility="gone"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:layout_marginTop="50dp"
+    android:layout_marginBottom="50dp">
 
     <TextView
         android:id="@+id/help_caption"
@@ -29,19 +31,5 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/help_caption"/>
-
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:background="@drawable/cancel_icon"
-        android:id="@+id/cancel_btn"
-        android:src="@drawable/cancel_icon"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="67dp" />
-
 
 </RelativeLayout>

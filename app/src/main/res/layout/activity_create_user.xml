@@ -1,70 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:orientation="vertical">
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-<TextView
-    android:id="@+id/create_photowalk"
-    android:layout_width="368dp"
-    android:layout_height="40dp"
-    android:layout_gravity="center_horizontal"
-    android:text="Create User"
-    android:textAppearance="?android:attr/textAppearanceLarge" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:layout_gravity="center"
+        android:id="@+id/user_background_photo"
+        android:background="@drawable/user_profile_photo"
+        android:layout_centerHorizontal="true"/>
 
-<TextView
-    android:layout_width="368dp"
-    android:layout_height="40dp"
-    android:layout_alignParentTop="true"
-    android:layout_gravity="center_horizontal"
-    android:layout_marginTop="120dp"
-    android:text="Username"
-    android:textAppearance="?android:attr/textAppearanceLarge"
-    android:textSize="16dp" />
+    <ImageView
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_gravity="center"
+        android:id="@+id/user_profil_photo"
+        android:layout_marginTop="175dp"
+        android:background="@drawable/profile_photo"
+        android:layout_centerHorizontal="true"/>
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Vorname, Nachname"
+        android:inputType="textEmailAddress"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/spin"
+        android:layout_centerHorizontal="true"/>
+    <!--<android.support.v7.widget.AppCompatButton
+        android:layout_width="115dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="135dp"
+        android:text="My Walks"
+        android:textSize="12dp"
+        android:id="@+id/PhotowalkButton"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"/>
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="115dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="135dp"
+        android:layout_marginLeft="115dp"
+        android:text="My Photos"
+        android:textSize="12dp"
+        android:id="@+id/PhotoButton"
+        android:layout_alignParentTop="true"/>
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="115dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="135dp"
+        android:layout_marginLeft="115dp"
+        android:text="My Contacts"
+        android:textSize="12dp"
+        android:id="@+id/ContactButton"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"/>-->
 
-<EditText
-    android:id="@+id/username"
-    android:layout_width="364dp"
-    android:layout_height="53dp"
-    android:layout_alignParentTop="true"
-    android:layout_marginTop="140dp"
-    android:background="@drawable/text_box"
-    android:hint="username" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/address"
+        android:hint="Street with House Nr, ZIP Code Town"
+        android:layout_below="@id/name"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"/>
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="40dp"
-    android:layout_alignParentTop="true"
-    android:layout_gravity="center_horizontal"
-    android:layout_marginTop="210dp"
-    android:text="Full name:"
-    android:textAppearance="?android:attr/textAppearanceLarge"
-    android:textSize="16dp" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spin"
+        android:hint="Photographer"
+        android:layout_below="@+id/user_profil_photo"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mail"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentLeft="true"
+        android:hint="Email adress"
+        android:layout_below="@+id/user_background_photo"
+        android:layout_marginLeft="10dp"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/phonenumber"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"
+        android:hint="Phonenumber"
+        android:layout_below="@+id/user_background_photo"/>
 
-<EditText
-    android:id="@+id/fullname"
-    android:layout_width="160dp"
-    android:layout_height="30dp"
-    android:layout_alignParentTop="true"
-    android:layout_marginTop="230dp"
-    android:background="@drawable/text_box"
-    android:hint="Enter full name"
-    android:paddingLeft="5dp"
-    android:textSize="15dp" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/personal_information"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"
+        android:hint="Hobbies and Interests are breakdance hpe uni sport blalabalahslohjdjudjdjdjdj"
+        android:layout_below="@+id/address"
+        android:layout_centerHorizontal="true"/>
 
-<android.support.v7.widget.AppCompatButton
-    android:id="@+id/submit_user"
-    android:layout_width="85dp"
-    android:layout_height="38dp"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentRight="true"
-    android:layout_gravity="center"
-    android:layout_marginBottom="20dp"
-    android:layout_marginRight="20dp"
-    android:background="@drawable/orange_rounded_button"
-    android:padding="12dp"
-    android:text="Create"
-    android:textSize="12dp"
-    android:transitionName="login" />
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/save_icon"
+        android:id="@+id/submit_user"
+        android:src="@drawable/save_icon"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="67dp" />
+
+
+    <include layout="@layout/layout_top_bar"/>
+    <include layout="@layout/layout_bottom_navigation" />
+    <include layout="@layout/help_seite"/>
 </RelativeLayout>
-

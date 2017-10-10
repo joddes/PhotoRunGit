@@ -46,7 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_profile);
 
         //initializing firebase authentication object
         firebaseAuth = FirebaseAuth.getInstance();
@@ -72,11 +72,25 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         //displaying logged in User name
-        textViewUserEmail.setText("Logged in as: "+user.getEmail());
+        //textViewUserEmail.setText("Logged in as: "+user.getEmail());
 
         //adding listener to button
         //buttonLogout.setOnClickListener(this);
         //buttonPhotorun.setOnClickListener(this);
+
+        //Floating button settings
+        final FloatingActionButton settingsBtn = (FloatingActionButton) findViewById(R.id.goToSettings);
+
+        settingsBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent myIntent = new Intent(ProfileActivity.this, CreateProfile.class);
+
+                finish();
+
+                startActivity(myIntent);
+            }
+        });
 
         //Create Button
         final ImageButton profileBtn = (ImageButton) findViewById(R.id.Profilbtn);
@@ -132,24 +146,25 @@ public class ProfileActivity extends AppCompatActivity {
 
         //Help Button, muss auf jeder Seite sein
         final ImageButton helpBtn = (ImageButton) findViewById(R.id.help_icon);
-        final FloatingActionButton cancel_btn = (FloatingActionButton) findViewById(R.id.cancel_btn);
         final Animation slide_left = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
         final Animation slide_right_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right_out);
         helpBtn.setOnClickListener(new View.OnClickListener() {
-
+            int var = 1;
             public void onClick(View view) {
-                findViewById(R.id.help_seite).startAnimation(slide_left);
-                findViewById(R.id.help_seite).setVisibility(View.VISIBLE);
+                if(var==1) {
+                    findViewById(R.id.help_seite).startAnimation(slide_left);
+                    findViewById(R.id.help_seite).setVisibility(View.VISIBLE);
+                    findViewById(R.id.help_icon).setBackgroundResource(R.drawable.cancel_icon);
+                    var = 0;
+                }else{
+                    findViewById(R.id.help_seite).startAnimation(slide_right_out);
+                    findViewById(R.id.help_seite).setVisibility(View.GONE);
+                    findViewById(R.id.help_icon).setBackgroundResource(R.drawable.help_icon);
+                    var = 1;
+                }
             }
         });
 
-        cancel_btn.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-                findViewById(R.id.help_seite).startAnimation(slide_right_out);
-                findViewById(R.id.help_seite).setVisibility(View.GONE);
-            }
-        });
 
         //TOP TOOLBAR
         toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);

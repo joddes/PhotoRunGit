@@ -2,6 +2,7 @@ package com.example.janda.photorun.Photorun;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -23,9 +24,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class CreateProfile extends AppCompatActivity implements View.OnClickListener {
 
-    private Button submitButton;
+    private FloatingActionButton submitButton;
 
-    private EditText username, name;
+    private EditText number, name;
 
     private DatabaseReference databaseProfiles;
 
@@ -45,22 +46,12 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         //Test: Toast.makeText(CreateProfile.this, databaseProfiles.getKey(), Toast.LENGTH_SHORT).show();
 
 
-        submitButton = (Button) findViewById(R.id.submit_user);
+        submitButton = (FloatingActionButton) findViewById(R.id.submit_user);
         submitButton.setOnClickListener(this);
 
 
-        username = (EditText) findViewById(R.id.username);
-        name = (EditText) findViewById(R.id.fullname);
-
-
-
-
-
-
-
-
-
-
+        number = (EditText) findViewById(R.id.phonenumber);
+        name = (EditText) findViewById(R.id.name);
 
     }
 
@@ -68,7 +59,7 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         databaseProfiles =  FirebaseDatabase.getInstance().getReference();
         aktuelleUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        String user_name = username.getText().toString().trim();
+        String user_name = number.getText().toString().trim();
         String full_name = name.getText().toString().trim();
         String email =  user.getEmail();
         String user_id = aktuelleUserID;

@@ -1,9 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.janda.photorun.Photorun.ProfileActivity">
+    android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:layout_gravity="center"
+        android:id="@+id/user_background_photo"
+        android:background="@drawable/user_profile_photo"
+        android:layout_centerHorizontal="true"/>
+
+    <ImageView
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_gravity="center"
+        android:id="@+id/user_profil_photo"
+        android:layout_marginTop="175dp"
+        android:background="@drawable/profile_photo"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Jan-David, Brustik"
+        android:inputType="textEmailAddress"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/spin"
+        android:layout_centerHorizontal="true"/>
+    <!--<android.support.v7.widget.AppCompatButton
+        android:layout_width="115dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="135dp"
+        android:text="My Walks"
+        android:textSize="12dp"
+        android:id="@+id/PhotowalkButton"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"/>
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="115dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="135dp"
+        android:layout_marginLeft="115dp"
+        android:text="My Photos"
+        android:textSize="12dp"
+        android:id="@+id/PhotoButton"
+        android:layout_alignParentTop="true"/>
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="115dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="135dp"
+        android:layout_marginLeft="115dp"
+        android:text="My Contacts"
+        android:textSize="12dp"
+        android:id="@+id/ContactButton"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"/>-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/address"
+        android:hint="Street with House Nr, ZIP Code Town"
+        android:layout_below="@id/name"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spin"
+        android:hint="Photographer"
+        android:layout_below="@+id/user_profil_photo"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mail"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentLeft="true"
+        android:hint="janixboy@outlook.de"
+        android:layout_below="@+id/user_background_photo"
+        android:layout_marginLeft="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/phonenumber"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"
+        android:hint="015778844436"
+        android:layout_below="@+id/user_background_photo"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/personal_information"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"
+        android:hint="Hobbies and Interests are breakdance hpe uni sport blalabalahslohjdjudjdjdjdj"
+        android:layout_below="@+id/address"
+        android:layout_centerHorizontal="true"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/profile_settings_icon"
+        android:id="@+id/goToSettings"
+        android:src="@drawable/profile_settings_icon"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="67dp" />
+
+
+    <include layout="@layout/layout_top_bar"/>
+    <include layout="@layout/layout_bottom_navigation" />
+    <include layout="@layout/help_seite"/>
+</RelativeLayout>
