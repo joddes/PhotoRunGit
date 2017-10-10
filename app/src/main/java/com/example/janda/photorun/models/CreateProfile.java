@@ -53,17 +53,13 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         submitButton.setOnClickListener(this);
 
 
-<<<<<<< HEAD
-
         name = (EditText) findViewById(R.id.name);
         email = (TextView) findViewById(R.id.mail);
 
         email.setText(user.getEmail());
 
-=======
         username = (EditText) findViewById(R.id.phonenumber);
         name = (EditText) findViewById(R.id.name);
->>>>>>> a660320f7ea08402081f0c344700c6e30fcc3edf
 
 
 

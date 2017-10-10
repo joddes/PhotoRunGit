@@ -41,7 +41,7 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".Chat.Chat" />
         <activity android:name=".Chat.Users" />
-        <activity android:name=".Features.MapsActivity"/>
+        <activity android:name=".GoogleMaps.MapsActivity"/>
         <activity android:name=".models.CreateProfile"></activity>
         <activity android:name=".models.ViewAttendeesList"></activity>
 

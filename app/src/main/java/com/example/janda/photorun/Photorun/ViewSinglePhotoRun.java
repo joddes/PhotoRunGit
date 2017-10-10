@@ -4,14 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatCallback;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.janda.photorun.Features.MapsActivity;
+import com.example.janda.photorun.GoogleMaps.MapsActivity;
 import com.example.janda.photorun.R;
 import com.example.janda.photorun.models.ViewAttendeesList;
 import com.google.firebase.auth.FirebaseAuth;
@@ -228,7 +227,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
                 //closing activity
                 finish();
-                //starting login activity
+                //starting maps activity
                 Intent myIntent = new Intent(ViewSinglePhotoRun.this, MapsActivity.class);
                 startActivity(myIntent);
             }
