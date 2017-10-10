@@ -24,6 +24,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,13 +42,15 @@ public class Users extends AppCompatActivity {
     ArrayList<String> al = new ArrayList<>();
     int totalUsers = 0;
     ProgressDialog pd;
+    private DatabaseReference mDatabase;
 
+    private DatabaseReference mRef;
     private FirebaseAuth mAuth;
 
     static String username = "";
     static String password = "";
-    static String chatWith = "";
-
+    static String gegen = "";
+    static String name = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,12 +58,16 @@ public class Users extends AppCompatActivity {
 
         usersList = (ListView)findViewById(R.id.usersList);
         noUsersText = (TextView)findViewById(R.id.noUsersText);
+        mRef = FirebaseDatabase.getInstance().getReference().child("User");
 
         pd = new ProgressDialog(Users.this);
         pd.setMessage("Loading...");
         pd.show();
 
+        String userid = mAuth.getInstance().getCurrentUser().getUid();
+
         String url = "https://photorun-3f474.firebaseio.com/User.json";
+
 
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
             @Override
@@ -77,6 +88,7 @@ public class Users extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 UserDetails.chatWith = al.get(position);
+                findFullName(al.get(position));
                 startActivity(new Intent(Users.this, Chat.class));
             }
         });
@@ -160,14 +172,12 @@ public class Users extends AppCompatActivity {
     public void doOnSuccess(String s){
         try {
             JSONObject obj = new JSONObject(s);
-
             Iterator i = obj.keys();
             String key = "";
             username = mAuth.getInstance().getCurrentUser().getUid();
 
             while(i.hasNext()){
                 key = i.next().toString();
-
                 if(!key.equals(username)) {
                     al.add(key);
                 }
@@ -190,5 +200,21 @@ public class Users extends AppCompatActivity {
         }
 
         pd.dismiss();
+    }
+
+    public void findFullName(String key){
+
+        DatabaseReference fullname = mRef.child(key).child("full_name");
+        fullname.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                name = dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
