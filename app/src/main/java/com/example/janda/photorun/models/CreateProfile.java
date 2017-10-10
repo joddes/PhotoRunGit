@@ -2,6 +2,7 @@ package com.example.janda.photorun.models;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -24,7 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class CreateProfile extends AppCompatActivity implements View.OnClickListener {
 
-    private Button submitButton;
+    private FloatingActionButton submitButton;
 
     private EditText username, name;
 
@@ -48,16 +49,21 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         //Test: Toast.makeText(CreateProfile.this, databaseProfiles.getKey(), Toast.LENGTH_SHORT).show();
 
 
-        submitButton = (Button) findViewById(R.id.submit_user);
+        submitButton = (FloatingActionButton) findViewById(R.id.submit_user);
         submitButton.setOnClickListener(this);
 
 
+<<<<<<< HEAD
 
         name = (EditText) findViewById(R.id.name);
         email = (TextView) findViewById(R.id.mail);
 
         email.setText(user.getEmail());
 
+=======
+        username = (EditText) findViewById(R.id.phonenumber);
+        name = (EditText) findViewById(R.id.name);
+>>>>>>> a660320f7ea08402081f0c344700c6e30fcc3edf
 
 
 
@@ -113,7 +119,9 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
 
         if(view == submitButton){
-            createRun();
+            finish();
+            //go back to Create Photorun
+            startActivity(new Intent(this, com.example.janda.photorun.Photorun.CreateProfile.class));
         }
 
     }
