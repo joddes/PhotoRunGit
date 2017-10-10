@@ -197,11 +197,11 @@ public class Chat extends AppCompatActivity {
 
         if(type == 1) {
             lp2.gravity = Gravity.LEFT;
-            textView.setBackgroundResource(R.drawable.bubble_out);
+            textView.setBackgroundResource(R.drawable.helle_bubble);
         }
         else{
             lp2.gravity = Gravity.RIGHT;
-            textView.setBackgroundResource(R.drawable.bubble_in);
+            textView.setBackgroundResource(R.drawable.dunkle_bubble);
         }
         textView.setLayoutParams(lp2);
         layout.addView(textView);
