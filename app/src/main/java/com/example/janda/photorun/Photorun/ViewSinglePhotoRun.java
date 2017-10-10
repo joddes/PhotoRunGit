@@ -6,12 +6,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
-<<<<<<< HEAD
+
 import android.widget.AdapterView;
-=======
+
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
->>>>>>> 60bbf7d4fb57c675cb6b860bfcc1c2de49d1840d
+
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
