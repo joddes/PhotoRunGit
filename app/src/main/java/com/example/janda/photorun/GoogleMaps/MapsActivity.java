@@ -21,6 +21,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
@@ -29,8 +30,9 @@ import java.util.List;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private Marker locationMarker;
 
-    private String location1, title;
+    private String startpoint, title, endpoint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +48,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
         Intent intent = getIntent();
-        location1 = intent.getStringExtra(ViewSinglePhotoRun.PHOTORUN_STARTPOINT);
+        startpoint = intent.getStringExtra(ViewSinglePhotoRun.PHOTORUN_STARTPOINT);
         title = intent.getStringExtra(ViewSinglePhotoRun.PHOTORUN_TITLE);
+
 
 
 
@@ -57,7 +61,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
         mMap.setMyLocationEnabled(true);
-        String location = location1;
+        String location = startpoint;
 
         Toast.makeText(this, location, Toast.LENGTH_LONG).show();
 
@@ -74,8 +78,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             Address address = addressList.get(0);
             LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(latLng).title(title));
-            mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+            locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Startpoint: " +title));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 15));
 
         }
     }
@@ -97,24 +101,47 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             Address address = addressList.get(0);
             LatLng latLng = new LatLng(address.getLatitude() , address.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
-            mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+            locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 15));
 
         }
     }
 
 
 
-    public void changeType(View view)
-    {
-        if(mMap.getMapType() == GoogleMap.MAP_TYPE_NORMAL)
+    public void changeType(View view) {
+        /*if(mMap.getMapType() == GoogleMap.MAP_TYPE_NORMAL)
         {
             mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         }
         else
             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+            */
+        Intent intent = getIntent();
+        endpoint = intent.getStringExtra(ViewSinglePhotoRun.PHOTORUN_ENDPOINT);
+        String location = endpoint;
+
+        Toast.makeText(this, location, Toast.LENGTH_LONG).show();
+
+        List<Address> addressList = null;
+        if (location != null || !location.equals("")) {
+            Geocoder geocoder = new Geocoder(this);
+            try {
+                addressList = geocoder.getFromLocationName(location, 1);
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Address address = addressList.get(0);
+            LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+            locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Endpoint: " +title));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 15));
+
+
+        }
+
+
     }
-
-
-
 }
