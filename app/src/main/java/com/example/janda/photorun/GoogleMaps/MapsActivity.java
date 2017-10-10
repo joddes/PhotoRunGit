@@ -19,7 +19,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
@@ -28,8 +30,9 @@ import java.util.List;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private Marker locationMarker;
 
-    private String location1, title;
+    private String startpoint, title, endpoint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,33 +50,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         Intent intent = getIntent();
-
-        location1 = intent.getStringExtra(ViewSinglePhotoRun.PHOTORUN_STARTPOINT);
+        startpoint = intent.getStringExtra(ViewSinglePhotoRun.PHOTORUN_STARTPOINT);
         title = intent.getStringExtra(ViewSinglePhotoRun.PHOTORUN_TITLE);
 
 
 
-        // Add a marker in Sydney, Australia, and move the camera.
-        //LatLng sydney = new LatLng(-34, 151);
+
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-
             return;
         }
         mMap.setMyLocationEnabled(true);
-        String location = location1;
+        String location = startpoint;
 
         Toast.makeText(this, location, Toast.LENGTH_LONG).show();
-
-
-
 
         List<Address> addressList = null;
         if (location != null || !location.equals("")) {
@@ -88,9 +78,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             Address address = addressList.get(0);
             LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(latLng).title(title));
-            mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-
+            locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Startpoint: " +title));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 15));
 
         }
     }
@@ -112,9 +101,47 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             Address address = addressList.get(0);
             LatLng latLng = new LatLng(address.getLatitude() , address.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
-            mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+            locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 15));
 
         }
+    }
+
+
+
+    public void changeType(View view) {
+        /*if(mMap.getMapType() == GoogleMap.MAP_TYPE_NORMAL)
+        {
+            mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        }
+        else
+            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+            */
+        Intent intent = getIntent();
+        endpoint = intent.getStringExtra(ViewSinglePhotoRun.PHOTORUN_ENDPOINT);
+        String location = endpoint;
+
+        Toast.makeText(this, location, Toast.LENGTH_LONG).show();
+
+        List<Address> addressList = null;
+        if (location != null || !location.equals("")) {
+            Geocoder geocoder = new Geocoder(this);
+            try {
+                addressList = geocoder.getFromLocationName(location, 1);
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Address address = addressList.get(0);
+            LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+            locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Endpoint: " +title));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 15));
+
+
+        }
+
+
     }
 }

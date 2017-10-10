@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textColorHint="#CFD8DC"
-        android:textColor="#CFD8DC"
+        android:textColor="@color/colorAccent"
         android:hint="Write a message..."
         android:id="@+id/messageArea"
         android:maxHeight="80dp"
@@ -25,5 +25,5 @@
         android:id="@+id/sendButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="50dp"/>
+        android:layout_marginBottom="53dp"/>
 </RelativeLayout>

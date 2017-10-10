@@ -21,6 +21,16 @@
             android:id="@+id/Bsearch"
             android:layout_gravity="right"
             android:onClick="onSearch" />
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Destination"
+            android:id="@+id/Btype"
+            android:layout_gravity="right"
+            android:nestedScrollingEnabled="false"
+            android:onClick="changeType" />
+
 
     </LinearLayout>
 
@@ -37,7 +47,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context="com.example.janda.photorun.GoogleMaps.MapsActivity" />
-
 
     </LinearLayout>
 </LinearLayout>
