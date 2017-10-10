@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatCallback;
+import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.janda.photorun.Features.MapsActivity;
 import com.example.janda.photorun.R;
+import com.example.janda.photorun.models.ViewAttendeesList;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +30,8 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
     private TextView title_Textview, date_Textview, startpoint_Textview, endpoint_Textview, starttime_Textview, duration_Textview, participants_Textview, description_Textview;
 
     private FloatingActionButton joinRunButton;
+
+    private AppCompatButton viewAtt;
 
     private String date, description, end_point, estimated_duration, max_participators, start_point, starting_time, title;
 
@@ -63,10 +68,14 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         joinRunButton = (FloatingActionButton) findViewById(R.id.JoinButton);
         joinRunButton.setOnClickListener(this);
 
+        viewAtt = (AppCompatButton) findViewById(R.id.attendee_list);
+        viewAtt.setOnClickListener(this);
+
 
         Intent intent = getIntent();
 
         photorun_id = intent.getStringExtra(ViewPhotorunList.PHOTORUN_ID);
+
 
         //need to get photorun-ID from another activity!!!
 /*
@@ -314,6 +323,10 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
     public void onClick(View view){
         if (view == joinRunButton){
             joinPhotorun();
+        }
+        if(view == viewAtt){
+            finish();
+            startActivity(new Intent(this, ViewAttendeesList.class));
         }
     }
 

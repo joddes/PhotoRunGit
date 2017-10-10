@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.janda.photorun.Login.ProfileActivity;
@@ -29,6 +30,8 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
 
     private DatabaseReference databaseProfiles;
 
+    private TextView email;
+
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 
@@ -49,8 +52,12 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         submitButton.setOnClickListener(this);
 
 
-        username = (EditText) findViewById(R.id.username);
-        name = (EditText) findViewById(R.id.fullname);
+
+        name = (EditText) findViewById(R.id.name);
+        email = (TextView) findViewById(R.id.mail);
+
+        email.setText(user.getEmail());
+
 
 
 

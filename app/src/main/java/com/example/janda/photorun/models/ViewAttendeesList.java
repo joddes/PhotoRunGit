@@ -76,7 +76,7 @@ public class ViewAttendeesList extends AppCompatActivity {
         super.onStart();
         findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
-        Query queryRef = databasePhotorun.orderByChild("photoruns").equalTo(uebergebeneID);
+        Query queryRef = databasePhotorun.orderByChild("participatedRuns").equalTo(uebergebeneID);
 
         queryRef.addValueEventListener(new ValueEventListener() {
             @Override
