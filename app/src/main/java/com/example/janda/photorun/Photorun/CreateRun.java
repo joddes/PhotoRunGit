@@ -73,6 +73,10 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
         //TOP TOOLBAR------------------------------------------------------------------
         toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
         toolbar_Textview.setText("Photowalk erstellen");
+        TextView help_Textview = (TextView) findViewById(R.id.help_inhalt);
+        help_Textview.setText("Um einen Photowalk zu erstellen, wählen Sie bitte einen aussagekräftigen Titel und fügen Sie eine Beschreibung hinzu (optional).\n" +
+                "Ebenso bitte ein Datum mit Uhrzeit festlegen, sowie einen genauen Ort.\n" +
+                "Falls Sie Probleme bei der Erstellung haben, bitten wir Sie support.brendamueller@photowalk.com zu kontaktieren.\n");
 
         final ImageButton logoutBtn = (ImageButton) findViewById(R.id.logout_icon);
         //back

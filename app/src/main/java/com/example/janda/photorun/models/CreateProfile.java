@@ -6,11 +6,17 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.janda.photorun.Chat.Users;
 import com.example.janda.photorun.Login.ProfileActivity;
+import com.example.janda.photorun.Photorun.CreateRun;
+import com.example.janda.photorun.Photorun.ViewPhotorunList;
 import com.example.janda.photorun.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -66,6 +72,87 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         email.setText(user.getEmail());
 
         role = (EditText) findViewById(R.id.role);
+
+        //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        //TOP TOOLBAR------------------------------------------------------------------
+        TextView toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
+        toolbar_Textview.setText("Profil Bearbeiten");
+        TextView help_Textview = (TextView) findViewById(R.id.help_inhalt);
+        help_Textview.setText("Hier haben Sie die Möglichkeit, die anderen User auf sich aufmerksam zu machen!\n" +
+                "Sie können ein Profilbild hochladen und Ihre Kontaktdaten wie Email, Telefonnummer, Name, Beruf und Adresse eingeben. \n" +
+                "Ebenso können Sie Hobbies und Interessen eintragen, mit denen Sie Ihrem Profil eine persönliche Note geben können.\n" +
+                "Um Ihre Änderungen abzuspeichern, klicken Sie bitte den Button unten rechts.\n");
+
+        final ImageButton logoutBtn = (ImageButton) findViewById(R.id.logout_icon);
+        //back
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent myIntent = new Intent(CreateProfile.this, ProfileActivity.class);
+
+                finish();
+
+                startActivity(myIntent);
+            }
+        });
+
+        //Help Button, muss auf jeder Seite sein
+        final ImageButton helpBtn = (ImageButton) findViewById(R.id.help_icon);
+        final Animation slide_left = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
+        final Animation slide_right_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right_out);
+        helpBtn.setOnClickListener(new View.OnClickListener() {
+            int var = 1;
+            public void onClick(View view) {
+                if(var==1) {
+                    findViewById(R.id.help_seite).startAnimation(slide_left);
+                    findViewById(R.id.help_seite).setVisibility(View.VISIBLE);
+                    findViewById(R.id.help_icon).setBackgroundResource(R.drawable.cancel_icon);
+                    var = 0;
+                }else{
+                    findViewById(R.id.help_seite).startAnimation(slide_right_out);
+                    findViewById(R.id.help_seite).setVisibility(View.GONE);
+                    findViewById(R.id.help_icon).setBackgroundResource(R.drawable.help_icon);
+                    var = 1;
+                }
+            }
+        });
+
+        //Bottom Toolbar-----------------------------------------------------------
+        final ImageButton profileBtn = (ImageButton) findViewById(R.id.Profilbtn);
+        final ImageButton runBtn = (ImageButton) findViewById(R.id.Photorunbtn);
+        final ImageButton searchBtn = (ImageButton) findViewById(R.id.Suchbtn);
+
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent myIntent = new Intent(CreateProfile.this, Users.class);
+                finish();
+                startActivity(myIntent);
+            }
+        });
+
+        runBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent myIntent = new Intent(CreateProfile.this, ViewPhotorunList.class);
+                finish();
+                startActivity(myIntent);
+            }
+        });
+
+
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent myIntent = new Intent(CreateProfile.this, ProfileActivity.class);
+
+                finish();
+
+                startActivity(myIntent);
+
+            }
+        });
+//Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
 
