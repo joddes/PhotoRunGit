@@ -208,7 +208,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         //TOP TOOLBAR
         toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
-        toolbar_Textview.setText("Startseite");
+        toolbar_Textview.setText("Dein Profil");
 
         displayPhotoRun(userID);
 

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="225dp"
+        android:layout_height="175dp"
         android:layout_gravity="center"
         android:id="@+id/user_background_photo"
         android:background="@drawable/user_profile_photo"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"/>
 
     <ImageView
         android:layout_width="95dp"
@@ -20,6 +22,20 @@
         android:layout_marginTop="175dp"
         android:background="@drawable/profile_photo"
         android:layout_centerHorizontal="true"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:background="#80000000"
+        />
+    <ImageButton
+    android:layout_width="40dp"
+    android:layout_height="40dp"
+    android:layout_marginTop="55dp"
+    android:layout_marginLeft="5dp"
+    android:background="@drawable/contacts_icon"/>
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
@@ -82,20 +98,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/mail"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentLeft="true"
+        android:layout_marginTop="15dp"
         android:hint="janixboy@outlook.de"
-        android:layout_below="@+id/user_background_photo"
-        android:layout_marginLeft="10dp"/>
+        android:layout_marginRight="10dp"
+        android:textColor="@color/white"
+        android:layout_below="@+id/top_bar"
+        android:layout_toLeftOf="@+id/phonenumber"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/phonenumber"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="10dp"
         android:layout_alignParentRight="true"
         android:hint="015778844436"
-        android:layout_below="@+id/user_background_photo"/>
+        android:textColor="@color/white"
+        android:layout_below="@+id/top_bar"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -123,5 +142,6 @@
 
     <include layout="@layout/layout_top_bar"/>
     <include layout="@layout/layout_bottom_navigation" />
-    <include layout="@layout/help_seite"/>
+    <include layout="@layout/help_seite"
+        android:id="@+id/include" />
 </RelativeLayout>

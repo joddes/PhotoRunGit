@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -66,13 +67,14 @@ public class Users extends AppCompatActivity {
 
         String userid = mAuth.getInstance().getCurrentUser().getUid();
 
+
+
         String url = "https://photorun-3f474.firebaseio.com/User.json";
-
-
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
             @Override
             public void onResponse(String s) {
                 doOnSuccess(s);
+                //changelist();
             }
         },new Response.ErrorListener(){
             @Override
@@ -92,6 +94,8 @@ public class Users extends AppCompatActivity {
                 startActivity(new Intent(Users.this, Chat.class));
             }
         });
+
+
         //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         //TOP TOOLBAR------------------------------------------------------------------
         toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
@@ -168,7 +172,42 @@ public class Users extends AppCompatActivity {
         });
 //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     }
+    public void findFullName(String key){
 
+        DatabaseReference fullname = mRef.child(key).child("full_name");
+        fullname.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                name = dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void changelist(){
+        int j = 0;
+        while (al.size() > j) {
+            DatabaseReference fullname = mRef.child(al.get(j)).child("full_name");
+            fullname.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                        gegen = dataSnapshot.getValue(String.class);
+                    }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+
+            });
+            al.set(j, gegen);
+            j++;
+        }
+    }
     public void doOnSuccess(String s){
         try {
             JSONObject obj = new JSONObject(s);
@@ -185,6 +224,7 @@ public class Users extends AppCompatActivity {
                 totalUsers++;
             }
 
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -194,6 +234,7 @@ public class Users extends AppCompatActivity {
             usersList.setVisibility(View.GONE);
         }
         else{
+
             noUsersText.setVisibility(View.GONE);
             usersList.setVisibility(View.VISIBLE);
             usersList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, al));
@@ -202,19 +243,5 @@ public class Users extends AppCompatActivity {
         pd.dismiss();
     }
 
-    public void findFullName(String key){
 
-        DatabaseReference fullname = mRef.child(key).child("full_name");
-        fullname.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                name = dataSnapshot.getValue(String.class);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
 }
