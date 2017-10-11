@@ -134,6 +134,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 buttonSignIn.setOnClickListener(this);
 
+                /*//Help Button, muss auf jeder Seite sein
+                final ImageButton helpBtn = (ImageButton) findViewById(R.id.help_login);
+                helpBtn.setOnClickListener(new View.OnClickListener() {
+                        int var = 1;
+                        public void onClick(View view) {
+                                if(var==1) {
+                                        findViewById(R.id.help_seite).startAnimation(slide_left);
+                                        findViewById(R.id.help_seite).setVisibility(View.VISIBLE);
+                                        findViewById(R.id.help_login).setBackgroundResource(R.drawable.cancel_icon);
+                                        var = 0;
+                                }else{
+                                        findViewById(R.id.help_seite).startAnimation(slide_right_out);
+                                        findViewById(R.id.help_seite).setVisibility(View.GONE);
+                                        findViewById(R.id.help_login).setBackgroundResource(R.drawable.help_icon);
+                                        var = 1;
+                                }
+                        }
+                });*/
+
         }
 
         private void userLogin(){
