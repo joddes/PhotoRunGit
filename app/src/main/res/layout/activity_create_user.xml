@@ -6,7 +6,7 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="225dp"
+        android:layout_height="175dp"
         android:layout_gravity="center"
         android:id="@+id/user_background_photo"
         android:background="@drawable/user_profile_photo"
@@ -17,16 +17,15 @@
         android:layout_height="95dp"
         android:layout_gravity="center"
         android:id="@+id/user_profil_photo"
-        android:layout_marginTop="175dp"
+        android:layout_marginTop="125dp"
         android:background="@drawable/profile_photo"
         android:layout_centerHorizontal="true"/>
     <EditText
         android:id="@+id/name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Vorname, Nachname"
         android:inputType="textEmailAddress"
-        android:layout_marginTop="10dp"
         android:layout_below="@+id/role"
         android:layout_centerHorizontal="true"/>
     <!--<android.support.v7.widget.AppCompatButton
@@ -62,48 +61,41 @@
         android:layout_alignParentRight="true"/>-->
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/address"
         android:hint="Street with House Nr, ZIP Code Town"
         android:layout_below="@id/name"
-        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"/>
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/role"
-        android:hint="Photographer"
-        android:layout_below="@+id/user_profil_photo"
-        android:layout_marginTop="10dp"
+        android:hint="Photographer, Model or only Walker"
+        android:layout_below="@+id/phonenumber"
         android:layout_centerHorizontal="true"/>
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/mail"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
         android:hint="Email adress"
-        android:layout_below="@+id/user_background_photo"
-        android:layout_marginLeft="10dp"/>
+        android:layout_below="@+id/user_profil_photo" />
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/phonenumber"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
         android:hint="Phonenumber"
-        android:layout_below="@+id/user_background_photo"/>
+        android:layout_below="@+id/mail"/>
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/personal_information"
-        android:layout_marginTop="10dp"
         android:textAlignment="center"
-        android:hint="Hobbies and Interests are breakdance hpe uni sport blalabalahslohjdjudjdjdjdj"
+        android:hint="Here you can say something about your Hobbys, your dreams, about your mother, who cares? "
         android:layout_below="@+id/address"
         android:layout_centerHorizontal="true"/>
 
