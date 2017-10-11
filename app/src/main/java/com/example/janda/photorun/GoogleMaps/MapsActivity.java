@@ -147,7 +147,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMyLocationEnabled(true);
         String location = startpoint;
 
-        Toast.makeText(this, location, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, location, Toast.LENGTH_LONG).show();
 
         List<Address> addressList = null;
         if (location != null || !location.equals("")) {
@@ -162,7 +162,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             Address address = addressList.get(0);
             LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-            locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Startpoint: " +title));
+            locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Photorun: " +title).snippet("Startpoint: " + location));
             locationMarker.showInfoWindow();
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 15));
 
@@ -207,7 +207,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         endpoint = intent.getStringExtra(ViewSinglePhotoRun.PHOTORUN_ENDPOINT);
         String location = endpoint;
 
-        Toast.makeText(this, location, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, location, Toast.LENGTH_LONG).show();
 
         List<Address> addressList = null;
         if (location != null || !location.equals("")) {
@@ -222,7 +222,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             Address address = addressList.get(0);
             LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-            locationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).position(latLng).title("Endpoint: " +title));
+            locationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).position(latLng).title("Photorun: " +title).snippet("Destination: "+location));
             //MarkerOptions locationMarker1 = new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).position(latLng).title("Endpoint: " +title);
             //mMap.addMarker(locationMarker1);
             locationMarker.showInfoWindow();
