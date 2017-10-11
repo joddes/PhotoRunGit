@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical" android:layout_width="match_parent"
+android:layout_height="wrap_content"
+    android:transitionName="@string/app_name"
+    android:id="@+id/layout_attendees_list"
+    android:layout_below="@+id/to">
+
+    <ImageView
+        android:layout_width="84dp"
+        android:layout_height="61dp"
+        android:src="@drawable/profile_photo"
+        android:layout_gravity="center"
+        android:id="@+id/logo"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:text="Visit beautiful Wilhelma"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:id="@+id/run_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/logo"
+        android:layout_toRightOf="@+id/logo"
+        android:layout_toEndOf="@+id/logo" />
+
+    <TextView
+        android:text="30.09.2017"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:id="@+id/textViewDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/run_title"
+        android:layout_toRightOf="@+id/logo"
+        android:layout_toEndOf="@+id/logo" />
+    <TextView
+        android:text="30.09.2017"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:id="@+id/userId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/run_title"
+        android:layout_toRightOf="@+id/textViewDate"
+        />
+
+</RelativeLayout>
