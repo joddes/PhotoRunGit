@@ -69,7 +69,7 @@ public class ViewAttendeesList extends AppCompatActivity {
 
         //TOP TOOLBAR
         toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
-        toolbar_Textview.setText("Alle Photowalks");
+        toolbar_Textview.setText("Alle Anmeldungen");
     }
 
 

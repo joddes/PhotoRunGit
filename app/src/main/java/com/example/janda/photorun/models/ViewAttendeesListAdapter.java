@@ -43,7 +43,7 @@ public class ViewAttendeesListAdapter extends ArrayAdapter<String> {
 
 
     public ViewAttendeesListAdapter(Activity context, List<String> userList) {
-        super(context, R.layout.layout_photorun_list, userList);
+        super(context, R.layout.layout_attendees_list, userList);
         // super(context, R.layout.layout_photorun_list, userList);
         this.context = context;
         this.userList = userList;
@@ -55,7 +55,7 @@ public class ViewAttendeesListAdapter extends ArrayAdapter<String> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
 
-        View listViewItem = inflater.inflate(R.layout.layout_photorun_list, null, true);
+        View listViewItem = inflater.inflate(R.layout.layout_attendees_list, null, true);
 
         final TextView textViewTitle = (TextView) listViewItem.findViewById(R.id.run_title);
         final TextView textViewDate = (TextView) listViewItem.findViewById(R.id.textViewDate);
@@ -75,6 +75,7 @@ public class ViewAttendeesListAdapter extends ArrayAdapter<String> {
                 aktuellerUser = dataSnapshot.getValue(User.class);
                textViewTitle.setText(aktuellerUser.getFull_name());
                textViewDate.setText(aktuellerUser.getEmail());
+                textViewDate.setText(aktuellerUser.getUser_id());
             }
 
             @Override

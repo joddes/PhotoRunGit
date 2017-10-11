@@ -189,7 +189,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                 //start the profile activity
                                                 findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
                                                 finish();
-                                                startActivity(new Intent(getApplicationContext(), CreateProfile.class));
+                                                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                                                 findViewById(R.id.progressBar).setVisibility(View.GONE);
                                         }
                                         else{
