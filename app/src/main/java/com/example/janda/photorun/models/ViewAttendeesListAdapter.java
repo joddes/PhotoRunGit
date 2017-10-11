@@ -14,9 +14,17 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.janda.photorun.R;
 import com.example.janda.photorun.models.User;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -25,16 +33,16 @@ import java.util.List;
  * Created by Tim Seemann on 09.10.2017.
  */
 
-public class ViewAttendeesListAdapter extends ArrayAdapter<User> {
+public class ViewAttendeesListAdapter extends ArrayAdapter<String> {
 
 
     private Activity context;
+    private List<String> userList;
+    public static User aktuellerUser;
+    private DatabaseReference databaseProfile;
 
 
-    private List<User> userList;
-
-
-    public ViewAttendeesListAdapter(Activity context, List<User> userList) {
+    public ViewAttendeesListAdapter(Activity context, List<String> userList) {
         super(context, R.layout.layout_photorun_list, userList);
         // super(context, R.layout.layout_photorun_list, userList);
         this.context = context;
@@ -49,13 +57,32 @@ public class ViewAttendeesListAdapter extends ArrayAdapter<User> {
 
         View listViewItem = inflater.inflate(R.layout.layout_photorun_list, null, true);
 
-        TextView textViewTitle = (TextView) listViewItem.findViewById(R.id.run_title);
-        TextView textViewDate = (TextView) listViewItem.findViewById(R.id.textViewDate);
+        final TextView textViewTitle = (TextView) listViewItem.findViewById(R.id.run_title);
+        final TextView textViewDate = (TextView) listViewItem.findViewById(R.id.textViewDate);
 
-        User user = userList.get(position);
+        String userID = userList.get(position);
 
-        textViewTitle.setText(user.getFull_name());
-        textViewDate.setText(user.getEmail());
+
+        databaseProfile = FirebaseDatabase.getInstance().getReference("User").child(userID);
+
+
+
+
+        databaseProfile.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                aktuellerUser = dataSnapshot.getValue(User.class);
+               textViewTitle.setText(aktuellerUser.getFull_name());
+               textViewDate.setText(aktuellerUser.getEmail());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
         return listViewItem;
 

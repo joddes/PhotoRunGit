@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.janda.photorun.Chat.Users;
 import com.example.janda.photorun.Login.ProfileActivity;
 import com.example.janda.photorun.Photorun.CreateRun;
 import com.example.janda.photorun.Photorun.ViewPhotoRuns;
@@ -42,7 +43,7 @@ public class ViewAttendeesList extends AppCompatActivity {
     DatabaseReference databasePhotorun;
 
     ListView listViewUsers;
-    List<User> users;
+    List<String> users;
 
     private String uebergebeneID;
 
@@ -59,7 +60,7 @@ public class ViewAttendeesList extends AppCompatActivity {
         //Liste von Photoruns anzeigen
 
 
-        databasePhotorun = FirebaseDatabase.getInstance().getReference("User");
+        databasePhotorun = FirebaseDatabase.getInstance().getReference("Photorun").child(uebergebeneID).child("participants");
         listViewUsers = (ListView) findViewById(R.id.PhotoRunList);
 
         //list to store Photoruns
@@ -78,11 +79,11 @@ public class ViewAttendeesList extends AppCompatActivity {
         findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
 
-        Query queryRef = databasePhotorun.orderByChild("participatedRuns").equalTo(uebergebeneID);
 
-        Toast.makeText(this, uebergebeneID, Toast.LENGTH_LONG).show();
 
-        queryRef.addValueEventListener(new ValueEventListener() {
+
+
+        databasePhotorun.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -90,10 +91,12 @@ public class ViewAttendeesList extends AppCompatActivity {
 
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
 
-                    User user = userSnapshot.getValue(User.class);
+                    String user = userSnapshot.getKey();
+
 
                     users.add(user);
                     findViewById(R.id.progressBar).setVisibility(View.GONE);
+
                 }
 
                 ViewAttendeesListAdapter adapter = new ViewAttendeesListAdapter(ViewAttendeesList.this, users);

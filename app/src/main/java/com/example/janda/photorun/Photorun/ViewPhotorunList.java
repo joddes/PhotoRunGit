@@ -19,6 +19,7 @@ package com.example.janda.photorun.Photorun;
         import android.widget.ImageButton;
         import android.widget.ListView;
         import android.widget.TextView;
+        import android.widget.Toast;
 
         import com.example.janda.photorun.Chat.Users;
         import com.example.janda.photorun.Login.ProfileActivity;
@@ -182,6 +183,7 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 photoruns.clear();
+
 
                 for(DataSnapshot photorunSnapshot: dataSnapshot.getChildren()){
 
