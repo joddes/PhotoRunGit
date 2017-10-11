@@ -168,46 +168,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         }
     }
-    public void onSearch(View view)
-    {
-        EditText location_tf = (EditText)findViewById(R.id.TFaddress);
-        String location = location_tf.getText().toString();
-        List<Address> addressList = null;
-        if(location != null || !location.equals(""))
-        {
-            Geocoder geocoder = new Geocoder(this);
-            try {
-                addressList = geocoder.getFromLocationName(location , 1);
 
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            Address address = addressList.get(0);
-            LatLng latLng = new LatLng(address.getLatitude() , address.getLongitude());
-            locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
-            locationMarker.showInfoWindow();
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 15));
-
-        }
-    }
+    public void showDestination(View view) {
 
 
-
-    public void changeType(View view) {
-        /*if(mMap.getMapType() == GoogleMap.MAP_TYPE_NORMAL)
-        {
-            mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-        }
-        else
-            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-            */
         Intent intent = getIntent();
         endpoint = intent.getStringExtra(ViewSinglePhotoRun.PHOTORUN_ENDPOINT);
         String location = endpoint;
 
-        //Toast.makeText(this, location, Toast.LENGTH_LONG).show();
 
         List<Address> addressList = null;
         if (location != null || !location.equals("")) {
@@ -231,5 +200,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
 
+    }
+
+    //method enables user to search for other locations on map
+
+
+    public void onSearch(View view)
+    {
+        EditText location_tf = (EditText)findViewById(R.id.TFaddress);
+        String location = location_tf.getText().toString();
+        List<Address> addressList = null;
+        if(location != null || !location.equals(""))
+        {
+            Geocoder geocoder = new Geocoder(this);
+            try {
+                addressList = geocoder.getFromLocationName(location , 1);
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Address address = addressList.get(0);
+            LatLng latLng = new LatLng(address.getLatitude() , address.getLongitude());
+            locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
+            locationMarker.showInfoWindow();
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 15));
+
+        }
     }
 }

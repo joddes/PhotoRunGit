@@ -37,7 +37,7 @@
             android:id="@+id/Btype"
             android:layout_alignParentRight="true"
             android:nestedScrollingEnabled="false"
-            android:onClick="changeType" />
+            android:onClick="showDestination" />
 
 
     </RelativeLayout>
