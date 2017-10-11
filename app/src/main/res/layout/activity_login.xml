@@ -18,14 +18,14 @@
 
 
     <ImageButton
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:background="@drawable/login_button"
         android:layout_gravity="center"
         android:id="@+id/login_btn"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="50dp" />
 
 
     <LinearLayout
@@ -198,4 +198,15 @@
         android:layout_alignLeft="@+id/progressBar"
         android:id="@+id/pleaseWait"
         android:visibility="gone"/>
+
+    <!--<ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/help_icon"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:id="@+id/help_login"/>
+
+    <include layout="@layout/help_seite" />-->
 </RelativeLayout>

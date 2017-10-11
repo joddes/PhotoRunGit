@@ -99,6 +99,9 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
         //TOP TOOLBAR------------------------------------------------------------------
         toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
         toolbar_Textview.setText("Alle Photowalks");
+        TextView help_Textview = (TextView) findViewById(R.id.help_inhalt);
+        help_Textview.setText("Hier sehen Sie ein Liste aller derzeit angeboteten Photowalks.\n" +
+                "Falls Sie einen neuen Photowalk erstellen möchten, klicken Sie bitte unten rechts auf das Plussymbol.\n");
 
         final ImageButton logoutBtn = (ImageButton) findViewById(R.id.logout_icon);
 
