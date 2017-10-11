@@ -1,5 +1,7 @@
 package com.example.janda.photorun.models;
 
+import java.util.Map;
+
 /**
  * Created by User on 25.09.17.
  */
@@ -13,6 +15,8 @@ public class User {
     private String phonenumber;
     private String role;
     private String personalInf;
+    private Map<String, String> createdRuns;
+    private Map<String, String> participatedRuns;
 
     public User(String user_id, String email, String full_name, String address, String phonenumber, String role, String personalInf) {
         this.user_id = user_id;
@@ -26,8 +30,28 @@ public class User {
 
     }
 
+    public User(String user_id, String email, String full_name, String address, String phonenumber, String role, String personalInf, Map<String, String> createdRuns, Map<String, String> participatedRuns) {
+        this.user_id = user_id;
+        this.email = email;
+        this.full_name = full_name;
+        this.address = address;
+        this.phonenumber = phonenumber;
+        this.role = role;
+        this.personalInf = personalInf;
+        this.createdRuns = createdRuns;
+        this.participatedRuns = participatedRuns;
+    }
+
     public User(){
 
+    }
+
+    public Map<String, String> getCreatedRuns() {
+        return createdRuns;
+    }
+
+    public Map<String, String> getParticipatedRuns() {
+        return participatedRuns;
     }
 
     public String getUser_id() {
@@ -95,6 +119,11 @@ public class User {
                 ", email='" + email + '\'' +
                 ", full_name='" + full_name + '\'' +
                 ", address='" + address + '\'' +
+                ", phonenumber='" + phonenumber + '\'' +
+                ", role='" + role + '\'' +
+                ", personalInf='" + personalInf + '\'' +
+                ", createdRuns=" + createdRuns +
+                ", participatedRuns=" + participatedRuns +
                 '}';
     }
 }

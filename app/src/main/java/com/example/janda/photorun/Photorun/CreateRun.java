@@ -25,6 +25,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class CreateRun extends AppCompatActivity implements View.OnClickListener {
 
     //public static final String Firebase_Server_URL = "https://photorun-3f474.firebaseio.com/";
@@ -211,11 +214,15 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
         //get the owner
         String owner = mAuth.getInstance().getCurrentUser().getUid();
 
+        Map<String, String> participants = new HashMap<String, String>();
+        participants.put("Owner", "enrolled");
+
         //create phtoruns object
-        Photorun newPhotorun = new Photorun(date, description, estimated_duration, photorun_id, starting_time, title, start_point, end_point, status, owner);
+        Photorun newPhotorun = new Photorun(date, description, estimated_duration, photorun_id, starting_time, title, start_point, end_point, status, participants, owner);
 
         mDatabaseRefrence.child("Photorun").child(photorun_id).setValue(newPhotorun);
         mDatabaseRefrence.child("User").child(owner).child("createdRuns").child(photorun_id).setValue("created");
+        mDatabaseRefrence.child("User").child(owner).child("participatedRuns").child(photorun_id).setValue("enrolled"); 
 
         Toast.makeText(this, "Photorun created...", Toast.LENGTH_LONG).show();
 

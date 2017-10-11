@@ -38,6 +38,20 @@ public class Photorun {
         this.title = title;
     }
 
+    public Photorun(String date, String description, String estimated_duration, String photorun_id, String starting_time, String title, String start_point, String end_point, String status, Map<String, String> participants, String ownerName) {
+        this.date = date;
+        this.description = description;
+        this.estimated_duration = estimated_duration;
+        this.photorun_id = photorun_id;
+        this.starting_time = starting_time;
+        this.title = title;
+        this.start_point = start_point;
+        this.end_point = end_point;
+        this.status = status;
+        this.participants = participants;
+        this.ownerName = ownerName;
+    }
+
     public Photorun(String date, String description, String estimated_duration, String max_participators, String photorun_id, String starting_time, String title, String start_point, String end_point, String status, Map<String, String> participants) {
         this.date = date;
         this.description = description;
