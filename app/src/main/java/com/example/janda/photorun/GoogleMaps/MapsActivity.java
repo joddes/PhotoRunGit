@@ -80,6 +80,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Address address = addressList.get(0);
             LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
             locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Startpoint: " +title));
+            locationMarker.showInfoWindow();
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 15));
 
         }
@@ -103,6 +104,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Address address = addressList.get(0);
             LatLng latLng = new LatLng(address.getLatitude() , address.getLongitude());
             locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
+            locationMarker.showInfoWindow();
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 15));
 
         }
@@ -137,10 +139,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             Address address = addressList.get(0);
             LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-            //locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Endpoint: " +title));
-            MarkerOptions locationMarker1 = new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).position(latLng).title("Endpoint: " +title);
-            mMap.addMarker(locationMarker1);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker1.getPosition(), 15));
+            locationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).position(latLng).title("Endpoint: " +title));
+            //MarkerOptions locationMarker1 = new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).position(latLng).title("Endpoint: " +title);
+            //mMap.addMarker(locationMarker1);
+            locationMarker.showInfoWindow();
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 15));
+
         }
 
 
