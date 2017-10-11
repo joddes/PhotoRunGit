@@ -7,13 +7,15 @@ android:layout_height="wrap_content"
     android:layout_below="@+id/to">
 
     <ImageView
-        android:layout_width="84dp"
-        android:layout_height="61dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@drawable/profile_photo"
         android:layout_gravity="center"
         android:id="@+id/logo"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="2dp"/>
     <TextView
         android:text="Visit beautiful Wilhelma"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
@@ -22,9 +24,11 @@ android:layout_height="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/logo"
         android:layout_toRightOf="@+id/logo"
-        android:layout_toEndOf="@+id/logo" />
+        android:layout_toEndOf="@+id/logo"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="6dp"/>
 
-    <TextView
+    <!--<TextView
         android:text="30.09.2017"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:id="@+id/textViewDate"
@@ -41,6 +45,6 @@ android:layout_height="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/run_title"
         android:layout_toRightOf="@+id/textViewDate"
-        />
+        />-->
 
 </RelativeLayout>
