@@ -8,34 +8,35 @@
     <include layout="@layout/layout_photorun_list"/>
 
     <TextView
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:text="Open on Maps"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:layout_alignBottom="@+id/maps"
-        android:layout_toRightOf="@+id/maps"
-        android:layout_toEndOf="@+id/maps" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Maps"
+        android:layout_below="@+id/maps"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="-10dp"/>
 
-    <ImageView
+    <!--<ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:id="@+id/duration_icon"
         android:background="@drawable/duration_icon"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/date_icon"
-        android:layout_toLeftOf="@+id/estimated_durationTextView"/>
+        android:layout_toLeftOf="@+id/estimated_durationTextView"/>-->
 
     <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:id="@+id/date_icon"
         android:layout_marginTop="10dp"
         android:background="@drawable/date_icon"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/layout_photorun_list"/>
+        android:layout_below="@+id/layout_photorun_list"
+        android:layout_marginLeft="5dp"/>
 
-    <ImageView
+    <!--<ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:id="@+id/time_icon"
@@ -43,16 +44,18 @@
         android:layout_marginRight="5dp"
         android:background="@drawable/time_icon"
         android:layout_below="@+id/layout_photorun_list"
-        android:layout_toLeftOf="@+id/starting_timeTextView"/>
+        android:layout_toLeftOf="@+id/starting_timeTextView"/>-->
 
     <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:id="@+id/flag_icon"
         android:background="@drawable/flag_icon"
         android:layout_below="@+id/way_icon"
-        android:layout_marginTop="10dp"/>
-    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"/>
+
+    <!--<TextView
         android:id="@+id/ownerTextView"
         android:layout_width="120dp"
         android:layout_height="40dp"
@@ -64,9 +67,9 @@
         android:layout_above="@+id/attendee_list"
         android:layout_toLeftOf="@+id/starting_timeTextView"
         android:layout_toStartOf="@+id/starting_timeTextView"
-        android:layout_marginBottom="17dp" />
+        android:layout_marginBottom="17dp" />-->
 
-    <TextView
+    <!--<TextView
         android:id="@+id/dateTextView"
         android:layout_width="120dp"
         android:layout_height="40dp"
@@ -89,39 +92,40 @@
         android:paddingTop="10dp"
         android:layout_marginTop="10dp"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/layout_photorun_list"/>
+        android:layout_below="@+id/layout_photorun_list"/>-->
 
     <TextView
         android:id="@+id/estimated_durationTextView"
-        android:layout_width="50dp"
-        android:layout_height="40dp"
-        android:background="@drawable/text_box"
-        android:hint="duration"
-        android:paddingLeft="5dp"
-        android:paddingTop="10dp"
-        android:layout_below="@+id/dateTextView"
-        android:layout_alignParentRight="true"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:hint="Wann"
+        android:textSize="16dp"
+        android:layout_marginRight="10dp"
+        android:paddingTop="7dp"
+        android:layout_below="@+id/layout_photorun_list"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp"/>
+        android:layout_marginLeft="40dp"
+        android:paddingLeft="5dp"/>
 
     <ImageView
         android:id="@+id/way_icon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:background="@drawable/way_icon"
         android:layout_below="@+id/date_icon"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"/>
 
     <TextView
         android:id="@+id/start_pointTextView"
         android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:background="@drawable/white_grey_border_bottom"
+        android:layout_height="30dp"
         android:hint="start"
-        android:paddingLeft="5dp"
-        android:paddingTop="10dp"
-        android:layout_below="@id/dateTextView"
+        android:paddingLeft="7dp"
+        android:textSize="16dp"
+        android:paddingTop="5dp"
+        android:layout_below="@+id/estimated_durationTextView"
         android:layout_toRightOf="@+id/way_icon"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="5dp"/>
@@ -129,11 +133,11 @@
     <TextView
         android:id="@+id/end_pointTextView"
         android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:background="@drawable/white_grey_border_bottom"
+        android:layout_height="30dp"
         android:hint="destination"
-        android:paddingLeft="5dp"
-        android:paddingTop="10dp"
+        android:paddingLeft="7dp"
+        android:textSize="16dp"
+        android:paddingTop="5dp"
         android:layout_marginLeft="5dp"
         android:layout_below="@+id/start_pointTextView"
         android:layout_toRightOf="@+id/flag_icon"
@@ -141,27 +145,31 @@
 
     <ImageButton
         android:id="@+id/maps"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:background="@drawable/maps_icon"
         android:hint="Google Maps"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/flag_icon"
-        android:layout_alignParentLeft="true" />
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/estimated_durationTextView"
+        android:layout_alignParentRight="true" />
 
     <TextView
         android:id="@+id/descriptionTV"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@drawable/text_box"
+        android:layout_height="wrap_content"
         android:hint="description"
+        android:textSize="16dp"
         android:layout_marginTop="10dp"
-        android:paddingLeft="10dp"
         android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="10dp"
         android:layout_centerVertical="true"
-        android:layout_below="@+id/maps"/>
+        android:layout_below="@+id/maps"
+        android:background="@drawable/orange_border_bottom"/>
 
-    <android.support.v7.widget.AppCompatButton
+    <!--<android.support.v7.widget.AppCompatButton
         android:layout_width="160dp"
         android:layout_height="100dp"
         android:layout_marginTop="10dp"
@@ -176,7 +184,14 @@
         android:gravity="center_horizontal"
         android:background="@drawable/more_png"
         android:layout_below="@+id/descriptionTV"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true" />-->
+
+    <ListView
+        android:id="@+id/PhotoRunList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descriptionTV"
+        android:layout_marginBottom="50dp"/>
 
 
     <android.support.design.widget.FloatingActionButton
@@ -193,7 +208,7 @@
         android:layout_marginBottom="67dp" />
 
     <include layout="@layout/layout_top_bar"/>
-    <include layout="@layout/layout_bottom_navigation"/>
+    <include layout="@layout/layout_bottom_navigation" />
     <include layout="@layout/help_seite"/>
 
 </RelativeLayout>

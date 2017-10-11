@@ -58,7 +58,7 @@ public class ViewAttendeesListAdapter extends ArrayAdapter<String> {
         View listViewItem = inflater.inflate(R.layout.layout_attendees_list, null, true);
 
         final TextView textViewTitle = (TextView) listViewItem.findViewById(R.id.run_title);
-        final TextView textViewDate = (TextView) listViewItem.findViewById(R.id.textViewDate);
+        //final TextView textViewDate = (TextView) listViewItem.findViewById(R.id.textViewDate);
 
         String userID = userList.get(position);
 

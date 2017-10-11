@@ -13,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.example.janda.photorun.Login.ProfileActivity;
 import com.example.janda.photorun.R;
 import com.example.janda.photorun.models.Photorun;
 import com.example.janda.photorun.models.ViewAttendeesList;
+import com.example.janda.photorun.models.ViewAttendeesListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +31,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClickListener  {
@@ -55,6 +60,11 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
     private String maxPartBuffer;
 
+    DatabaseReference databasePhotorun;
+
+    ListView listViewUsers;
+    List<String> users;
+
     public static final String PHOTORUN_STARTPOINT = "com.example.janda.photorun.models.start_point";
     public static final String PHOTORUN_ENDPOINT = "com.example.janda.photorun.models.end_point";
     public static final String PHOTORUN_TITLE = "com.example.janda.photorun.models.title";
@@ -71,23 +81,30 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         userDatabase = FirebaseDatabase.getInstance().getReference().child("User");
 
         title_Textview = (TextView) findViewById(R.id.run_title); //not sure if link directs to the right button?
-        date_Textview = (TextView) findViewById(R.id.dateTextView);
+        //date_Textview = (TextView) findViewById(R.id.dateTextView);
         startpoint_Textview = (TextView) findViewById(R.id.start_pointTextView);
         endpoint_Textview = (TextView) findViewById(R.id.end_pointTextView);
-        starttime_Textview = (TextView) findViewById(R.id.starting_timeTextView);
+        //starttime_Textview = (TextView) findViewById(R.id.starting_timeTextView);
         duration_Textview = (TextView) findViewById(R.id.estimated_durationTextView);
         description_Textview = (TextView) findViewById(R.id.descriptionTV);
 
         joinRunButton = (FloatingActionButton) findViewById(R.id.JoinButton);
         joinRunButton.setOnClickListener(this);
 
-        viewAtt = (AppCompatButton) findViewById(R.id.attendee_list);
-        viewAtt.setOnClickListener(this);
+        //viewAtt = (AppCompatButton) findViewById(R.id.attendee_list);
+        //viewAtt.setOnClickListener(this);
 
 
         Intent intent = getIntent();
 
         photorun_id = intent.getStringExtra(ViewPhotorunList.PHOTORUN_ID);
+
+        databasePhotorun = FirebaseDatabase.getInstance().getReference("Photorun").child(photorun_id).child("participants");
+        listViewUsers = (ListView) findViewById(R.id.PhotoRunList);
+
+        //list to store Photoruns
+        users = new ArrayList<>();
+
 
         //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         //TOP TOOLBAR------------------------------------------------------------------
@@ -212,9 +229,45 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         });
         */
 
+        //displayPhotoRun(photorun_id);
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+
+        databasePhotorun.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                users.clear();
+
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+
+                    String user = userSnapshot.getKey();
+
+
+                    users.add(user);
+                    //findViewById(R.id.progressBar).setVisibility(View.GONE);
+
+                }
+
+                ViewAttendeesListAdapter adapter = new ViewAttendeesListAdapter(ViewSinglePhotoRun.this, users);
+
+                listViewUsers.setAdapter(adapter);
+
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         displayPhotoRun(photorun_id);
-
-
     }
 
     public void displayPhotoRun(String photorun_id) {
@@ -239,7 +292,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         @Override
         public void onDataChange (DataSnapshot dataSnapshot){
             date = dataSnapshot.getValue(String.class);
-            date_Textview.setText(date);
+            //date_Textview.setText(date);
         }
 
         @Override
@@ -282,7 +335,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
             @Override
             public void onDataChange (DataSnapshot dataSnapshot){
                 starting_time = dataSnapshot.getValue(String.class);
-                starttime_Textview.setText(starting_time);
+                //starttime_Textview.setText(starting_time);
             }
 
             @Override
@@ -296,7 +349,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
             @Override
             public void onDataChange (DataSnapshot dataSnapshot){
                 estimated_duration = dataSnapshot.getValue(String.class);
-                duration_Textview.setText(estimated_duration);
+                duration_Textview.setText("Am "+ date + " um " + starting_time + " ca. " + estimated_duration + " Stunden.");
             }
 
             @Override
