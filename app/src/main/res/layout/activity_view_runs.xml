@@ -30,7 +30,7 @@ tools:context="com.example.janda.photorun.Photorun.ViewPhotorunList">
         android:layout_marginRight="10dp"
         android:layout_marginBottom="67dp" />
 
-    <android.support.design.widget.FloatingActionButton
+  <!--  <android.support.design.widget.FloatingActionButton
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@drawable/maps_icon"
@@ -39,7 +39,7 @@ tools:context="com.example.janda.photorun.Photorun.ViewPhotorunList">
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="18dp"
-        android:layout_marginBottom="130dp" />
+        android:layout_marginBottom="130dp" /> -->
 
 
     <include layout="@layout/layout_bottom_navigation"/>

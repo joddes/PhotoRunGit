@@ -101,9 +101,9 @@ public class Users extends AppCompatActivity {
         toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
         toolbar_Textview.setText("Schreibe einem User");
         TextView help_Textview = (TextView) findViewById(R.id.help_inhalt);
-        help_Textview.setText("Lieber Benutzer,\n" +
-                "leider steht auf dieser Seite noch keine Hilfe zur Verfügung.\n" +
-                "Mehr Infos folgen in Kürze.");
+        help_Textview.setText("Um mit anderen Usern chatten zu können, müssen Sie zuerst ein Profil erstellen.\n" +
+                "Wählen Sie einen User und senden Sie ihm eine private Nachricht.\n" +
+                " So können Sie Einzelheiten klären und sich schon im Voraus kennenlernen!.\n" );
 
         final ImageButton logoutBtn = (ImageButton) findViewById(R.id.logout_icon);
 

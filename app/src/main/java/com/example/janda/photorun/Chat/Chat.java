@@ -112,9 +112,7 @@ public class Chat extends AppCompatActivity {
         toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
         toolbar_Textview.setText("Chat");
         TextView help_Textview = (TextView) findViewById(R.id.help_inhalt);
-        help_Textview.setText("Lieber Benutzer,\n" +
-                "leider steht auf dieser Seite noch keine Hilfe zur Verfügung.\n" +
-                "Mehr Infos folgen in Kürze.");
+        help_Textview.setText("Hier können Sie sich mit anderen Leuten unterhalten!\n");
 
         final ImageButton logoutBtn = (ImageButton) findViewById(R.id.logout_icon);
 
