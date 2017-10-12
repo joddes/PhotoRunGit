@@ -196,12 +196,12 @@
         android:layout_marginBottom="50dp"/>
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@+id/descriptionTV"
         android:text="Angemeldete Personen:"
-        android:textSize="16dp"
+        android:textSize="20dp"
         android:textColor="@color/black"
-        android:id="@+id/angepers"/>
+        android:id="@+id/angepers" />
 
 
     <android.support.design.widget.FloatingActionButton
@@ -212,35 +212,25 @@
         android:src="@drawable/join_icon"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_marginRight="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_marginBottom="67dp" />
 
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/attendButton"
         android:layout_width="80dp"
-        android:layout_height="30dp"
-        android:background="@drawable/join_icon"
-        android:src="@drawable/join_icon"
-        android:layout_above="@+id/showLocation"
-        android:layout_alignLeft="@+id/showLocation"
-        android:layout_alignStart="@+id/showLocation"
-        android:layout_marginBottom="24dp" />
+        android:layout_height="80dp"
+        android:background="@drawable/check"
+        android:src="@drawable/check"
+        android:layout_marginBottom="67dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/maps_icon">
-        
-    </android.support.design.widget.FloatingActionButton>
 
     <ImageButton
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:background="@drawable/google_maps_round"
-
         android:id="@+id/showLocation"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
@@ -250,12 +240,15 @@
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        android:layout_alignParentBottom="true"
+        android:layout_height="40dp"
+        android:text="Wir waren da!"
+        android:layout_marginRight="10dp"
+        android:textSize="10dp"
+        android:layout_below="@+id/descriptionTV"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="18dp"
-        android:layout_marginBottom="460dp"/>
+        android:layout_marginTop="-5dp"/>
+
+
 
     <include layout="@layout/layout_top_bar"/>
     <include layout="@layout/layout_bottom_navigation" />
