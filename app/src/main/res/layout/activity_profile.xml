@@ -12,16 +12,17 @@
         android:id="@+id/user_background_photo"
         android:background="@drawable/user_profile_photo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"/>
+        />
 
     <ImageView
         android:layout_width="95dp"
         android:layout_height="95dp"
         android:layout_gravity="center"
         android:id="@+id/user_profil_photo"
-        android:layout_marginTop="175dp"
         android:background="@drawable/profile_photo"
-        android:layout_centerHorizontal="true"/>
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
 
 
     <TextView
@@ -29,14 +30,15 @@
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
         android:background="#80000000"
-        />
+        android:id="@+id/textView" />
     <ImageButton
     android:layout_width="40dp"
     android:layout_height="40dp"
     android:layout_marginTop="55dp"
     android:layout_marginLeft="5dp"
     android:background="@drawable/contacts_icon"/>
-    <TextView
+
+    <!--<TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,7 +46,7 @@
         android:layout_marginTop="10dp"
         android:layout_below="@+id/role"
         android:layout_centerHorizontal="true"/>
-    <!--<android.support.v7.widget.AppCompatButton
+    <android.support.v7.widget.AppCompatButton
         android:layout_width="115dp"
         android:layout_height="32dp"
         android:layout_gravity="center"
@@ -80,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/address"
-        android:layout_below="@id/name"
+        android:layout_below="@id/role"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"/>
 
@@ -118,7 +120,9 @@
         android:layout_marginTop="10dp"
         android:textAlignment="center"
         android:layout_below="@+id/address"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/orange_border_bottom"
+        android:paddingBottom="5dp"/>
 
     <ListView
         android:id="@+id/enrolledListView"
@@ -130,10 +134,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/personal_information"
-        android:text="Angemeldete Personen:"
+        android:text="Deine Photowalks:"
         android:textSize="16dp"
         android:textColor="@color/black"
-        android:id="@+id/angepers"/>
+        android:id="@+id/angepers"
+        android:paddingLeft="5dp"/>
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="70dp"
@@ -151,5 +156,6 @@
 
     <include layout="@layout/layout_top_bar"/>
     <include layout="@layout/layout_bottom_navigation" />
-    <include layout="@layout/help_seite" />
+    <include layout="@layout/help_seite"
+        android:id="@+id/include" />
 </RelativeLayout>

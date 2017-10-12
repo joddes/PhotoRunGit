@@ -211,7 +211,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         //TOP TOOLBAR
         toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
-        toolbar_Textview.setText("Dein Profil");
+        //toolbar_Textview.setText("Dein Profil");
         TextView help_Textview = (TextView) findViewById(R.id.help_inhalt);
         help_Textview.setText("Das ist Ihr Profil!\n" +
                 "Falls Sie es bearbeiten möchten, klicken Sie bitte auf den Button unten rechts.\n" +
@@ -307,7 +307,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 name = dataSnapshot.getValue(String.class);
-                textViewname.setText(name);
+                toolbar_Textview.setText(name);
             }
 
             @Override
