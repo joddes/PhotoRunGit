@@ -217,6 +217,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="67dp" />
 
+<<<<<<< HEAD
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/attendButton"
         android:layout_width="80dp"
@@ -232,12 +233,17 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@drawable/maps_icon"
+=======
+    <ImageButton
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:background="@drawable/google_maps_round"
+>>>>>>> 1a297b86a4c20b7758fb153e3c4a39134f3174aa
         android:id="@+id/showLocation"
-        android:src="@drawable/maps_icon"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="18dp"
-        android:layout_marginBottom="130dp" />
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="135dp" />
 
     <Button
         android:id="@+id/button2"

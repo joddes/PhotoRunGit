@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.janda.photorun.Chat.Users;
 import com.example.janda.photorun.Login.ProfileActivity;
+import com.example.janda.photorun.MainActivity;
 import com.example.janda.photorun.Photorun.CreateRun;
 import com.example.janda.photorun.Photorun.ViewPhotorunList;
 import com.example.janda.photorun.Photorun.ViewSinglePhotoRun;
@@ -57,7 +58,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         TextView toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
         toolbar_Textview.setText("Kartenansicht");
         TextView help_Textview = (TextView) findViewById(R.id.help_inhalt);
-        help_Textview.setText("Maps blblablub");
+        help_Textview.setText("Auf dieser Karte können Sie sich den Startpunkt des Photowalks anschauen. \n"
+        + "Klicken Sie oben rechts auf 'Ziel', um den Endpunkt des Photowalks angezeigt zu bekommen.\n"
+        + "Sie können ebenfalls nach weiteren Orten suchen. \n"
+                +"Geben Sie dafür in der Suchleiste den gewünschten Ort ein und klicken anschließend auf 'Suchen'\n"
+        + "Um sich zu einem der Orte navigieren zu lassen, tippen Sie auf den jeweiligen Marker und dann anschließend unten rechts auf den Pfeil. \n"
+        + "Daraufhin wird Google Maps gestartet, sofern die App auf Ihrem mobilen Endgerät installiert ist");
 
         final ImageButton logoutBtn = (ImageButton) findViewById(R.id.logout_icon);
         //back
@@ -162,7 +168,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             Address address = addressList.get(0);
             LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-            locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Photorun: " +title).snippet("Startpoint: " + location));
+            locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Photorun: " +title).snippet("Startpunkt: " + location));
             locationMarker.showInfoWindow();
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 15));
 
@@ -191,7 +197,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             Address address = addressList.get(0);
             LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-            locationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).position(latLng).title("Photorun: " +title).snippet("Destination: "+location));
+            locationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).position(latLng).title("Photorun: " +title).snippet("Ziel: "+location));
             //MarkerOptions locationMarker1 = new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).position(latLng).title("Endpoint: " +title);
             //mMap.addMarker(locationMarker1);
             locationMarker.showInfoWindow();
@@ -223,10 +229,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             Address address = addressList.get(0);
             LatLng latLng = new LatLng(address.getLatitude() , address.getLongitude());
-            locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
+            locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title(location));
             locationMarker.showInfoWindow();
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 15));
 
+        }else
+        {
+            Toast.makeText(this,"Bitte geben Sie ein ziel in die Suchleiste ein!",Toast.LENGTH_LONG).show();
         }
     }
 }
