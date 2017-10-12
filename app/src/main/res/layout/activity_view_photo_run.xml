@@ -218,8 +218,8 @@
         android:layout_marginBottom="67dp" />
 
     <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:background="@drawable/google_maps_round"
         android:id="@+id/showLocation"
         android:layout_alignParentBottom="true"
