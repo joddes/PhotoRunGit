@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import com.example.janda.photorun.R;
 import com.example.janda.photorun.models.Photorun;
 import com.example.janda.photorun.models.ViewAttendeesList;
 import com.example.janda.photorun.models.ViewAttendeesListAdapter;
+import com.example.janda.photorun.models.ViewTeilnehmerliste;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,7 +44,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
     private TextView title_Textview, Textview_date, date_Textview, startpoint_Textview, endpoint_Textview, starttime_Textview, duration_Textview, participants_Textview, description_Textview,toolbar_Textview;
 
-    private FloatingActionButton joinRunButton;
+    private FloatingActionButton joinRunButton, attendButton;
 
     private AppCompatButton viewAtt;
 
@@ -51,6 +53,8 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
     private DatabaseReference mDatabase, joinDatabase, userDatabase;
 
     private FirebaseAuth mAuth;
+
+    private Button test;
 
     DatabaseReference Test;
 
@@ -91,6 +95,12 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
         joinRunButton = (FloatingActionButton) findViewById(R.id.JoinButton);
         joinRunButton.setOnClickListener(this);
+
+        attendButton = (FloatingActionButton) findViewById(R.id.attendButton);
+        attendButton.setOnClickListener(this);
+
+        test =(Button) findViewById(R.id.button2);
+        test.setOnClickListener(this);
 
         //viewAtt = (AppCompatButton) findViewById(R.id.attendee_list);
         //viewAtt.setOnClickListener(this);
@@ -475,6 +485,18 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
            Toast.makeText(this, "Successfully joined...", Toast.LENGTH_LONG).show();
        }
 
+       public void attendPhotorun(){
+
+           String ID = mAuth.getInstance().getCurrentUser().getUid();
+
+           mDatabase.child(photorun_id).child("attendees").child(ID).setValue("enrolled");
+
+           Toast.makeText(this, "Thanks for being here :)", Toast.LENGTH_LONG).show();
+
+
+
+       }
+
 
 
     public void onClick(View view){
@@ -492,6 +514,23 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
             intent.putExtra(ViewPhotorunList.PHOTORUN_TITLE, title);
             //starting the activity with intent
             startActivity(intent);
+
+        }
+
+        if(view == attendButton) {
+            attendPhotorun();
+        }
+        if(view == test){
+            finish();
+
+            Intent intent = new Intent(getApplicationContext(), ViewTeilnehmerliste.class);
+
+            //putting artist name and id to intent
+            intent.putExtra(ViewPhotorunList.PHOTORUN_ID, photorun_id);
+            intent.putExtra(ViewPhotorunList.PHOTORUN_TITLE, title);
+            //starting the activity with intent
+            startActivity(intent);
+
 
         }
     }

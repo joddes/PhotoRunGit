@@ -44,6 +44,7 @@
         <activity android:name=".GoogleMaps.MapsActivity"/>
         <activity android:name=".models.CreateProfile"></activity>
         <activity android:name=".models.ViewAttendeesList"></activity>
+        <activity android:name=".models.ViewTeilnehmerliste"></activity>
 
         <!--
               The API key for Google Maps-based APIs is defined as a string resource.

@@ -218,6 +218,17 @@
         android:layout_marginBottom="67dp" />
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/attendButton"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:background="@drawable/join_icon"
+        android:src="@drawable/join_icon"
+        android:layout_above="@+id/showLocation"
+        android:layout_alignLeft="@+id/showLocation"
+        android:layout_alignStart="@+id/showLocation"
+        android:layout_marginBottom="24dp" />
+
+    <android.support.design.widget.FloatingActionButton
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@drawable/maps_icon"
@@ -227,6 +238,16 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="18dp"
         android:layout_marginBottom="130dp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="460dp"/>
 
     <include layout="@layout/layout_top_bar"/>
     <include layout="@layout/layout_bottom_navigation" />
