@@ -54,13 +54,14 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
     private FirebaseAuth mAuth;
 
-    private Button test;
+    private TextView test;
 
     DatabaseReference Test;
 
     String photorun_id;
 
     private long curPart, maxPart;
+    public static int s = 0;
 
     private String maxPartBuffer;
 
@@ -99,8 +100,10 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         attendButton = (FloatingActionButton) findViewById(R.id.attendButton);
         attendButton.setOnClickListener(this);
 
-        test =(Button) findViewById(R.id.button2);
-        test.setOnClickListener(this);
+        test =(TextView) findViewById(R.id.teilgenommen);
+        //test.setOnClickListener(this);
+
+
 
         //viewAtt = (AppCompatButton) findViewById(R.id.attendee_list);
         //viewAtt.setOnClickListener(this);
@@ -110,11 +113,97 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
         photorun_id = intent.getStringExtra(ViewPhotorunList.PHOTORUN_ID);
 
-        databasePhotorun = FirebaseDatabase.getInstance().getReference("Photorun").child(photorun_id).child("participants");
+
+            databasePhotorun = FirebaseDatabase.getInstance().getReference("Photorun").child(photorun_id).child("participants");
+
+
+
+
+
+
         listViewUsers = (ListView) findViewById(R.id.PhotoRunList);
 
         //list to store Photoruns
         users = new ArrayList<>();
+
+        test.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                if (s==0) {
+                    databasePhotorun = FirebaseDatabase.getInstance().getReference("Photorun").child(photorun_id).child("attendees");
+                    test.setText("Zeige Angemeldete");
+                    databasePhotorun.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            users.clear();
+
+                            for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+
+                                String user = userSnapshot.getKey();
+
+
+                                users.add(user);
+                                //findViewById(R.id.progressBar).setVisibility(View.GONE);
+
+                            }
+
+                            ViewAttendeesListAdapter adapter = new ViewAttendeesListAdapter(ViewSinglePhotoRun.this, users);
+
+                            listViewUsers.setAdapter(adapter);
+
+                        }
+
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+                }if(s==1){
+                    databasePhotorun = FirebaseDatabase.getInstance().getReference("Photorun").child(photorun_id).child("participants");
+                    test.setText("Zeige Teilgenommene");
+                    databasePhotorun.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            users.clear();
+
+                            for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+
+                                String user = userSnapshot.getKey();
+
+
+                                users.add(user);
+                                //findViewById(R.id.progressBar).setVisibility(View.GONE);
+
+                            }
+
+                            ViewAttendeesListAdapter adapter = new ViewAttendeesListAdapter(ViewSinglePhotoRun.this, users);
+
+                            listViewUsers.setAdapter(adapter);
+
+                        }
+
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+                }
+                if(s==1){
+                    s=0;
+                }else{
+                    s=1;
+                }
+
+            }
+        });
 
 
         //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -519,19 +608,11 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         if(view == attendButton) {
             attendPhotorun();
         }
-        if(view == test){
-            finish();
+        /*if(view == test){
 
-            Intent intent = new Intent(getApplicationContext(), ViewTeilnehmerliste.class);
+            databasePhotorun = FirebaseDatabase.getInstance().getReference("Photorun").child(photorun_id).child("attendees");
 
-            //putting artist name and id to intent
-            intent.putExtra(ViewPhotorunList.PHOTORUN_ID, photorun_id);
-            intent.putExtra(ViewPhotorunList.PHOTORUN_TITLE, title);
-            //starting the activity with intent
-            startActivity(intent);
-
-
-        }
+        }*/
     }
 
     @Override

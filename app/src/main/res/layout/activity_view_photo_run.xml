@@ -168,8 +168,7 @@
         android:paddingLeft="5dp"
         android:paddingRight="10dp"
         android:layout_centerVertical="true"
-        android:layout_below="@+id/end_pointTextView"
-        android:background="@drawable/orange_border_bottom"/>
+        android:layout_below="@+id/end_pointTextView" />
 
     <!--<android.support.v7.widget.AppCompatButton
         android:layout_width="160dp"
@@ -192,16 +191,20 @@
         android:id="@+id/PhotoRunList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/angepers"
+        android:layout_below="@+id/teilgenommen"
         android:layout_marginBottom="50dp"/>
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
+        android:text="Zeige Teilgenommene"
         android:layout_below="@+id/descriptionTV"
-        android:text="Angemeldete Personen:"
-        android:textSize="20dp"
-        android:textColor="@color/black"
-        android:id="@+id/angepers" />
+        android:background="@color/colorAccent"
+        android:textAlignment="center"
+        android:textSize="16dp"
+        android:textColor="@color/white"
+        android:id="@+id/teilgenommen"
+        android:paddingTop="5dp"/>
 
 
     <android.support.design.widget.FloatingActionButton
@@ -237,7 +240,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="135dp" />
 
-    <Button
+    <!--<Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
@@ -246,7 +249,7 @@
         android:textSize="10dp"
         android:layout_below="@+id/descriptionTV"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="-5dp"/>
+        android:layout_marginTop="-5dp"/>-->
 
 
 
