@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Location"
+        android:text="Hilfe"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="16dp"
         android:layout_centerHorizontal="true"

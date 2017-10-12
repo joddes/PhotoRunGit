@@ -100,6 +100,10 @@ public class Users extends AppCompatActivity {
         //TOP TOOLBAR------------------------------------------------------------------
         toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
         toolbar_Textview.setText("Schreibe einem User");
+        TextView help_Textview = (TextView) findViewById(R.id.help_inhalt);
+        help_Textview.setText("Lieber Benutzer,\n" +
+                "leider steht auf dieser Seite noch keine Hilfe zur Verfügung.\n" +
+                "Mehr Infos folgen in Kürze.");
 
         final ImageButton logoutBtn = (ImageButton) findViewById(R.id.logout_icon);
 
