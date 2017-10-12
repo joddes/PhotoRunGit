@@ -247,5 +247,9 @@ public class Users extends AppCompatActivity {
         pd.dismiss();
     }
 
-
+    public void onBackPressed() {
+        finish();
+        //go back to Create Photorun
+        startActivity(new Intent(this, ProfileActivity.class));
+    }
 }

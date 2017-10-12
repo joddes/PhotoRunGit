@@ -209,4 +209,10 @@ public class Chat extends AppCompatActivity {
         layout.addView(textView);
         scrollView.fullScroll(View.FOCUS_DOWN);
     }
+
+    public void onBackPressed() {
+        finish();
+        //go back to Create Photorun
+        startActivity(new Intent(this, Users.class));
+    }
 }
