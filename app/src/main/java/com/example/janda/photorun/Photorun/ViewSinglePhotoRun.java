@@ -122,8 +122,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
         toolbar_Textview.setText("Photowalk Details");
         TextView help_Textview = (TextView) findViewById(R.id.help_inhalt);
-        help_Textview.setText("Hier können Sie alle Details des Photowalks einsehen, unter anderem können Sie auch die genaue Location auf Google Maps nachsehen.\n" +
-                "Um am Photowalk teilzunehmen, wählen Sie unten rechts  \"Join Run\".\n");
+        help_Textview.setText("Hier können Sie alle Details des Photowalks einsehen, unter anderem können Sie auch die genaue Location auf der Karte einsehen. Ebenso sind alle angemeldeten Personen aufgelistet. Um am Photowalk teilzunehmen, wählen Sie bitte unten rechts \"Join Run\". Wenn Sie am Photowalk teilgenommen haben, können Sie unten rechts einen Haken setzen.");
 
         final ImageButton logoutBtn = (ImageButton) findViewById(R.id.logout_icon);
 
