@@ -47,7 +47,7 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
 
     private TextView toolbar_Textview;
 
-
+    public static int s = 0;
     DatabaseReference databasePhotorun;
 
     ListView listViewPhotorun;

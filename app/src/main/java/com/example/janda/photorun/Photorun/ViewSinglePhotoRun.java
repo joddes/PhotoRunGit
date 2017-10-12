@@ -61,7 +61,6 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
     String photorun_id;
 
     private long curPart, maxPart;
-    public static int s = 0;
 
     private String maxPartBuffer;
 
@@ -121,6 +120,8 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
 
 
+
+
         listViewUsers = (ListView) findViewById(R.id.PhotoRunList);
 
         //list to store Photoruns
@@ -129,7 +130,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         test.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                if (s==0) {
+                if (ViewPhotorunList.s==0) {
                     databasePhotorun = FirebaseDatabase.getInstance().getReference("Photorun").child(photorun_id).child("attendees");
                     test.setText("Zeige Angemeldete");
                     databasePhotorun.addValueEventListener(new ValueEventListener() {
@@ -162,7 +163,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
                     });
 
 
-                }if(s==1){
+                }if(ViewPhotorunList.s==1){
                     databasePhotorun = FirebaseDatabase.getInstance().getReference("Photorun").child(photorun_id).child("participants");
                     test.setText("Zeige Teilgenommene");
                     databasePhotorun.addValueEventListener(new ValueEventListener() {
@@ -196,10 +197,10 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
 
                 }
-                if(s==1){
-                    s=0;
+                if(ViewPhotorunList.s==1){
+                    ViewPhotorunList.s=0;
                 }else{
-                    s=1;
+                    ViewPhotorunList.s=1;
                 }
 
             }
