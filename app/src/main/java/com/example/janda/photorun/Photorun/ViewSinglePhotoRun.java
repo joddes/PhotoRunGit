@@ -40,7 +40,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
     //implements View.OnClickListener
 
-    private TextView title_Textview, date_Textview, startpoint_Textview, endpoint_Textview, starttime_Textview, duration_Textview, participants_Textview, description_Textview,toolbar_Textview;
+    private TextView title_Textview, Textview_date, date_Textview, startpoint_Textview, endpoint_Textview, starttime_Textview, duration_Textview, participants_Textview, description_Textview,toolbar_Textview;
 
     private FloatingActionButton joinRunButton;
 
@@ -87,6 +87,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         //starttime_Textview = (TextView) findViewById(R.id.starting_timeTextView);
         duration_Textview = (TextView) findViewById(R.id.estimated_durationTextView);
         description_Textview = (TextView) findViewById(R.id.descriptionTV);
+        Textview_date = (TextView) findViewById(R.id.textViewDate);
 
         joinRunButton = (FloatingActionButton) findViewById(R.id.JoinButton);
         joinRunButton.setOnClickListener(this);
@@ -292,7 +293,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         @Override
         public void onDataChange (DataSnapshot dataSnapshot){
             date = dataSnapshot.getValue(String.class);
-            //date_Textview.setText(date);
+            Textview_date.setText(date);
         }
 
         @Override

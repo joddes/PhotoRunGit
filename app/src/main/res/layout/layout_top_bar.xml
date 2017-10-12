@@ -9,7 +9,7 @@
         android:background="@color/colorPrimary"
         android:id="@+id/layout_top_bar"
         android:layout_alignParentTop="true"
-        android:text="Photorun Liste"
+        android:text=""
         android:textColor="@color/white"
         android:textAlignment="center"
         android:textSize="20dp"

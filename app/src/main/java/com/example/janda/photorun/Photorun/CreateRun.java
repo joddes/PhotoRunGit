@@ -25,6 +25,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,8 +38,8 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
     private Button backButton;
 
 
-    EditText TitleEditText, DateEditText, Start_timeEditText, Estimated_durationEditText, Start_pointEditText, End_pointEditText ,Max_participatorsEditText, DescriptionEditText;
-    private TextView toolbar_Textview;
+    EditText TitleEditText, Estimated_durationEditText, Start_pointEditText, End_pointEditText ,Max_participatorsEditText, DescriptionEditText;
+    private TextView toolbar_Textview, DateEditText,Start_timeEditText;
 
     private DatabaseReference mDatabaseRefrence;
 
@@ -61,12 +63,12 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
 
 
         TitleEditText = (EditText) findViewById(R.id.run_title);
-        DateEditText = (EditText) findViewById(R.id.datum);
+        DateEditText = (TextView) findViewById(R.id.datum);
         DateEditText.setOnClickListener(this);
 
         Start_pointEditText = (EditText) findViewById(R.id.start_point);
         End_pointEditText = (EditText) findViewById(R.id.end_point);
-        Start_timeEditText= (EditText) findViewById(R.id.starting_time);
+        Start_timeEditText= (TextView) findViewById(R.id.starting_time);
         Start_timeEditText.setOnClickListener(this);
 
         Estimated_durationEditText = (EditText) findViewById(R.id.estimated_duration);
