@@ -40,7 +40,6 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Jan-David, Brustik"
         android:inputType="textEmailAddress"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/role"
@@ -81,7 +80,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/address"
-        android:hint="Street with House Nr, ZIP Code Town"
         android:layout_below="@id/name"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"/>
@@ -90,7 +88,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/role"
-        android:hint="Photographer"
         android:layout_below="@+id/user_profil_photo"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"/>
@@ -99,7 +96,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/mail"
         android:layout_marginTop="15dp"
-        android:hint="janixboy@outlook.de"
         android:layout_marginRight="10dp"
         android:textColor="@color/white"
         android:layout_below="@+id/top_bar"
@@ -112,7 +108,6 @@
         android:layout_marginTop="15dp"
         android:layout_marginRight="10dp"
         android:layout_alignParentRight="true"
-        android:hint="015778844436"
         android:textColor="@color/white"
         android:layout_below="@+id/top_bar"/>
 
@@ -122,9 +117,23 @@
         android:id="@+id/personal_information"
         android:layout_marginTop="10dp"
         android:textAlignment="center"
-        android:hint="Hobbies and Interests are breakdance hpe uni sport blalabalahslohjdjudjdjdjdj"
         android:layout_below="@+id/address"
         android:layout_centerHorizontal="true"/>
+
+    <ListView
+        android:id="@+id/enrolledListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:layout_below="@+id/angepers"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/personal_information"
+        android:text="Angemeldete Personen:"
+        android:textSize="16dp"
+        android:textColor="@color/black"
+        android:id="@+id/angepers"/>
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="70dp"

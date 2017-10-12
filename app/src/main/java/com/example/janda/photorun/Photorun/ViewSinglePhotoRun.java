@@ -372,7 +372,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
             }
         });
 
-        final ImageButton mapsButton = (ImageButton) findViewById(R.id.maps);
+        final FloatingActionButton mapsButton = (FloatingActionButton) findViewById(R.id.showLocation);
 
         mapsButton.setOnClickListener(new View.OnClickListener() {
 

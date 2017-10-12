@@ -51,7 +51,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="210dp"
         android:layout_marginLeft="10dp"/>
-    <EditText
+    <TextView
         android:layout_width="160dp"
         android:layout_height="30dp"
         android:id="@+id/datum"
@@ -62,7 +62,7 @@
         android:paddingLeft="5dp"
         android:textSize="15dp"
         android:layout_marginLeft="10dp"/>
-    <EditText
+    <TextView
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:id="@+id/starting_time"

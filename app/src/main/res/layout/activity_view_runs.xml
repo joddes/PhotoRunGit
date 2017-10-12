@@ -20,17 +20,26 @@ tools:context="com.example.janda.photorun.Photorun.ViewPhotorunList">
         android:layout_marginBottom="50dp"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:background="@drawable/create_icon"
         android:id="@+id/goToCreateRun"
         android:src="@drawable/create_icon"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_marginRight="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_marginBottom="67dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/maps_icon"
+        android:id="@+id/showOnMap"
+        android:src="@drawable/maps_icon"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="130dp" />
 
 
     <include layout="@layout/layout_bottom_navigation"/>

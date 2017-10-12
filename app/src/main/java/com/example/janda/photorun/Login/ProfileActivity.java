@@ -1,35 +1,24 @@
 package com.example.janda.photorun.Login;
 
-import android.content.ClipData;
 import android.content.Intent;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.janda.photorun.Chat.UserDetails;
 import com.example.janda.photorun.Chat.Users;
-import com.example.janda.photorun.MainActivity;
 
-import com.example.janda.photorun.Photorun.CreateRun;
+import com.example.janda.photorun.Photorun.PersonalListadapter;
 import com.example.janda.photorun.Photorun.ViewPhotorunList;
-import com.example.janda.photorun.Photorun.ViewSinglePhotoRun;
 import com.example.janda.photorun.models.CreateProfile;
-import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import android.view.MenuItem.OnMenuItemClickListener;
-import android.widget.Toast;
 
 import com.example.janda.photorun.R;
 import com.google.firebase.database.DataSnapshot;
@@ -38,7 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import static android.support.v7.appcompat.R.attr.title;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
@@ -61,6 +51,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private DatabaseReference mRef;
 
     private FloatingActionButton settingsBtn;
+
+    DatabaseReference databasePhotorunUser;
+    FirebaseAuth mAuth;
+
+    ListView listViewPhotoruns;
+    List<String> photoruns;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +97,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         //buttonLogout = (Button) findViewById(R.id.buttonLogout);
        // buttonPhotorun = (Button) findViewById(R.id.createRunbutton);
+
+        databasePhotorunUser = FirebaseDatabase.getInstance().getReference("User").child(userID).child("participatedRuns");
+        listViewPhotoruns = (ListView) findViewById(R.id.enrolledListView);
+
+        //list to store Photoruns
+        photoruns = new ArrayList<>();
 
 
 
@@ -214,10 +217,40 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 "Falls Sie es bearbeiten möchten, klicken Sie bitte auf den Button unten rechts.\n" +
                 "WICHTIG: Sie müssen zuerst ein Profil anlegen, bevor sie den Chat benutzen können.");
 
+        //displayPhotoRun(userID);
+
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+
+
+        databasePhotorunUser.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                photoruns.clear();
+
+                for (DataSnapshot photorunSnapshot : dataSnapshot.getChildren()) {
+                    String photorun = photorunSnapshot.getKey();
+                    photoruns.add(photorun);
+                }
+                //findViewById(R.id.progressBar).setVisibility(View.GONE);
+                PersonalListadapter adapter = new PersonalListadapter(ProfileActivity.this, photoruns);
+
+                listViewPhotoruns.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         displayPhotoRun(userID);
-
-
-
     }
 
     public void displayPhotoRun(String userID) {

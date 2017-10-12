@@ -30,7 +30,7 @@ public class PersonalListadapter extends ArrayAdapter<String> {
 
 
     public PersonalListadapter(Activity context, List<String> photorunList) {
-        super(context, R.layout.layout_photorun_list, photorunList);
+        super(context, R.layout.activity_personal_list_adapter, photorunList);
         // super(context, R.layout.layout_photorun_list, userList);
         this.context = context;
         this.photorunList = photorunList;
@@ -42,7 +42,7 @@ public class PersonalListadapter extends ArrayAdapter<String> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
 
-        View listViewItem = inflater.inflate(R.layout.layout_photorun_list, null, true);
+        View listViewItem = inflater.inflate(R.layout.activity_personal_list_adapter, null, true);
 
         final TextView textViewTitle = (TextView) listViewItem.findViewById(R.id.run_title);
         final TextView textViewDate = (TextView) listViewItem.findViewById(R.id.textViewDate);
