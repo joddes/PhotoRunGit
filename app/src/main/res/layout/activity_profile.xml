@@ -157,6 +157,5 @@
 
     <include layout="@layout/layout_top_bar"/>
     <include layout="@layout/layout_bottom_navigation" />
-    <include layout="@layout/help_seite"
-        android:id="@+id/include" />
+    <include layout="@layout/help_seite" />
 </RelativeLayout>
