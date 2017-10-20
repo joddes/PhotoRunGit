@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.janda.photorun.Chat.ViewUserList;
 import com.example.janda.photorun.Photorun.ViewPhotorunList;
 import com.example.janda.photorun.R;
 import com.google.firebase.database.DataSnapshot;
@@ -24,35 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.janda.photorun.Chat.Users;
 import com.example.janda.photorun.Login.ProfileActivity;
-import com.example.janda.photorun.Photorun.CreateRun;
-import com.example.janda.photorun.Photorun.ViewPhotoRuns;
-import com.example.janda.photorun.Photorun.ViewPhotorunList;
-import com.example.janda.photorun.Photorun.ViewSinglePhotoRun;
-import com.example.janda.photorun.models.ViewAttendeesListAdapter;
-
-import com.example.janda.photorun.R;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Tim Seemann on 09.10.2017.
@@ -143,7 +117,7 @@ public class ViewTeilnehmerliste extends AppCompatActivity {
         searchBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                Intent myIntent = new Intent(ViewTeilnehmerliste.this, Users.class);
+                Intent myIntent = new Intent(ViewTeilnehmerliste.this, ViewUserList.class);
                 finish();
                 startActivity(myIntent);
             }

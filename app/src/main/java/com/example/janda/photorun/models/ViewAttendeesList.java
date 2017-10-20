@@ -2,21 +2,12 @@ package com.example.janda.photorun.models;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.janda.photorun.Chat.Users;
-import com.example.janda.photorun.Login.ProfileActivity;
-import com.example.janda.photorun.Photorun.CreateRun;
-import com.example.janda.photorun.Photorun.ViewPhotoRuns;
 import com.example.janda.photorun.Photorun.ViewPhotorunList;
-import com.example.janda.photorun.Photorun.ViewSinglePhotoRun;
-import com.example.janda.photorun.models.ViewAttendeesListAdapter;
 
 import com.example.janda.photorun.R;
 
@@ -24,7 +15,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;

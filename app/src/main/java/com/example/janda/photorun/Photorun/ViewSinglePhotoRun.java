@@ -7,25 +7,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 
-import android.widget.AdapterView;
-
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.janda.photorun.Chat.Users;
+import com.example.janda.photorun.Chat.ViewUserList;
 import com.example.janda.photorun.GoogleMaps.MapsActivity;
 import com.example.janda.photorun.Login.ProfileActivity;
 import com.example.janda.photorun.R;
-import com.example.janda.photorun.models.Photorun;
 import com.example.janda.photorun.models.ViewAttendeesList;
 import com.example.janda.photorun.models.ViewAttendeesListAdapter;
-import com.example.janda.photorun.models.ViewTeilnehmerliste;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -113,7 +108,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         photorun_id = intent.getStringExtra(ViewPhotorunList.PHOTORUN_ID);
 
 
-            databasePhotorun = FirebaseDatabase.getInstance().getReference("Photorun").child(photorun_id).child("participants");
+        databasePhotorun = FirebaseDatabase.getInstance().getReference("Photorun").child(photorun_id).child("participants");
 
 
 
@@ -257,7 +252,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         searchBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                Intent myIntent = new Intent(ViewSinglePhotoRun.this, Users.class);
+                Intent myIntent = new Intent(ViewSinglePhotoRun.this, ViewUserList.class);
 
                 finish();
 

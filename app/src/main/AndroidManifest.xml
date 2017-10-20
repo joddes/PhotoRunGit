@@ -40,11 +40,11 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".Chat.Chat" />
-        <activity android:name=".Chat.Users" />
         <activity android:name=".GoogleMaps.MapsActivity"/>
         <activity android:name=".models.CreateProfile"></activity>
         <activity android:name=".models.ViewAttendeesList"></activity>
         <activity android:name=".models.ViewTeilnehmerliste"></activity>
+        <activity android:name=".Chat.ViewUserList"></activity>
 
         <!--
               The API key for Google Maps-based APIs is defined as a string resource.

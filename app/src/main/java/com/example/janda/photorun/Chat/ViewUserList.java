@@ -1,88 +1,90 @@
-package com.example.janda.photorun.Photorun;
+package com.example.janda.photorun.Chat;
 
 /**
  * Created by Tim Seemann on 04.10.2017.
  */
 
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
 
-        import android.content.Intent;
-        import android.support.design.widget.FloatingActionButton;
-        import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
-        import android.view.View;
-        import android.view.animation.Animation;
-        import android.view.animation.AnimationUtils;
-        import android.widget.AdapterView;
-        import android.widget.ImageButton;
-        import android.widget.ListView;
-        import android.widget.TextView;
+import com.example.janda.photorun.Login.ProfileActivity;
+import com.example.janda.photorun.R;
+import com.example.janda.photorun.models.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-        import com.example.janda.photorun.Chat.ViewUserList;
-        import com.example.janda.photorun.Login.ProfileActivity;
-        import com.example.janda.photorun.models.Photorun;
-
-        import com.example.janda.photorun.R;
-        import com.google.firebase.database.DataSnapshot;
-        import com.google.firebase.database.DatabaseError;
-        import com.google.firebase.database.DatabaseReference;
-        import com.google.firebase.database.FirebaseDatabase;
-        import com.google.firebase.database.ValueEventListener;
-
-        import java.util.ArrayList;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 
+public class ViewUserList extends AppCompatActivity implements View.OnClickListener{
 
-public class ViewPhotorunList extends AppCompatActivity implements View.OnClickListener{
-
-    public static final String PHOTORUN_TITLE = "com.example.janda.photorun.models.title";
-    public static final String PHOTORUN_ID = "com.example.janda.photorun.models.photorun_id";
+    public static final String USER_ID = "com.example.janda.photorun.models.user_id";
+    public static final String USER_NAME = "com.example.janda.photorun.models.full_name";
 
     private TextView toolbar_Textview;
 
     public static int s = 0;
-    DatabaseReference databasePhotorun;
+    DatabaseReference databaseUserList;
 
-    ListView listViewPhotorun;
-    List<Photorun> photoruns;
+    String actualUser;
+    private FirebaseAuth mAuth;
+
+    ListView listViewUser;
+    List<User> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_runs);
+        setContentView(R.layout.activity_users);
 
 
         //Liste von Photoruns anzeigen
-        databasePhotorun = FirebaseDatabase.getInstance().getReference("Photorun");
-        listViewPhotorun = (ListView) findViewById(R.id.PhotoRunList);
+        databaseUserList = FirebaseDatabase.getInstance().getReference("User");
+        listViewUser = (ListView) findViewById(R.id.usersList);
 
         //list to store Photoruns
-        photoruns = new ArrayList<>();
+        users = new ArrayList<>();
+
+        actualUser = mAuth.getInstance().getCurrentUser().getUid();
 
         //Create Button
-        final FloatingActionButton createButton = (FloatingActionButton) findViewById(R.id.goToCreateRun);
+        /*final FloatingActionButton createButton = (FloatingActionButton) findViewById(R.id.goToCreateRun);
 
         createButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                Intent myIntent = new Intent(ViewPhotorunList.this, CreateRun.class);
+                Intent myIntent = new Intent(ViewUserList.this, CreateRun.class);
                 startActivity(myIntent);
             }
-        });
+        });*/
 
-        listViewPhotorun.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listViewUser.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //getting the selected artist
-                Photorun photorun = photoruns.get(i);
+                User user = users.get(i);
 
                 //creating an intent
-                Intent intent = new Intent(getApplicationContext(), ViewSinglePhotoRun.class);
+                Intent intent = new Intent(getApplicationContext(), Chat.class);
 
                 //putting artist name and id to intent
-                intent.putExtra(PHOTORUN_ID, photorun.getPhotorun_id());
-                intent.putExtra(PHOTORUN_TITLE, photorun.getTitle());
+                intent.putExtra(USER_ID, user.getUser_id());
+                intent.putExtra(USER_NAME, user.getFull_name());
                 //starting the activity with intent
                 startActivity(intent);
 
@@ -102,7 +104,7 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
         logoutBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                Intent myIntent = new Intent(ViewPhotorunList.this, ProfileActivity.class);
+                Intent myIntent = new Intent(ViewUserList.this, ProfileActivity.class);
 
                 finish();
 
@@ -140,7 +142,7 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
         searchBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                Intent myIntent = new Intent(ViewPhotorunList.this, ViewUserList.class);
+                Intent myIntent = new Intent(ViewUserList.this, ViewUserList.class);
 
                 finish();
 
@@ -159,7 +161,7 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
         profileBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                Intent myIntent = new Intent(ViewPhotorunList.this, ProfileActivity.class);
+                Intent myIntent = new Intent(ViewUserList.this, ProfileActivity.class);
 
                 finish();
 
@@ -173,26 +175,28 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onStart() {
         super.onStart();
-        findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+        //findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
-        databasePhotorun.addValueEventListener(new ValueEventListener() {
+        databaseUserList.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                photoruns.clear();
+                users.clear();
 
 
                 for(DataSnapshot photorunSnapshot: dataSnapshot.getChildren()){
 
-                    Photorun photorun = photorunSnapshot.getValue(Photorun.class);
-
-                    photoruns.add(photorun);
-                    findViewById(R.id.progressBar).setVisibility(View.GONE);
+                    User user = photorunSnapshot.getValue(User.class);
+                    String username = mAuth.getInstance().getCurrentUser().getUid();
+                    if(!user.equals(username)) {
+                        users.add(user);
+                    }
+                    //findViewById(R.id.progressBar).setVisibility(View.GONE);
                 }
 
-                ViewPhotoRuns adapter = new ViewPhotoRuns(ViewPhotorunList.this, photoruns);
+                ViewUserAdapter adapter = new ViewUserAdapter(ViewUserList.this, users);
 
-                listViewPhotorun.setAdapter(adapter);
+                listViewUser.setAdapter(adapter);
 
             }
 

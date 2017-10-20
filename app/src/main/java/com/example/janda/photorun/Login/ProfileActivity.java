@@ -12,8 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.janda.photorun.Chat.Users;
-
+import com.example.janda.photorun.Chat.ViewUserList;
 import com.example.janda.photorun.Photorun.PersonalListadapter;
 import com.example.janda.photorun.Photorun.ViewPhotorunList;
 import com.example.janda.photorun.models.CreateProfile;
@@ -139,7 +138,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         searchBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                Intent myIntent = new Intent(ProfileActivity.this, Users.class);
+                Intent myIntent = new Intent(ProfileActivity.this, ViewUserList.class);
 
                 finish();
 

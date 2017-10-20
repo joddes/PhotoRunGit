@@ -13,9 +13,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.janda.photorun.Chat.Users;
+import com.example.janda.photorun.Chat.ViewUserList;
 import com.example.janda.photorun.Login.ProfileActivity;
-import com.example.janda.photorun.Photorun.CreateRun;
 import com.example.janda.photorun.Photorun.ViewPhotorunList;
 import com.example.janda.photorun.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -125,7 +124,7 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         searchBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                Intent myIntent = new Intent(CreateProfile.this, Users.class);
+                Intent myIntent = new Intent(CreateProfile.this, ViewUserList.class);
                 finish();
                 startActivity(myIntent);
             }

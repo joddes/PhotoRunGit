@@ -3,7 +3,6 @@ package com.example.janda.photorun.GoogleMaps;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -17,10 +16,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.janda.photorun.Chat.Users;
+import com.example.janda.photorun.Chat.ViewUserList;
 import com.example.janda.photorun.Login.ProfileActivity;
-import com.example.janda.photorun.MainActivity;
-import com.example.janda.photorun.Photorun.CreateRun;
 import com.example.janda.photorun.Photorun.ViewPhotorunList;
 import com.example.janda.photorun.Photorun.ViewSinglePhotoRun;
 import com.example.janda.photorun.R;
@@ -29,12 +26,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.io.IOException;
 import java.util.List;
@@ -107,7 +101,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         searchBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                Intent myIntent = new Intent(MapsActivity.this, Users.class);
+                Intent myIntent = new Intent(MapsActivity.this, ViewUserList.class);
                 finish();
                 startActivity(myIntent);
             }

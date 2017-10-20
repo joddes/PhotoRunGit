@@ -25,6 +25,7 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,12 +40,19 @@ public class Chat extends AppCompatActivity {
     Firebase reference1, reference2;
     TextView toolbar_Textview;
 
+    String chatWith_id;
+    String chatWith_name;
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        Intent intent = getIntent();
 
+        chatWith_id = intent.getStringExtra(ViewUserList.USER_ID);
+        chatWith_name = intent.getStringExtra(ViewUserList.USER_NAME);
 
+        final String username = mAuth.getInstance().getCurrentUser().getUid();
         layout = (LinearLayout) findViewById(R.id.layout1);
         layout_2 = (RelativeLayout)findViewById(R.id.layout2);
         sendButton = (ImageView)findViewById(R.id.sendButton);
@@ -52,8 +60,8 @@ public class Chat extends AppCompatActivity {
         scrollView = (ScrollView)findViewById(R.id.scrollView);
 
         Firebase.setAndroidContext(this);
-        reference1 = new Firebase("https://photorun-3f474.firebaseio.com/messages/" + Users.username + "_" + UserDetails.chatWith);
-        reference2 = new Firebase("https://photorun-3f474.firebaseio.com/messages/" + UserDetails.chatWith + "_" + Users.username);
+        reference1 = new Firebase("https://photorun-3f474.firebaseio.com/messages/" + username + "_" + chatWith_id);
+        reference2 = new Firebase("https://photorun-3f474.firebaseio.com/messages/" + chatWith_id + "_" + username);
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +71,7 @@ public class Chat extends AppCompatActivity {
                 if(!messageText.equals("")){
                     Map<String, String> map = new HashMap<String, String>();
                     map.put("message", messageText);
-                    map.put("user", Users.username);
+                    map.put("user", username);
                     reference1.push().setValue(map);
                     reference2.push().setValue(map);
                     messageArea.setText("");
@@ -78,11 +86,11 @@ public class Chat extends AppCompatActivity {
                 String message = map.get("message").toString();
                 String userName = map.get("user").toString();
 
-                if(userName.equals(Users.username)){
+                if(userName.equals(username)){
                     addMessageBox("You:\n" + message, 1);
                 }
                 else{
-                    addMessageBox(Users.name + ":\n" + message, 2);
+                    addMessageBox(chatWith_name + ":\n" + message, 2);
                 }
             }
 
@@ -119,7 +127,7 @@ public class Chat extends AppCompatActivity {
         logoutBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                Intent myIntent = new Intent(Chat.this, Users.class);
+                Intent myIntent = new Intent(Chat.this, ViewUserList.class);
 
                 finish();
 
@@ -157,7 +165,7 @@ public class Chat extends AppCompatActivity {
         searchBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                Intent myIntent = new Intent(Chat.this, Users.class);
+                Intent myIntent = new Intent(Chat.this, ViewUserList.class);
 
                 finish();
 
@@ -213,6 +221,6 @@ public class Chat extends AppCompatActivity {
     public void onBackPressed() {
         finish();
         //go back to Create Photorun
-        startActivity(new Intent(this, Users.class));
+        startActivity(new Intent(this, ViewUserList.class));
     }
 }

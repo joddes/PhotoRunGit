@@ -15,7 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.janda.photorun.Chat.Users;
+import com.example.janda.photorun.Chat.ViewUserList;
 import com.example.janda.photorun.Helpers.DatePickerFragment;
 import com.example.janda.photorun.Helpers.TimePickerFragment;
 import com.example.janda.photorun.Login.ProfileActivity;
@@ -24,8 +24,6 @@ import com.example.janda.photorun.models.Photorun;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -125,7 +123,7 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
         searchBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                Intent myIntent = new Intent(CreateRun.this, Users.class);
+                Intent myIntent = new Intent(CreateRun.this, ViewUserList.class);
                 finish();
                 startActivity(myIntent);
             }
