@@ -175,7 +175,7 @@ public class ViewUserList extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        //findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+        findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
         databaseUserList.addValueEventListener(new ValueEventListener() {
             @Override
@@ -191,7 +191,7 @@ public class ViewUserList extends AppCompatActivity implements View.OnClickListe
                     if(!user.equals(username)) {
                         users.add(user);
                     }
-                    //findViewById(R.id.progressBar).setVisibility(View.GONE);
+                    findViewById(R.id.progressBar).setVisibility(View.GONE);
                 }
 
                 ViewUserAdapter adapter = new ViewUserAdapter(ViewUserList.this, users);
