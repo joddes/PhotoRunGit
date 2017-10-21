@@ -11,8 +11,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.janda.photorun.Chat.Chat;
 import com.example.janda.photorun.Chat.ViewUserList;
 import com.example.janda.photorun.Login.LoginActivity;
 import com.example.janda.photorun.Photorun.PersonalListadapter;
@@ -45,7 +45,7 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
 
     private TextView toolbar_Textview;
 
-    String userID, mail, phonenumber, name, hobbies, address, role;
+    String userID, mail, phonenumber, name, hobbies, address, role, currentUserID;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -94,9 +94,6 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
         //list to store Photoruns
         photoruns = new ArrayList<>();
 
-
-
-
         //displaying logged in User name
         //textViewUserEmail.setText("Logged in as: "+user.getEmail());
 
@@ -108,14 +105,6 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
         followBtn = (FloatingActionButton) findViewById(R.id.Follow);
         followBtn.setOnClickListener(this);
 
-        followBtn.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-
-            }
-
-
-        });
 
         //Create Button
         final ImageButton profileBtn = (ImageButton) findViewById(R.id.Profilbtn);
@@ -335,11 +324,22 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    public void follow(){
+        String currentUserID = mAuth.getInstance().getCurrentUser().getUid();
+
+        mRef.child(currentUserID).child("following").child(userID).setValue("followed");
+        mRef.child(userID).child("followers").child(currentUserID).setValue("follows");
+
+        Toast.makeText(this, "Du folgst diesem User jetzt!", Toast.LENGTH_SHORT).show();
+
+    }
+
     @Override
     public void onClick(View view) {
 
         //if logout is pressed
         if(view == followBtn){
+            follow();
             //logging out the User
             //closing activity
             //finish();

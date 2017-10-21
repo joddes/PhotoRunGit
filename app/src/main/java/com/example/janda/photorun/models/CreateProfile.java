@@ -22,6 +22,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Map;
+
 /**
  * Created by Tim Seemann on 09.10.2017.
  */
@@ -37,6 +39,8 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
     private TextView email;
 
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+    private Map following, followers;
 
 
     private String aktuelleUserID;
