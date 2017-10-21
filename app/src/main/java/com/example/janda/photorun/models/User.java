@@ -17,6 +17,8 @@ public class User {
     private String personalInf;
     private Map<String, String> createdRuns;
     private Map<String, String> participatedRuns;
+    private Map<String, String> following;
+    private Map<String, String> followers;
 
     public User(String user_id, String email, String full_name, String address, String phonenumber, String role, String personalInf) {
         this.user_id = user_id;
@@ -26,8 +28,6 @@ public class User {
         this.phonenumber = phonenumber;
         this.role = role;
         this.personalInf = personalInf;
-
-
     }
 
     public User(String user_id, String email, String full_name, String address, String phonenumber, String role, String personalInf, Map<String, String> createdRuns, Map<String, String> participatedRuns) {
@@ -44,6 +44,30 @@ public class User {
 
     public User(){
 
+    }
+
+    public void setCreatedRuns(Map<String, String> createdRuns) {
+        this.createdRuns = createdRuns;
+    }
+
+    public void setParticipatedRuns(Map<String, String> participatedRuns) {
+        this.participatedRuns = participatedRuns;
+    }
+
+    public Map<String, String> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(Map<String, String> following) {
+        this.following = following;
+    }
+
+    public Map<String, String> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(Map<String, String> followers) {
+        this.followers = followers;
     }
 
     public Map<String, String> getCreatedRuns() {
@@ -111,7 +135,6 @@ public class User {
         this.role = role;
     }
 
-
     @Override
     public String toString() {
         return "User{" +
@@ -124,6 +147,9 @@ public class User {
                 ", personalInf='" + personalInf + '\'' +
                 ", createdRuns=" + createdRuns +
                 ", participatedRuns=" + participatedRuns +
+                ", following=" + following +
+                ", followers=" + followers +
                 '}';
     }
 }
+
