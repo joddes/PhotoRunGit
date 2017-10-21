@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.janda.photorun.Chat.Chat;
 import com.example.janda.photorun.Chat.ViewUserList;
 import com.example.janda.photorun.Login.LoginActivity;
 import com.example.janda.photorun.Photorun.PersonalListadapter;
@@ -380,6 +379,15 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
 
         Toast.makeText(this, "Du folgst diesem User jetzt!", Toast.LENGTH_SHORT).show();
 
+    }
+
+    public void entfolgen(){
+        String currentUserID = mAuth.getInstance().getCurrentUser().getUid();
+
+        mRef.child(currentUserID).child("following").child(userID).removeValue();
+        mRef.child(userID).child("followers").child(currentUserID).removeValue();
+
+        Toast.makeText(this, "Du folgst diesem User nicht mehr!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
