@@ -246,11 +246,11 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         }
 
         if(!TextUtils.isEmpty(phone)) {
-            databaseProfiles.child("User").child(aktuelleUserID).child("phonenumber").setValue(personalinf);
+            databaseProfiles.child("User").child(aktuelleUserID).child("phonenumber").setValue(phone);
         }
 
         if(!TextUtils.isEmpty(personalinf)) {
-            databaseProfiles.child("User").child(aktuelleUserID).child("personalInf").setValue(phone);
+            databaseProfiles.child("User").child(aktuelleUserID).child("personalInf").setValue(personalinf);
         }
 
         if(!TextUtils.isEmpty(rolle)) {
