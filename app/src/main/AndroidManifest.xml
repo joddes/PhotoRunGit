@@ -39,6 +39,7 @@
         <activity android:name=".Photorun.ViewPhotorunList" />
         <activity android:name=".MainActivity" />
         <activity android:name=".HomeActivity" />
+        <activity android:name=".models.ViewProfile" />
         <activity android:name=".Chat.Chat"
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".GoogleMaps.MapsActivity"/>

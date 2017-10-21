@@ -20,6 +20,8 @@ import com.example.janda.photorun.Login.ProfileActivity;
 import com.example.janda.photorun.Photorun.ViewPhotorunList;
 import com.example.janda.photorun.R;
 
+import com.example.janda.photorun.models.User;
+import com.example.janda.photorun.models.ViewProfile;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -29,6 +31,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.example.janda.photorun.Chat.ViewUserList.USER_ID;
 
 
 public class Chat extends AppCompatActivity {
@@ -50,7 +54,7 @@ public class Chat extends AppCompatActivity {
         Intent intent = getIntent();
         findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
-        chatWith_id = intent.getStringExtra(ViewUserList.USER_ID);
+        chatWith_id = intent.getStringExtra(USER_ID);
         chatWith_name = intent.getStringExtra(ViewUserList.USER_NAME);
 
         final String username = mAuth.getInstance().getCurrentUser().getUid();
@@ -59,7 +63,7 @@ public class Chat extends AppCompatActivity {
         sendButton = (ImageView)findViewById(R.id.sendButton);
         messageArea = (EditText)findViewById(R.id.messageArea);
         scrollView = (ScrollView)findViewById(R.id.scrollView);
-
+        toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
         Firebase.setAndroidContext(this);
         reference1 = new Firebase("https://photorun-3f474.firebaseio.com/messages/" + username + "_" + chatWith_id);
         reference2 = new Firebase("https://photorun-3f474.firebaseio.com/messages/" + chatWith_id + "_" + username);
@@ -77,6 +81,20 @@ public class Chat extends AppCompatActivity {
                     reference2.push().setValue(map);
                     messageArea.setText("");
                 }
+            }
+        });
+
+        toolbar_Textview.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                //creating an intent
+                Intent intent = new Intent(getApplicationContext(), ViewProfile.class);
+                //putting artist name and id to intent
+                intent.putExtra(USER_ID, chatWith_id);
+                //starting the activity with intent
+                startActivity(intent);
+
+
             }
         });
 
@@ -123,8 +141,7 @@ public class Chat extends AppCompatActivity {
 
         //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         //TOP TOOLBAR------------------------------------------------------------------
-        toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
-        toolbar_Textview.setText("Chat");
+        toolbar_Textview.setText("Chat mit " + chatWith_name);
         TextView help_Textview = (TextView) findViewById(R.id.help_inhalt);
         help_Textview.setText("Hier können Sie sich mit anderen Leuten unterhalten!\n");
 

@@ -75,7 +75,7 @@ public class ViewAttendeesListAdapter extends ArrayAdapter<String> {
                 aktuellerUser = dataSnapshot.getValue(User.class);
                textViewTitle.setText(aktuellerUser.getFull_name());
                //textViewDate.setText(aktuellerUser.getEmail());
-                //textViewDate.setText(aktuellerUser.getUser_id());
+               aktuellerUser.getUser_id();
             }
 
             @Override

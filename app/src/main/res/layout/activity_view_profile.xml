@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="175dp"
+        android:layout_gravity="center"
+        android:id="@+id/user_background_photo"
+        android:background="@drawable/user_profile_photo"
+        android:layout_centerHorizontal="true"
+        />
+
+    <ImageView
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_gravity="center"
+        android:id="@+id/user_profil_photo"
+        android:background="@drawable/profile_photo"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:background="#80000000"
+        android:id="@+id/textView" />
+    <ImageButton
+    android:layout_width="40dp"
+    android:layout_height="40dp"
+    android:layout_marginTop="55dp"
+    android:layout_marginLeft="5dp"
+    android:background="@drawable/contacts_icon"/>
+
+    <!--<TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/role"
+        android:layout_centerHorizontal="true"/>
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="115dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="135dp"
+        android:text="My Walks"
+        android:textSize="12dp"
+        android:id="@+id/PhotowalkButton"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"/>
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="115dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="135dp"
+        android:layout_marginLeft="115dp"
+        android:text="My Photos"
+        android:textSize="12dp"
+        android:id="@+id/PhotoButton"
+        android:layout_alignParentTop="true"/>
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="115dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="135dp"
+        android:layout_marginLeft="115dp"
+        android:text="My Contacts"
+        android:textSize="12dp"
+        android:id="@+id/ContactButton"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"/>-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/address"
+        android:layout_below="@id/role"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/role"
+        android:layout_below="@+id/user_profil_photo"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mail"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/white"
+        android:layout_below="@+id/top_bar"
+        android:layout_toLeftOf="@+id/phonenumber"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/phonenumber"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/white"
+        android:layout_below="@+id/top_bar"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/personal_information"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"
+        android:layout_below="@+id/address"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/orange_border_bottom"
+        android:paddingBottom="5dp"/>
+
+    <ListView
+        android:id="@+id/enrolledListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:layout_below="@+id/angepers"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/personal_information"
+        android:text="Deine Photowalks:"
+        android:textSize="16dp"
+        android:textColor="@color/black"
+        android:id="@+id/angepers"
+        android:paddingLeft="5dp"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/profile_settings_icon"
+        android:id="@+id/Follow"
+        android:src="@drawable/profile_settings_icon"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="67dp" />
+
+
+    <include layout="@layout/layout_top_bar"/>
+    <include layout="@layout/layout_bottom_navigation" />
+    <include layout="@layout/help_seite" />
+</RelativeLayout>

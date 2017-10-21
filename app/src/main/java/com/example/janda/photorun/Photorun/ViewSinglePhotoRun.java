@@ -10,17 +10,21 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.janda.photorun.Chat.Chat;
 import com.example.janda.photorun.Chat.ViewUserList;
 import com.example.janda.photorun.GoogleMaps.MapsActivity;
 import com.example.janda.photorun.Login.ProfileActivity;
 import com.example.janda.photorun.R;
+import com.example.janda.photorun.models.User;
 import com.example.janda.photorun.models.ViewAttendeesList;
 import com.example.janda.photorun.models.ViewAttendeesListAdapter;
+import com.example.janda.photorun.models.ViewProfile;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +35,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.janda.photorun.Chat.ViewUserList.USER_ID;
+import static com.example.janda.photorun.Chat.ViewUserList.USER_NAME;
 
 
 public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClickListener  {
@@ -201,7 +208,22 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
             }
         });
 
+        /*listViewUsers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //getting the selected artist
+                User user = users.get(i);
 
+                //creating an intent
+                Intent intent = new Intent(getApplicationContext(), ViewProfile.class);
+
+                //putting artist name and id to intent
+                intent.putExtra(USER_ID, user.getUser_id());
+                //starting the activity with intent
+                startActivity(intent);
+
+            }
+        });*/
         //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         //TOP TOOLBAR------------------------------------------------------------------
         toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
