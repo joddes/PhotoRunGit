@@ -48,7 +48,6 @@ public class Chat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         Intent intent = getIntent();
-        findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
         chatWith_id = intent.getStringExtra(ViewUserList.USER_ID);
         chatWith_name = intent.getStringExtra(ViewUserList.USER_NAME);
@@ -83,7 +82,6 @@ public class Chat extends AppCompatActivity {
         reference1.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                findViewById(R.id.progressBar).setVisibility(View.GONE);
                 Map map = dataSnapshot.getValue(Map.class);
                 String message = map.get("message").toString();
                 String userName = map.get("user").toString();
@@ -98,25 +96,21 @@ public class Chat extends AppCompatActivity {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                findViewById(R.id.progressBar).setVisibility(View.GONE);
 
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                findViewById(R.id.progressBar).setVisibility(View.GONE);
 
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                findViewById(R.id.progressBar).setVisibility(View.GONE);
 
             }
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-                findViewById(R.id.progressBar).setVisibility(View.GONE);
 
             }
         });
