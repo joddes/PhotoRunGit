@@ -237,35 +237,25 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         String rolle = role.getText().toString().trim();
 
 
-        if(TextUtils.isEmpty(addr)) {
-            addr = "";
+        if(!TextUtils.isEmpty(addr)) {
+            databaseProfiles.child("User").child(aktuelleUserID).child("address").setValue(addr);
         }
 
-        if(TextUtils.isEmpty(full_name)) {
-            Toast.makeText(this, "Please enter full name", Toast.LENGTH_SHORT).show();
-            //stopping the function
-            return;
+        if(!TextUtils.isEmpty(full_name)) {
+            databaseProfiles.child("User").child(aktuelleUserID).child("full_name").setValue(full_name);
         }
 
-        if(TextUtils.isEmpty(phone)) {
-            phone = "";
+        if(!TextUtils.isEmpty(phone)) {
+            databaseProfiles.child("User").child(aktuelleUserID).child("phonenumber").setValue(personalinf);
         }
 
-        if(TextUtils.isEmpty(personalinf)) {
-            personalinf = "";
+        if(!TextUtils.isEmpty(personalinf)) {
+            databaseProfiles.child("User").child(aktuelleUserID).child("personalInf").setValue(phone);
         }
 
-        if(TextUtils.isEmpty(rolle)) {
-            rolle = "";
+        if(!TextUtils.isEmpty(rolle)) {
+            databaseProfiles.child("User").child(aktuelleUserID).child("role").setValue(rolle);
         }
-
-
-        //create phtoruns object
-        databaseProfiles.child("User").child(aktuelleUserID).child("address").setValue(addr);
-        databaseProfiles.child("User").child(aktuelleUserID).child("full_name").setValue(full_name);
-        databaseProfiles.child("User").child(aktuelleUserID).child("personalInf").setValue(personalinf);
-        databaseProfiles.child("User").child(aktuelleUserID).child("phonenumber").setValue(phone);
-        databaseProfiles.child("User").child(aktuelleUserID).child("role").setValue(rolle);
 
         Toast.makeText(this, "Profil aktualisiert..", Toast.LENGTH_LONG).show();
     }
