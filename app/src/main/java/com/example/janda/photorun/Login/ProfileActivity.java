@@ -56,6 +56,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     private DatabaseReference mRef;
 
+    public static String ubergabeName;
+
     private FloatingActionButton settingsBtn;
 
     DatabaseReference databasePhotorunUser;
@@ -329,6 +331,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             public void onDataChange(DataSnapshot dataSnapshot) {
                 name = dataSnapshot.getValue(String.class);
                 toolbar_Textview.setText(name);
+                ubergabeName = name;
             }
 
             @Override
@@ -366,7 +369,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
             }
         });
-
 
     }
 

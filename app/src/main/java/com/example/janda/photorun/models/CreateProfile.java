@@ -19,8 +19,11 @@ import com.example.janda.photorun.Photorun.ViewPhotorunList;
 import com.example.janda.photorun.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Map;
 
@@ -41,10 +44,13 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     private Map following, followers;
+    String nameMark;
+    String ubername= ProfileActivity.ubergabeName;
 
 
     private String aktuelleUserID;
-
+    private DatabaseReference mRef;
+    DatabaseReference databaseFullName;
 
 
     @Override
@@ -75,6 +81,7 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         email.setText(user.getEmail());
 
         role = (EditText) findViewById(R.id.role);
+
 
         //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         //TOP TOOLBAR------------------------------------------------------------------
@@ -171,7 +178,7 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
 
     }
 
-    public void createRun(){
+    public void createProfile(){
         databaseProfiles =  FirebaseDatabase.getInstance().getReference();
         aktuelleUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -185,9 +192,7 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
 
 
         if(TextUtils.isEmpty(addr)) {
-            Toast.makeText(this, "Please enter address", Toast.LENGTH_SHORT).show();
-            //stopping the function
-            return;
+            addr = "";
         }
 
         if(TextUtils.isEmpty(full_name)) {
@@ -197,21 +202,15 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         }
 
         if(TextUtils.isEmpty(phone)) {
-            Toast.makeText(this, "Please enter phonenumber", Toast.LENGTH_SHORT).show();
-            //stopping the function
-            return;
+            phone = "";
         }
 
         if(TextUtils.isEmpty(personalinf)) {
-            Toast.makeText(this, "Please enter personal information", Toast.LENGTH_SHORT).show();
-            //stopping the function
-            return;
+            personalinf = "";
         }
 
         if(TextUtils.isEmpty(rolle)) {
-            Toast.makeText(this, "Please enter role", Toast.LENGTH_SHORT).show();
-            //stopping the function
-            return;
+            rolle = "";
         }
 
 
@@ -219,14 +218,56 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         User newUserTest = new User(user_id, email, full_name, addr, phone, rolle, personalinf);
 
 
-
         databaseProfiles.child("User").child(aktuelleUserID).setValue(newUserTest);
 
 
-        Toast.makeText(this, "User created...", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Profil erstellt..", Toast.LENGTH_LONG).show();
+
+    }
+    public void updateProfile(){
+        databaseProfiles =  FirebaseDatabase.getInstance().getReference();
+        aktuelleUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        String addr = address.getText().toString().trim();
+        String full_name = name.getText().toString().trim();
+        String email =  user.getEmail();
+        String user_id = aktuelleUserID;
+        String phone = phonenumber.getText().toString().trim();
+        String personalinf = personal_information.getText().toString().trim();
+        String rolle = role.getText().toString().trim();
 
 
+        if(TextUtils.isEmpty(addr)) {
+            addr = "";
+        }
 
+        if(TextUtils.isEmpty(full_name)) {
+            Toast.makeText(this, "Please enter full name", Toast.LENGTH_SHORT).show();
+            //stopping the function
+            return;
+        }
+
+        if(TextUtils.isEmpty(phone)) {
+            phone = "";
+        }
+
+        if(TextUtils.isEmpty(personalinf)) {
+            personalinf = "";
+        }
+
+        if(TextUtils.isEmpty(rolle)) {
+            rolle = "";
+        }
+
+
+        //create phtoruns object
+        databaseProfiles.child("User").child(aktuelleUserID).child("address").setValue(addr);
+        databaseProfiles.child("User").child(aktuelleUserID).child("full_name").setValue(full_name);
+        databaseProfiles.child("User").child(aktuelleUserID).child("personalInf").setValue(personalinf);
+        databaseProfiles.child("User").child(aktuelleUserID).child("phonenumber").setValue(phone);
+        databaseProfiles.child("User").child(aktuelleUserID).child("role").setValue(rolle);
+
+        Toast.makeText(this, "Profil aktualisiert..", Toast.LENGTH_LONG).show();
     }
 
 
@@ -234,7 +275,12 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
 
         if(view == submitButton){
-            createRun();
+
+            if(ubername==null) {
+                createProfile();
+            }else{
+                updateProfile();
+            }
             finish();
             //go back to Create Photorun
             startActivity(new Intent(this, ProfileActivity.class));
