@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import com.example.janda.photorun.Chat.ViewUserList;
 import com.example.janda.photorun.Login.LoginActivity;
 import com.example.janda.photorun.Photorun.PersonalListadapter;
 import com.example.janda.photorun.Photorun.ViewPhotorunList;
+import com.example.janda.photorun.Photorun.ViewSinglePhotoRun;
 import com.example.janda.photorun.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.janda.photorun.Chat.ViewUserList.USER_ID;
+import static com.example.janda.photorun.Photorun.ViewPhotorunList.PHOTORUN_ID;
 
 
 public class ViewProfile extends AppCompatActivity implements View.OnClickListener {
@@ -50,7 +53,7 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     private DatabaseReference mRef;
-
+    public String clickedPhotorun;
     private FloatingActionButton followBtn;
 
     DatabaseReference databasePhotorunUser;
@@ -95,7 +98,22 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
         photoruns = new ArrayList<>();
 
 
+        listViewPhotoruns.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //getting the selected artist
+                clickedPhotorun = photoruns.get(i);
 
+                //creating an intent
+                Intent intent = new Intent(getApplicationContext(), ViewSinglePhotoRun.class);
+
+                //putting artist name and id to intent
+                intent.putExtra(PHOTORUN_ID, clickedPhotorun);
+                //starting the activity with intent
+                startActivity(intent);
+
+            }
+        });
 
         //displaying logged in User name
         //textViewUserEmail.setText("Logged in as: "+user.getEmail());

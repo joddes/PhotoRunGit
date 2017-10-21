@@ -62,6 +62,8 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
     String photorun_id;
 
+    public String clickedUser;
+
     private long curPart, maxPart;
 
     private String maxPartBuffer;
@@ -208,22 +210,22 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
             }
         });
 
-        /*listViewUsers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listViewUsers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //getting the selected artist
-                User user = users.get(i);
+                clickedUser = users.get(i);
 
                 //creating an intent
                 Intent intent = new Intent(getApplicationContext(), ViewProfile.class);
 
                 //putting artist name and id to intent
-                intent.putExtra(USER_ID, user.getUser_id());
+                intent.putExtra(USER_ID, clickedUser);
                 //starting the activity with intent
                 startActivity(intent);
 
             }
-        });*/
+        });
         //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         //TOP TOOLBAR------------------------------------------------------------------
         toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
