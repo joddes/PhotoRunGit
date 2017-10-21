@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.janda.photorun.Chat.Chat;
 import com.example.janda.photorun.Chat.ViewUserList;
@@ -41,18 +42,18 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
     private FirebaseAuth firebaseAuth;
 
     //view objects
-    private TextView textViewUserEmail, textViewphone, textViewname, textViewhobbies, textViewaddress, textViewrole;
+    private TextView textViewUserEmail, textViewphone, textViewname, textViewhobbies, textViewaddress, textViewrole, textViewFollowers, textViewFollowing;
    // private Button buttonLogout;
     // private Button buttonPhotorun;
     private Menu bottomMenu;
 
     private TextView toolbar_Textview;
 
-    String userID, mail, phonenumber, name, hobbies, address, role;
+    String userID, mail, phonenumber, name, hobbies, address, role, currentUserID;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-    private DatabaseReference mRef;
+    private DatabaseReference mRef, FollowerRef, FollowingRef;
     public String clickedPhotorun;
     private FloatingActionButton followBtn;
 
@@ -74,7 +75,8 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
 
 
         mRef = FirebaseDatabase.getInstance().getReference().child("User");
-
+        FollowerRef = mRef.child(userID).child("followers");
+        FollowingRef = mRef.child(userID).child("following");
         //initializing firebase authentication object
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -87,7 +89,8 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
         textViewname = (TextView) findViewById(R.id.name);
         textViewphone = (TextView) findViewById(R.id.phonenumber);
         textViewrole = (TextView) findViewById(R.id.role);
-
+        textViewFollowers = (TextView) findViewById(R.id.FollowerTextView);
+        textViewFollowing = (TextView) findViewById(R.id.FollowingTextView);
         //buttonLogout = (Button) findViewById(R.id.buttonLogout);
        // buttonPhotorun = (Button) findViewById(R.id.createRunbutton);
 
@@ -125,15 +128,6 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
         //Floating button settings
         followBtn = (FloatingActionButton) findViewById(R.id.Follow);
         followBtn.setOnClickListener(this);
-
-        followBtn.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-
-            }
-
-
-        });
 
         //Create Button
         final ImageButton profileBtn = (ImageButton) findViewById(R.id.Profilbtn);
@@ -223,7 +217,34 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
 
         //displayPhotoRun(userID);
 
+//FOLLOWER AND FOLLOWING COUNT
+        FollowingRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int anzahl;
+                anzahl = (int) dataSnapshot.getChildrenCount();
+                String count;
+                textViewFollowing.setText(""+anzahl);
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        FollowerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int anzahl;
+                anzahl = (int) dataSnapshot.getChildrenCount();
+                String count;
+                textViewFollowers.setText(""+anzahl);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
     }
 
@@ -350,6 +371,14 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
             }
         });
 
+    }
+    public void follow(){
+        String currentUserID = mAuth.getInstance().getCurrentUser().getUid();
+
+        mRef.child(currentUserID).child("following").child(userID).setValue("followed");
+        mRef.child(userID).child("followers").child(currentUserID).setValue("follows");
+
+        Toast.makeText(this, "Du folgst diesem User jetzt!", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -358,11 +387,7 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
 
         //if logout is pressed
         if(view == followBtn){
-            //logging out the User
-            //closing activity
-            //finish();
-            //starting login activity
-            //startActivity(new Intent(this, CreateProfile.class));
+            follow();
         }
 
 
