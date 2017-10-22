@@ -1,6 +1,7 @@
 package com.example.janda.photorun.models;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -55,6 +56,7 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
     private DatabaseReference mRef, FollowerRef, FollowingRef;
     public String clickedPhotorun;
     private FloatingActionButton followBtn;
+    String fStatus;
 
     DatabaseReference databasePhotorunUser;
     FirebaseAuth mAuth;
@@ -370,13 +372,27 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
             }
         });
 
+        String currentus = mAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference followStatus = mRef.child(userID).child("followers").child(currentus);
+        followStatus.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                fStatus = dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
     public void follow(){
         String currentUserID = mAuth.getInstance().getCurrentUser().getUid();
 
         mRef.child(currentUserID).child("following").child(userID).setValue("followed");
         mRef.child(userID).child("followers").child(currentUserID).setValue("follows");
-
         Toast.makeText(this, "Du folgst diesem User jetzt!", Toast.LENGTH_SHORT).show();
 
     }
@@ -386,7 +402,6 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
 
         mRef.child(currentUserID).child("following").child(userID).removeValue();
         mRef.child(userID).child("followers").child(currentUserID).removeValue();
-
         Toast.makeText(this, "Du folgst diesem User nicht mehr!", Toast.LENGTH_SHORT).show();
     }
 
@@ -395,11 +410,15 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
 
         //if logout is pressed
         if(view == followBtn){
-            follow();
+            if(fStatus==null){
+                follow();
+                findViewById(R.id.Follow).setBackgroundResource(R.drawable.unfollow);
+            }else{
+                entfolgen();
+                findViewById(R.id.Follow).setBackgroundResource(R.drawable.follow);
+            }
         }
-
-
-        }
+    }
 
 
   /*  @Override

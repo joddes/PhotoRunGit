@@ -145,9 +145,8 @@
     <android.support.design.widget.FloatingActionButton
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:background="@drawable/profile_settings_icon"
         android:id="@+id/Follow"
-        android:src="@drawable/profile_settings_icon"
+        android:src="@drawable/follow"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
