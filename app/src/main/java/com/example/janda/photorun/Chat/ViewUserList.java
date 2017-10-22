@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.janda.photorun.Login.ProfileActivity;
+import com.example.janda.photorun.Photorun.ViewPhotorunList;
 import com.example.janda.photorun.R;
 import com.example.janda.photorun.models.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -138,7 +139,9 @@ public class ViewUserList extends AppCompatActivity implements View.OnClickListe
         final ImageButton profileBtn = (ImageButton) findViewById(R.id.Profilbtn);
         final ImageButton runBtn = (ImageButton) findViewById(R.id.Photorunbtn);
         final ImageButton searchBtn = (ImageButton) findViewById(R.id.Suchbtn);
-
+        final ImageButton mapBtn = (ImageButton) findViewById(R.id.Mapbtn);
+        findViewById(R.id.menu1).setBackgroundResource(R.color.white);
+        searchBtn.setBackgroundResource(R.drawable.messenger_icon_orange);
         searchBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
@@ -153,6 +156,15 @@ public class ViewUserList extends AppCompatActivity implements View.OnClickListe
         runBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
+                Intent myIntent = new Intent(ViewUserList.this, ViewPhotorunList.class);
+                findViewById(R.id.menu3).setBackgroundResource(R.color.white);
+                runBtn.setBackgroundResource(R.drawable.go_run_icon_orange);
+                findViewById(R.id.menu1).setBackgroundResource(R.color.colorAccent);
+                searchBtn.setBackgroundResource(R.drawable.messenger_icon);
+
+                finish();
+
+                startActivity(myIntent);
 
             }
         });
@@ -162,6 +174,10 @@ public class ViewUserList extends AppCompatActivity implements View.OnClickListe
 
             public void onClick(View view) {
                 Intent myIntent = new Intent(ViewUserList.this, ProfileActivity.class);
+                findViewById(R.id.menu4).setBackgroundResource(R.color.white);
+                profileBtn.setBackgroundResource(R.drawable.go_profile_icon_orange);
+                findViewById(R.id.menu1).setBackgroundResource(R.color.colorAccent);
+                searchBtn.setBackgroundResource(R.drawable.messenger_icon);
 
                 finish();
 

@@ -1,54 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:transitionName="bottom_navigation"
+    android:id="@+id/bottom_navigation_bar">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/colorPrimary"
-        android:id="@+id/layout_top_bar"
-        android:layout_alignParentBottom="true"
-        android:textColor="@color/white"
-        android:textAlignment="center"
-        android:textSize="20dp"
-        android:paddingTop="12dp"/>
 
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_marginBottom="3dp"
-        android:layout_height="3dp"
-        android:background="@color/black"
-        android:layout_alignTop="@+id/layout_top_bar" />
+    <android.support.percent.PercentRelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorPrimary"
+            android:id="@+id/layout_top_bar"
+            android:layout_alignParentBottom="true">
 
-    <ImageButton
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:id="@+id/Profilbtn"
-        android:background="@drawable/go_profile_icon"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"/>
+            <RelativeLayout
+                app:layout_widthPercent="25%"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:id="@+id/menu4">
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/Profilbtn"
+                    android:background="@drawable/go_profile_icon"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
 
-    <ImageButton
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:id="@+id/Photorunbtn"
-        android:background="@drawable/go_run_icon"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"/>
 
-    <ImageButton
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:id="@+id/Suchbtn"
-        android:background="@drawable/messenger_icon"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"/>
+        <RelativeLayout
+            app:layout_widthPercent="25%"
+            android:layout_height="50dp"
+            android:id="@+id/menu3"
+            android:layout_toLeftOf="@+id/menu4">
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/Photorunbtn"
+            android:background="@drawable/go_run_icon"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"/>
+        </RelativeLayout>
 
+        <RelativeLayout
+            app:layout_widthPercent="25%"
+            android:layout_height="50dp"
+            android:id="@+id/menu1"
+            android:layout_alignParentLeft="true">
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/Suchbtn"
+            android:background="@drawable/messenger_icon"
+            android:layout_centerInParent="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            app:layout_widthPercent="25%"
+            android:layout_height="50dp"
+            android:id="@+id/menu2"
+            android:layout_toRightOf="@+id/menu1">
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/Mapbtn"
+                android:background="@drawable/go_map_icon"
+                android:layout_centerInParent="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp" />
+        </RelativeLayout>
+
+    </android.support.percent.PercentRelativeLayout>
 </RelativeLayout>

@@ -1,7 +1,13 @@
 package com.example.janda.photorun.Login;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +17,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.janda.photorun.Chat.ViewUserList;
@@ -158,12 +165,19 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         final ImageButton profileBtn = (ImageButton) findViewById(R.id.Profilbtn);
         final ImageButton runBtn = (ImageButton) findViewById(R.id.Photorunbtn);
         final ImageButton searchBtn = (ImageButton) findViewById(R.id.Suchbtn);
+        final ImageButton mapBtn = (ImageButton) findViewById(R.id.Mapbtn);
+        findViewById(R.id.menu4).setBackgroundResource(R.color.white);
+        profileBtn.setBackgroundResource(R.drawable.go_profile_icon_orange);
 
         searchBtn.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             public void onClick(View view) {
                 Intent myIntent = new Intent(ProfileActivity.this, ViewUserList.class);
-
+                findViewById(R.id.menu1).setBackgroundResource(R.color.white);
+                searchBtn.setBackgroundResource(R.drawable.messenger_icon_orange);
+                findViewById(R.id.menu4).setBackgroundResource(R.color.colorAccent);
+                profileBtn.setBackgroundResource(R.drawable.go_profile_icon);
                 finish();
 
                 startActivity(myIntent);
@@ -174,7 +188,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
             public void onClick(View view) {
                 Intent myIntent = new Intent(ProfileActivity.this, ViewPhotorunList.class);
-
+                findViewById(R.id.menu3).setBackgroundResource(R.color.white);
+                runBtn.setBackgroundResource(R.drawable.go_run_icon_orange);
+                findViewById(R.id.menu4).setBackgroundResource(R.color.colorAccent);
+                profileBtn.setBackgroundResource(R.drawable.go_profile_icon);
                 finish();
 
                 startActivity(myIntent);

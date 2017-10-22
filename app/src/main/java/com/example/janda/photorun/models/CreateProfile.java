@@ -131,11 +131,17 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         final ImageButton profileBtn = (ImageButton) findViewById(R.id.Profilbtn);
         final ImageButton runBtn = (ImageButton) findViewById(R.id.Photorunbtn);
         final ImageButton searchBtn = (ImageButton) findViewById(R.id.Suchbtn);
-
+        final ImageButton mapBtn = (ImageButton) findViewById(R.id.Mapbtn);
+        findViewById(R.id.menu4).setBackgroundResource(R.color.white);
+        profileBtn.setBackgroundResource(R.drawable.go_profile_icon_orange);
         searchBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
                 Intent myIntent = new Intent(CreateProfile.this, ViewUserList.class);
+                findViewById(R.id.menu1).setBackgroundResource(R.color.white);
+                searchBtn.setBackgroundResource(R.drawable.messenger_icon_orange);
+                findViewById(R.id.menu4).setBackgroundResource(R.color.colorAccent);
+                profileBtn.setBackgroundResource(R.drawable.go_profile_icon);
                 finish();
                 startActivity(myIntent);
             }
@@ -145,6 +151,10 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
 
             public void onClick(View view) {
                 Intent myIntent = new Intent(CreateProfile.this, ViewPhotorunList.class);
+                findViewById(R.id.menu3).setBackgroundResource(R.color.white);
+                runBtn.setBackgroundResource(R.drawable.go_run_icon_orange);
+                findViewById(R.id.menu4).setBackgroundResource(R.color.colorAccent);
+                profileBtn.setBackgroundResource(R.drawable.go_profile_icon);
                 finish();
                 startActivity(myIntent);
             }
