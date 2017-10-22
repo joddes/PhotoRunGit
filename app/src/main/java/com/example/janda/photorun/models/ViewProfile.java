@@ -395,6 +395,34 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
         mRef.child(userID).child("followers").child(currentUserID).setValue("follows");
         Toast.makeText(this, "Du folgst diesem User jetzt!", Toast.LENGTH_SHORT).show();
 
+        FollowingRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int anzahl;
+                anzahl = (int) dataSnapshot.getChildrenCount();
+                String count;
+                textViewFollowing.setText(""+anzahl);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        FollowerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int anzahl;
+                anzahl = (int) dataSnapshot.getChildrenCount();
+                String count;
+                textViewFollowers.setText(""+anzahl);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
     }
 
     public void entfolgen(){
@@ -403,6 +431,34 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
         mRef.child(currentUserID).child("following").child(userID).removeValue();
         mRef.child(userID).child("followers").child(currentUserID).removeValue();
         Toast.makeText(this, "Du folgst diesem User nicht mehr!", Toast.LENGTH_SHORT).show();
+
+        FollowingRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int anzahl;
+                anzahl = (int) dataSnapshot.getChildrenCount();
+                String count;
+                textViewFollowing.setText(""+anzahl);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        FollowerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int anzahl;
+                anzahl = (int) dataSnapshot.getChildrenCount();
+                String count;
+                textViewFollowers.setText(""+anzahl);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
     @Override
