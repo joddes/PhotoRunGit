@@ -48,7 +48,7 @@ import static com.example.janda.photorun.Chat.ViewUserList.USER_NAME;
 public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClickListener  {
 
     //implements View.OnClickListener
-
+    public static int mapInd;
     private TextView title_Textview, Textview_date, date_Textview, startpoint_Textview, endpoint_Textview, starttime_Textview, duration_Textview, participants_Textview, description_Textview,toolbar_Textview;
 
     private FloatingActionButton joinRunButton, attendButton;
@@ -388,7 +388,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
     protected void onStart() {
         super.onStart();
         //findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
-
+        mapInd=1;
         databasePhotorun.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

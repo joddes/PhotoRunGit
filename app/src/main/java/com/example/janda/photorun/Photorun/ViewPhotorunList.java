@@ -51,7 +51,7 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
     DatabaseReference databasePhotorun;
 
     ListView listViewPhotorun;
-    List<Photorun> photoruns;
+    public List<Photorun> photoruns;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

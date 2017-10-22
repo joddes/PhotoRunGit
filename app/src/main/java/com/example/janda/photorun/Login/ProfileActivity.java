@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.janda.photorun.Chat.ViewUserList;
+import com.example.janda.photorun.GoogleMaps.MapsActivity;
 import com.example.janda.photorun.Photorun.PersonalListadapter;
 import com.example.janda.photorun.Photorun.ViewPhotorunList;
 import com.example.janda.photorun.Photorun.ViewSinglePhotoRun;
@@ -222,6 +223,17 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             public void onClick(View view) {
                 Intent myIntent = new Intent(ProfileActivity.this, CreateProfile.class);
 
+                finish();
+
+                startActivity(myIntent);
+            }
+        });
+
+        mapBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent myIntent = new Intent(ProfileActivity.this, MapsActivity.class);
+                ViewSinglePhotoRun.mapInd=0;
                 finish();
 
                 startActivity(myIntent);

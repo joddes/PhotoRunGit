@@ -87,14 +87,4 @@
 
     <include layout="@layout/help_seite"
         android:id="@+id/include2" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="!"
-        android:layout_below="@+id/relativeLayout"
-        android:layout_alignLeft="@+id/imageView"
-        android:layout_alignStart="@+id/imageView"
-        android:onClick="showAllWalks"/>
 </RelativeLayout>

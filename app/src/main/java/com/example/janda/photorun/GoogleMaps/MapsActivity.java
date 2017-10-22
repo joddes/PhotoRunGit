@@ -24,9 +24,12 @@ import android.widget.Toast;
 
 import com.example.janda.photorun.Chat.ViewUserList;
 import com.example.janda.photorun.Login.ProfileActivity;
+import com.example.janda.photorun.Photorun.ViewPhotoRuns;
 import com.example.janda.photorun.Photorun.ViewPhotorunList;
 import com.example.janda.photorun.Photorun.ViewSinglePhotoRun;
 import com.example.janda.photorun.R;
+import com.example.janda.photorun.models.Photorun;
+import com.example.janda.photorun.models.User;
 import com.example.janda.photorun.models.ViewProfile;
 import com.firebase.client.Firebase;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -59,11 +62,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private Marker locationMarker;
     private DatabaseReference mDatabase;
-    private String startpoint, title, endpoint;
+    private String startpoint,endpoint,title;
     private Geocoder geocoder;
     private DatabaseReference databaseWalks;
     private String eventID;
     String photorun_id;
+    String locationAll;
+    List<Photorun> photoruns;
 
 
 
@@ -181,10 +186,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         });
+
+
 //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        DatabaseReference databasePhotorun;
+        databasePhotorun = FirebaseDatabase.getInstance().getReference("Photorun");
+        //list to store Photoruns
+        photoruns = new ArrayList<>();
+
+        databasePhotorun.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                photoruns.clear();
+
+
+                for(DataSnapshot photorunSnapshot: dataSnapshot.getChildren()){
+
+                    Photorun photorun = photorunSnapshot.getValue(Photorun.class);
+
+                    photoruns.add(photorun);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
        databaseWalks = FirebaseDatabase.getInstance().getReference().child("Photorun");
-
     }
 
     public void geoCode(String eventLocation) throws IOException {
@@ -207,33 +240,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         mMap.setMyLocationEnabled(true);
 
-        Intent intent = getIntent();
-        startpoint = intent.getStringExtra(ViewSinglePhotoRun.PHOTORUN_STARTPOINT);
-        title = intent.getStringExtra(ViewSinglePhotoRun.PHOTORUN_TITLE);
+        if(ViewSinglePhotoRun.mapInd==1) {
+            Intent intent = getIntent();
+            startpoint = intent.getStringExtra(ViewSinglePhotoRun.PHOTORUN_STARTPOINT);
+            title = intent.getStringExtra(ViewSinglePhotoRun.PHOTORUN_TITLE);
 
-        String location = startpoint;
+            String location = startpoint;
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        try {
-            geoCode(startpoint);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 15));
-        } catch (IOException e) {
-            e.printStackTrace();
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            try {
+                geoCode(startpoint);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 15));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
 
 
     public void showDestination(View view) throws IOException {
-        Intent intent = getIntent();
-        endpoint = intent.getStringExtra(ViewSinglePhotoRun.PHOTORUN_ENDPOINT);
-        String location = endpoint;
+        if(ViewSinglePhotoRun.mapInd==1) {
+            Intent intent = getIntent();
+            endpoint = intent.getStringExtra(ViewSinglePhotoRun.PHOTORUN_ENDPOINT);
+            String location = endpoint;
 
-        geoCode(endpoint);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 15));
-
+            geoCode(endpoint);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 15));
+        }else{
+            showAllWalks();
+        }
     }
 
 
@@ -257,53 +295,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>FUNKTION FÜR DAS ANZEIGEN ALLER WALKS<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-    public void showAllWalks(View view) {
+    public void showAllWalks() {
 
-        Intent intent = getIntent();
+        for(int i=0;i<photoruns.size();i++) {
+            Photorun photorun = photoruns.get(i);
+            photorun_id = photorun.getStart_point();
 
-        photorun_id = intent.getStringExtra(ViewPhotorunList.PHOTORUN_ID);
-
-        mDatabase = FirebaseDatabase.getInstance().getReference("Photrun").child(photorun_id).child("start_point");
-        mDatabase .addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-
-                    String location = userSnapshot.getKey();
-                    try {
-                        geoCode(location);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-
+            try {
+                geoCode(photorun_id);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-       // String location = mDatabase.getKey();
-        /*try {
-            geoCode(location);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-        //Toast.makeText(this, location, Toast.LENGTH_LONG).show();
-
+        }
     }
-
-    //>>>>>>>>>>>>>>>>>>>>>>>
-
-
-
-
-    //method enables user to search for other locations on map
-
 
 
 }
