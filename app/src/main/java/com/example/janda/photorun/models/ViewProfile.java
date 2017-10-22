@@ -2,8 +2,12 @@ package com.example.janda.photorun.models;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
@@ -12,6 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -103,6 +108,7 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
 
 
         listViewPhotoruns.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //getting the selected artist
@@ -114,7 +120,12 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
                 //putting artist name and id to intent
                 intent.putExtra(PHOTORUN_ID, clickedPhotorun);
                 //starting the activity with intent
-                startActivity(intent);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ViewProfile.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(intent, options.toBundle());
 
             }
         });
@@ -140,41 +151,53 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
 
         searchBtn.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             public void onClick(View view) {
                 Intent myIntent = new Intent(ViewProfile.this, ViewUserList.class);
                 findViewById(R.id.menu1).setBackgroundResource(R.color.white);
                 searchBtn.setBackgroundResource(R.drawable.messenger_icon_orange);
                 findViewById(R.id.menu4).setBackgroundResource(R.color.colorAccent);
                 profileBtn.setBackgroundResource(R.drawable.go_profile_icon);
-                finish();
-
-                startActivity(myIntent);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ViewProfile.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
             }
         });
 
         runBtn.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             public void onClick(View view) {
                 Intent myIntent = new Intent(ViewProfile.this, ViewPhotorunList.class);
                 findViewById(R.id.menu3).setBackgroundResource(R.color.white);
                 runBtn.setBackgroundResource(R.drawable.go_run_icon_orange);
                 findViewById(R.id.menu4).setBackgroundResource(R.color.colorAccent);
                 profileBtn.setBackgroundResource(R.drawable.go_profile_icon);
-                finish();
-
-                startActivity(myIntent);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ViewProfile.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
             }
         });
 
 
         profileBtn.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             public void onClick(View view) {
                 Intent myIntent = new Intent(ViewProfile.this, CreateProfile.class);
 
-                finish();
-
-                startActivity(myIntent);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ViewProfile.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
             }
         });
 

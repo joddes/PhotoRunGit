@@ -7,7 +7,11 @@ package com.example.janda.photorun.Photorun;
 
 
         import android.content.Intent;
+        import android.os.Build;
+        import android.support.annotation.RequiresApi;
         import android.support.design.widget.FloatingActionButton;
+        import android.support.v4.app.ActivityOptionsCompat;
+        import android.support.v4.view.ViewCompat;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
         import android.view.View;
@@ -15,7 +19,9 @@ package com.example.janda.photorun.Photorun;
         import android.view.animation.AnimationUtils;
         import android.widget.AdapterView;
         import android.widget.ImageButton;
+        import android.widget.ImageView;
         import android.widget.ListView;
+        import android.widget.RelativeLayout;
         import android.widget.TextView;
 
         import com.example.janda.photorun.Chat.ViewUserList;
@@ -65,25 +71,36 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
 
         createButton.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             public void onClick(View view) {
                 Intent myIntent = new Intent(ViewPhotorunList.this, CreateRun.class);
-                startActivity(myIntent);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ViewPhotorunList.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
             }
         });
 
         listViewPhotorun.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //getting the selected artist
                 Photorun photorun = photoruns.get(i);
-
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.layout_photorun_list);
                 //creating an intent
                 Intent intent = new Intent(getApplicationContext(), ViewSinglePhotoRun.class);
                 //putting artist name and id to intent
                 intent.putExtra(PHOTORUN_ID, photorun.getPhotorun_id());
                 intent.putExtra(PHOTORUN_TITLE, photorun.getTitle());
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ViewPhotorunList.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
                 //starting the activity with intent
-                startActivity(intent);
+                startActivity(intent, options.toBundle());
 
             }
         });
@@ -140,15 +157,19 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
         runBtn.setBackgroundResource(R.drawable.go_run_icon_orange);
         searchBtn.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             public void onClick(View view) {
                 Intent myIntent = new Intent(ViewPhotorunList.this, ViewUserList.class);
                 findViewById(R.id.menu1).setBackgroundResource(R.color.white);
                 searchBtn.setBackgroundResource(R.drawable.messenger_icon_orange);
                 findViewById(R.id.menu3).setBackgroundResource(R.color.colorAccent);
                 runBtn.setBackgroundResource(R.drawable.go_run_icon);
-                finish();
-
-                startActivity(myIntent);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ViewPhotorunList.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
             }
         });
 
@@ -162,15 +183,19 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
 
         profileBtn.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             public void onClick(View view) {
                 Intent myIntent = new Intent(ViewPhotorunList.this, ProfileActivity.class);
                 findViewById(R.id.menu4).setBackgroundResource(R.color.white);
                 profileBtn.setBackgroundResource(R.drawable.go_profile_icon_orange);
                 findViewById(R.id.menu3).setBackgroundResource(R.color.colorAccent);
                 runBtn.setBackgroundResource(R.drawable.go_run_icon);
-                finish();
-
-                startActivity(myIntent);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ViewPhotorunList.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
             }
         });
 //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

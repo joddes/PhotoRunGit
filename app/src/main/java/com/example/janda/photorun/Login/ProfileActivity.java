@@ -8,6 +8,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -121,6 +122,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
 
         listViewPhotoruns.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //getting the selected artist
@@ -132,7 +134,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 //putting artist name and id to intent
                 intent.putExtra(PHOTORUN_ID, clickedPhotorun);
                 //starting the activity with intent
-                startActivity(intent);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ProfileActivity.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(intent, options.toBundle());
 
             }
         });
@@ -150,12 +157,16 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         settingsBtn.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             public void onClick(View view) {
                 Intent myIntent = new Intent(ProfileActivity.this, CreateProfile.class);
 
-                finish();
-
-                startActivity(myIntent);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ProfileActivity.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
             }
 
 
@@ -178,23 +189,30 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 searchBtn.setBackgroundResource(R.drawable.messenger_icon_orange);
                 findViewById(R.id.menu4).setBackgroundResource(R.color.colorAccent);
                 profileBtn.setBackgroundResource(R.drawable.go_profile_icon);
-                finish();
-
-                startActivity(myIntent);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ProfileActivity.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
             }
         });
 
         runBtn.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             public void onClick(View view) {
                 Intent myIntent = new Intent(ProfileActivity.this, ViewPhotorunList.class);
                 findViewById(R.id.menu3).setBackgroundResource(R.color.white);
                 runBtn.setBackgroundResource(R.drawable.go_run_icon_orange);
                 findViewById(R.id.menu4).setBackgroundResource(R.color.colorAccent);
                 profileBtn.setBackgroundResource(R.drawable.go_profile_icon);
-                finish();
-
-                startActivity(myIntent);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ProfileActivity.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
             }
         });
 

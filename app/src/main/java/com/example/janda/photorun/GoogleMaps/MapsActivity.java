@@ -5,15 +5,20 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +27,7 @@ import com.example.janda.photorun.Login.ProfileActivity;
 import com.example.janda.photorun.Photorun.ViewPhotorunList;
 import com.example.janda.photorun.Photorun.ViewSinglePhotoRun;
 import com.example.janda.photorun.R;
+import com.example.janda.photorun.models.ViewProfile;
 import com.firebase.client.Firebase;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -126,38 +132,52 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         runBtn.setBackgroundResource(R.drawable.go_run_icon_orange);
         searchBtn.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             public void onClick(View view) {
                 Intent myIntent = new Intent(MapsActivity.this, ViewUserList.class);
                 findViewById(R.id.menu1).setBackgroundResource(R.color.white);
                 searchBtn.setBackgroundResource(R.drawable.messenger_icon_orange);
                 findViewById(R.id.menu3).setBackgroundResource(R.color.colorAccent);
                 runBtn.setBackgroundResource(R.drawable.go_run_icon);
-                finish();
-                startActivity(myIntent);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(MapsActivity.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
             }
         });
 
         runBtn.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             public void onClick(View view) {
                 Intent myIntent = new Intent(MapsActivity.this, ViewPhotorunList.class);
-                finish();
-                startActivity(myIntent);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(MapsActivity.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
             }
         });
 
 
         profileBtn.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             public void onClick(View view) {
                 Intent myIntent = new Intent(MapsActivity.this, ProfileActivity.class);
                 findViewById(R.id.menu4).setBackgroundResource(R.color.white);
                 profileBtn.setBackgroundResource(R.drawable.go_profile_icon_orange);
                 findViewById(R.id.menu3).setBackgroundResource(R.color.colorAccent);
                 runBtn.setBackgroundResource(R.drawable.go_run_icon);
-                finish();
-
-                startActivity(myIntent);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(MapsActivity.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
 
             }
         });

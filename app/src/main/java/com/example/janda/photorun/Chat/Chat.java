@@ -1,7 +1,11 @@
 package com.example.janda.photorun.Chat;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
@@ -85,6 +89,7 @@ public class Chat extends AppCompatActivity {
         });
 
         toolbar_Textview.setOnClickListener(new View.OnClickListener(){
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View v){
                 //creating an intent
@@ -92,7 +97,12 @@ public class Chat extends AppCompatActivity {
                 //putting artist name and id to intent
                 intent.putExtra(USER_ID, chatWith_id);
                 //starting the activity with intent
-                startActivity(intent);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(Chat.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(intent, options.toBundle());
 
 
             }
@@ -189,43 +199,53 @@ public class Chat extends AppCompatActivity {
         searchBtn.setBackgroundResource(R.drawable.messenger_icon_orange);
         searchBtn.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             public void onClick(View view) {
                 Intent myIntent = new Intent(Chat.this, ViewUserList.class);
 
-                finish();
-
-                startActivity(myIntent);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(Chat.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
             }
         });
 
         runBtn.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             public void onClick(View view) {
                 Intent myIntent = new Intent(Chat.this, ViewPhotorunList.class);
                 findViewById(R.id.menu3).setBackgroundResource(R.color.white);
                 runBtn.setBackgroundResource(R.drawable.go_run_icon_orange);
                 findViewById(R.id.menu1).setBackgroundResource(R.color.colorAccent);
                 searchBtn.setBackgroundResource(R.drawable.messenger_icon);
-
-                finish();
-
-                startActivity(myIntent);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(Chat.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
             }
         });
 
 
         profileBtn.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             public void onClick(View view) {
                 Intent myIntent = new Intent(Chat.this, ProfileActivity.class);
                 findViewById(R.id.menu4).setBackgroundResource(R.color.white);
                 profileBtn.setBackgroundResource(R.drawable.go_profile_icon_orange);
                 findViewById(R.id.menu1).setBackgroundResource(R.color.colorAccent);
                 searchBtn.setBackgroundResource(R.drawable.messenger_icon);
-
-                finish();
-
-                startActivity(myIntent);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(Chat.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
             }
         });
 //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

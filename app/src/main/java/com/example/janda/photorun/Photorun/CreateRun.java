@@ -1,9 +1,13 @@
 package com.example.janda.photorun.Photorun;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,9 +16,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.janda.photorun.Chat.Chat;
 import com.example.janda.photorun.Chat.ViewUserList;
 import com.example.janda.photorun.Helpers.DatePickerFragment;
 import com.example.janda.photorun.Helpers.TimePickerFragment;
@@ -124,38 +130,52 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
         runBtn.setBackgroundResource(R.drawable.go_run_icon_orange);
         searchBtn.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             public void onClick(View view) {
                 Intent myIntent = new Intent(CreateRun.this, ViewUserList.class);
                 findViewById(R.id.menu1).setBackgroundResource(R.color.white);
                 searchBtn.setBackgroundResource(R.drawable.messenger_icon_orange);
                 findViewById(R.id.menu3).setBackgroundResource(R.color.colorAccent);
                 runBtn.setBackgroundResource(R.drawable.go_run_icon);
-                finish();
-                startActivity(myIntent);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(CreateRun.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
             }
         });
 
         runBtn.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             public void onClick(View view) {
                 Intent myIntent = new Intent(CreateRun.this, ViewPhotorunList.class);
-                finish();
-                startActivity(myIntent);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(CreateRun.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
             }
         });
 
 
         profileBtn.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             public void onClick(View view) {
                 Intent myIntent = new Intent(CreateRun.this, ProfileActivity.class);
                 findViewById(R.id.menu4).setBackgroundResource(R.color.white);
                 profileBtn.setBackgroundResource(R.drawable.go_profile_icon_orange);
                 findViewById(R.id.menu3).setBackgroundResource(R.color.colorAccent);
                 runBtn.setBackgroundResource(R.drawable.go_run_icon);
-                finish();
-
-                startActivity(myIntent);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(CreateRun.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
 
             }
         });

@@ -3,7 +3,8 @@
 android:orientation="vertical" android:layout_width="match_parent"
 android:layout_height="wrap_content"
     android:id="@+id/layout_photorun_list"
-    android:layout_below="@+id/top_bar">
+    android:layout_below="@+id/top_bar"
+    android:transitionName="photorun_transition">
 
     <ImageView
         android:layout_width="84dp"
@@ -12,8 +13,7 @@ android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:id="@+id/logo"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp"
-        android:transitionName="photorun"/>
+        android:layout_marginTop="10dp" />
     <TextView
         android:text=""
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
