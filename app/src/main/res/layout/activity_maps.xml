@@ -60,8 +60,12 @@
 
     </RelativeLayout>
 
-    <include layout="@layout/layout_top_bar"/>
-    <include layout="@layout/layout_bottom_navigation" />
+    <include layout="@layout/layout_top_bar"
+        android:id="@+id/include" />
+    <include layout="@layout/layout_bottom_navigation"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -86,5 +90,16 @@
         android:layout_marginRight="161dp"
         android:id="@+id/imageView2" />
 
-    <include layout="@layout/help_seite" />
+    <include layout="@layout/help_seite"
+        android:id="@+id/include2" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="!"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView"
+        android:onClick="showAllWalks"/>
 </RelativeLayout>
