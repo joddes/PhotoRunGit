@@ -6,13 +6,44 @@
     android:transitionName="bottom_navigation"
     android:id="@+id/bottom_navigation_bar">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        android:id="@+id/layout_top_bar"
+        android:layout_alignParentTop="true"
+        android:text=""
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:paddingTop="12dp"
+        android:layout_marginBottom="50dp"/>
+
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/help_icon"
+        android:background="@drawable/help_icon"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"/>
+
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/logout_icon"
+        android:background="@drawable/logout_icon"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="8dp"/>
+
 
     <android.support.percent.PercentRelativeLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/colorPrimary"
-            android:id="@+id/layout_top_bar"
+            android:id="@+id/layout_bottom_bar"
             android:layout_alignParentBottom="true">
 
             <RelativeLayout

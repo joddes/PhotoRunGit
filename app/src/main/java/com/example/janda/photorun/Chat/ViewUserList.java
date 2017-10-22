@@ -128,6 +128,7 @@ public class ViewUserList extends AppCompatActivity implements View.OnClickListe
         final ImageButton helpBtn = (ImageButton) findViewById(R.id.help_icon);
         final Animation slide_left = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
         final Animation slide_right_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right_out);
+        findViewById(R.id.help_seite).bringToFront();
         helpBtn.setOnClickListener(new View.OnClickListener() {
             int var = 1;
             public void onClick(View view) {
