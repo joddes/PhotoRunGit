@@ -268,7 +268,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         locationMarker.showInfoWindow();
 
-
     }
 
 
@@ -296,6 +295,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                public void onInfoWindowClick(Marker marker) {
+                    finish();
+
+                }
+            });
+
         }
     }
 
@@ -348,5 +355,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 e.printStackTrace();
             }
         }
+
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            public void onInfoWindowClick(Marker marker) {
+
+
+            }
+        });
     }
 }
