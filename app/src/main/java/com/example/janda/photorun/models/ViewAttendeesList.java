@@ -9,11 +9,14 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.janda.photorun.Chat.ViewUserList;
+import com.example.janda.photorun.Login.ProfileActivity;
 import com.example.janda.photorun.Photorun.ViewPhotorunList;
 
 import com.example.janda.photorun.R;
@@ -94,6 +97,68 @@ public class ViewAttendeesList extends AppCompatActivity {
 
             }
         });
+
+        //Bottom Toolbar-----------------------------------------------------------
+        final ImageButton profileBtn = (ImageButton) findViewById(R.id.Profilbtn);
+        final ImageButton runBtn = (ImageButton) findViewById(R.id.Photorunbtn);
+        final ImageButton searchBtn = (ImageButton) findViewById(R.id.Suchbtn);
+        final ImageButton mapBtn = (ImageButton) findViewById(R.id.Mapbtn);
+        findViewById(R.id.menu4).setBackgroundResource(R.color.white);
+        profileBtn.setBackgroundResource(R.drawable.go_profile_icon_orange);
+
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            public void onClick(View view) {
+                Intent myIntent = new Intent(ViewAttendeesList.this, ViewUserList.class);
+                findViewById(R.id.menu1).setBackgroundResource(R.color.white);
+                searchBtn.setBackgroundResource(R.drawable.messenger_icon_orange);
+                findViewById(R.id.menu4).setBackgroundResource(R.color.colorAccent);
+                profileBtn.setBackgroundResource(R.drawable.go_profile_icon);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ViewAttendeesList.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
+            }
+        });
+
+        runBtn.setOnClickListener(new View.OnClickListener() {
+
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            public void onClick(View view) {
+                Intent myIntent = new Intent(ViewAttendeesList.this, ViewPhotorunList.class);
+                findViewById(R.id.menu3).setBackgroundResource(R.color.white);
+                runBtn.setBackgroundResource(R.drawable.go_run_icon_orange);
+                findViewById(R.id.menu4).setBackgroundResource(R.color.colorAccent);
+                profileBtn.setBackgroundResource(R.drawable.go_profile_icon);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ViewAttendeesList.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
+            }
+        });
+
+
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            public void onClick(View view) {
+                Intent myIntent = new Intent(ViewAttendeesList.this, ProfileActivity.class);
+
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ViewAttendeesList.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
+
+            }
+        });
+//Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     }
 
