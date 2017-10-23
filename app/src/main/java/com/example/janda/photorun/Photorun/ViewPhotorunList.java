@@ -25,6 +25,7 @@ package com.example.janda.photorun.Photorun;
         import android.widget.TextView;
 
         import com.example.janda.photorun.Chat.ViewUserList;
+        import com.example.janda.photorun.GoogleMaps.MapsActivity;
         import com.example.janda.photorun.Login.ProfileActivity;
         import com.example.janda.photorun.models.Photorun;
 
@@ -162,6 +163,25 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
                 Intent myIntent = new Intent(ViewPhotorunList.this, ViewUserList.class);
                 findViewById(R.id.menu1).setBackgroundResource(R.color.white);
                 searchBtn.setBackgroundResource(R.drawable.messenger_icon_orange);
+                findViewById(R.id.menu3).setBackgroundResource(R.color.colorAccent);
+                runBtn.setBackgroundResource(R.drawable.go_run_icon);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ViewPhotorunList.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
+            }
+        });
+
+        mapBtn.setOnClickListener(new View.OnClickListener() {
+
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            public void onClick(View view) {
+                ViewSinglePhotoRun.mapInd = 0;
+                Intent myIntent = new Intent(ViewPhotorunList.this, MapsActivity.class);
+                findViewById(R.id.menu2).setBackgroundResource(R.color.white);
+                mapBtn.setBackgroundResource(R.drawable.go_map_icon_orange);
                 findViewById(R.id.menu3).setBackgroundResource(R.color.colorAccent);
                 runBtn.setBackgroundResource(R.drawable.go_run_icon);
                 RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);

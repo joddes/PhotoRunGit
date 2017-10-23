@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.janda.photorun.Chat.ViewUserList;
+import com.example.janda.photorun.GoogleMaps.MapsActivity;
 import com.example.janda.photorun.Login.LoginActivity;
 import com.example.janda.photorun.Photorun.PersonalListadapter;
 import com.example.janda.photorun.Photorun.ViewPhotorunList;
@@ -156,6 +157,25 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
                 Intent myIntent = new Intent(ViewProfile.this, ViewUserList.class);
                 findViewById(R.id.menu1).setBackgroundResource(R.color.white);
                 searchBtn.setBackgroundResource(R.drawable.messenger_icon_orange);
+                findViewById(R.id.menu4).setBackgroundResource(R.color.colorAccent);
+                profileBtn.setBackgroundResource(R.drawable.go_profile_icon);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ViewProfile.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
+            }
+        });
+
+        mapBtn.setOnClickListener(new View.OnClickListener() {
+
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            public void onClick(View view) {
+                ViewSinglePhotoRun.mapInd = 0;
+                Intent myIntent = new Intent(ViewProfile.this, MapsActivity.class);
+                findViewById(R.id.menu2).setBackgroundResource(R.color.white);
+                mapBtn.setBackgroundResource(R.drawable.go_map_icon_orange);
                 findViewById(R.id.menu4).setBackgroundResource(R.color.colorAccent);
                 profileBtn.setBackgroundResource(R.drawable.go_profile_icon);
                 RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);

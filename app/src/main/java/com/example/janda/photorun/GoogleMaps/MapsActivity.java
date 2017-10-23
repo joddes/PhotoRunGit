@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -66,7 +67,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Geocoder geocoder;
     private DatabaseReference databaseWalks;
     private String eventID;
-    String photorun_id;
+    String photorun_id, photorun_title;
     String locationAll;
     List<Photorun> photoruns;
 
@@ -99,7 +100,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             public void onClick(View view) {
                 Intent myIntent = new Intent(MapsActivity.this, ViewPhotorunList.class);
-
+                ViewSinglePhotoRun.mapInd=0;
                 finish();
 
                 startActivity(myIntent);
@@ -133,8 +134,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final ImageButton runBtn = (ImageButton) findViewById(R.id.Photorunbtn);
         final ImageButton searchBtn = (ImageButton) findViewById(R.id.Suchbtn);
         final ImageButton mapBtn = (ImageButton) findViewById(R.id.Mapbtn);
-        findViewById(R.id.menu3).setBackgroundResource(R.color.white);
-        runBtn.setBackgroundResource(R.drawable.go_run_icon_orange);
+        if(ViewSinglePhotoRun.mapInd==1){
+            findViewById(R.id.menu3).setBackgroundResource(R.color.white);
+            runBtn.setBackgroundResource(R.drawable.go_run_icon_orange);
+        }else{
+            findViewById(R.id.menu2).setBackgroundResource(R.color.white);
+            mapBtn.setBackgroundResource(R.drawable.go_map_icon_orange);
+        }
+
         searchBtn.setOnClickListener(new View.OnClickListener() {
 
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -142,6 +149,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Intent myIntent = new Intent(MapsActivity.this, ViewUserList.class);
                 findViewById(R.id.menu1).setBackgroundResource(R.color.white);
                 searchBtn.setBackgroundResource(R.drawable.messenger_icon_orange);
+                findViewById(R.id.menu3).setBackgroundResource(R.color.colorAccent);
+                mapBtn.setBackgroundResource(R.drawable.go_map_icon);
+                findViewById(R.id.menu2).setBackgroundResource(R.color.colorAccent);
+                runBtn.setBackgroundResource(R.drawable.go_run_icon);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(MapsActivity.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                ViewSinglePhotoRun.mapInd=0;
+                startActivity(myIntent, options.toBundle());
+            }
+        });
+
+        mapBtn.setOnClickListener(new View.OnClickListener() {
+
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            public void onClick(View view) {
+                ViewSinglePhotoRun.mapInd = 0;
+                Intent myIntent = new Intent(MapsActivity.this, MapsActivity.class);
+                findViewById(R.id.menu2).setBackgroundResource(R.color.white);
+                mapBtn.setBackgroundResource(R.drawable.go_map_icon_orange);
                 findViewById(R.id.menu3).setBackgroundResource(R.color.colorAccent);
                 runBtn.setBackgroundResource(R.drawable.go_run_icon);
                 RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
@@ -163,6 +192,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         makeSceneTransitionAnimation(MapsActivity.this,
                                 lala,
                                 ViewCompat.getTransitionName(lala));
+                ViewSinglePhotoRun.mapInd=0;
                 startActivity(myIntent, options.toBundle());
             }
         });
@@ -182,6 +212,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         makeSceneTransitionAnimation(MapsActivity.this,
                                 lala,
                                 ViewCompat.getTransitionName(lala));
+                ViewSinglePhotoRun.mapInd=0;
                 startActivity(myIntent, options.toBundle());
 
             }
@@ -228,7 +259,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         List<Address> addressList = geocoder.getFromLocationName(eventLocation, 1);
         Address address = addressList.get(0);
         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-        locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Photorun: " + title).snippet("Startpunkt: " + eventLocation));
+        if(ViewSinglePhotoRun.mapInd==1) {
+            locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Photorun: " + title).snippet("Startpunkt: " + eventLocation));
+        }else{
+            locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Photorun: " + photorun_title).snippet("Startpunkt: " + eventLocation));
+
+        }
+
         locationMarker.showInfoWindow();
 
 
@@ -246,6 +283,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             title = intent.getStringExtra(ViewSinglePhotoRun.PHOTORUN_TITLE);
 
             String location = startpoint;
+            Button Btype = (Button)findViewById(R.id.Btype);
+            Btype.setText("Ziel");
+            findViewById(R.id.imageView).setVisibility(View.VISIBLE);
 
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
@@ -256,6 +296,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }else{
+            showAllWalks();
         }
     }
 
@@ -300,6 +342,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for(int i=0;i<photoruns.size();i++) {
             Photorun photorun = photoruns.get(i);
             photorun_id = photorun.getStart_point();
+            photorun_title = photorun.getTitle();
 
             try {
                 geoCode(photorun_id);
@@ -308,6 +351,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
     }
-
-
 }

@@ -304,6 +304,25 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
             }
         });
 
+        mapBtn.setOnClickListener(new View.OnClickListener() {
+
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            public void onClick(View view) {
+                ViewSinglePhotoRun.mapInd = 0;
+                Intent myIntent = new Intent(ViewSinglePhotoRun.this, MapsActivity.class);
+                findViewById(R.id.menu2).setBackgroundResource(R.color.white);
+                mapBtn.setBackgroundResource(R.drawable.go_map_icon_orange);
+                findViewById(R.id.menu3).setBackgroundResource(R.color.colorAccent);
+                runBtn.setBackgroundResource(R.drawable.go_run_icon);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ViewSinglePhotoRun.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
+            }
+        });
+
         runBtn.setOnClickListener(new View.OnClickListener() {
 
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)

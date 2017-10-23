@@ -231,12 +231,19 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         mapBtn.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             public void onClick(View view) {
                 Intent myIntent = new Intent(ProfileActivity.this, MapsActivity.class);
-                ViewSinglePhotoRun.mapInd=0;
-                finish();
-
-                startActivity(myIntent);
+                findViewById(R.id.menu2).setBackgroundResource(R.color.white);
+                mapBtn.setBackgroundResource(R.drawable.go_map_icon_orange);
+                findViewById(R.id.menu4).setBackgroundResource(R.color.colorAccent);
+                profileBtn.setBackgroundResource(R.drawable.go_profile_icon);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ProfileActivity.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(myIntent, options.toBundle());
             }
         });
 
