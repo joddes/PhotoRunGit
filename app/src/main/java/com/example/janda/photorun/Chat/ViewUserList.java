@@ -107,7 +107,7 @@ public class ViewUserList extends AppCompatActivity implements View.OnClickListe
 //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         //TOP TOOLBAR------------------------------------------------------------------
         toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
-        toolbar_Textview.setText("Alle Photowalks");
+        toolbar_Textview.setText("Alle Benutzer");
         TextView help_Textview = (TextView) findViewById(R.id.help_inhalt);
         help_Textview.setText("Hier sehen Sie ein Liste aller derzeit angeboteten Photowalks.\n" +
                 "Falls Sie einen neuen Photowalk erstellen möchten, klicken Sie bitte unten rechts auf das Plussymbol.\n");

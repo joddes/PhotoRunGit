@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.janda.photorun.Chat.ViewUserList;
 import com.example.janda.photorun.GoogleMaps.MapsActivity;
@@ -50,7 +51,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private FirebaseAuth firebaseAuth;
 
     //view objects
-    private TextView textViewUserEmail, textViewphone, textViewname, textViewhobbies, textViewaddress, textViewrole;
+    private TextView textViewUserEmail, textViewphone, textViewname, textViewhobbies, textViewaddress, textViewrole, textViewFollowers, textViewFollowing;
    // private Button buttonLogout;
     // private Button buttonPhotorun;
     private Menu bottomMenu;
@@ -63,7 +64,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     public String clickedPhotorun;
 
-    private DatabaseReference mRef;
+    private DatabaseReference mRef, FollowerRef, FollowingRef;;
 
     public static String ubergabeName;
 
@@ -87,7 +88,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
 
         mRef = FirebaseDatabase.getInstance().getReference().child("User");
-
+        FollowerRef = mRef.child(userID).child("followers");
+        FollowingRef = mRef.child(userID).child("following");
         //initializing firebase authentication object
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -111,7 +113,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         textViewname = (TextView) findViewById(R.id.name);
         textViewphone = (TextView) findViewById(R.id.phonenumber);
         textViewrole = (TextView) findViewById(R.id.role);
-
+        textViewFollowers = (TextView) findViewById(R.id.FollowerTextView);
+        textViewFollowing = (TextView) findViewById(R.id.FollowingTextView);
         //buttonLogout = (Button) findViewById(R.id.buttonLogout);
        // buttonPhotorun = (Button) findViewById(R.id.createRunbutton);
 
@@ -296,8 +299,34 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 "WICHTIG: Sie müssen zuerst ein Profil anlegen, bevor sie den Chat benutzen können.");
 
         //displayPhotoRun(userID);
+//FOLLOWER AND FOLLOWING COUNT
+        FollowingRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int anzahl;
+                anzahl = (int) dataSnapshot.getChildrenCount();
+                String count;
+                textViewFollowing.setText(""+anzahl);
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
+        FollowerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int anzahl;
+                anzahl = (int) dataSnapshot.getChildrenCount();
+                String count;
+                textViewFollowers.setText(""+anzahl);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
     }
 
@@ -426,7 +455,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         });
 
     }
-
     @Override
     public void onClick(View view) {
 
