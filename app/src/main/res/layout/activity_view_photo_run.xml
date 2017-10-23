@@ -3,7 +3,8 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:transitionName="PhotoRun">
+    android:transitionName="PhotoRun"
+    android:background="#ffffff">
 
     <include layout="@layout/layout_photorun_list"/>
 
