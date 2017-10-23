@@ -11,8 +11,8 @@
         <item name="android:windowDrawsSystemBarBackgrounds">false</item>
         <item name="android:windowAllowEnterTransitionOverlap">false</item>
         <item name="android:windowAllowReturnTransitionOverlap">false</item>
-        <item name="android:windowEnterTransition">@transition/slide_and_changebounds_sequential_with_interpolators</item>
-        <item name="android:windowExitTransition">@transition/changebounds_with_arcmotion</item>
+        <!--<item name="android:windowEnterTransition">@transition/slide_and_changebounds_sequential_with_interpolators</item>
+        <item name="android:windowExitTransition">@transition/changebounds_with_arcmotion</item>-->
 
     </style>
 </resources>

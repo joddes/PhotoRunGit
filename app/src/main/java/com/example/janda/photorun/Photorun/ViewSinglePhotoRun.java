@@ -60,7 +60,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
     private DatabaseReference mDatabase, joinDatabase, userDatabase;
 
     private FirebaseAuth mAuth;
-
+    private TextView angemeldete, teilgenommene;
     private TextView test;
 
     DatabaseReference Test;
@@ -108,7 +108,8 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         attendButton = (FloatingActionButton) findViewById(R.id.attendButton);
         attendButton.setOnClickListener(this);
 
-        test =(TextView) findViewById(R.id.teilgenommen);
+        angemeldete =(TextView) findViewById(R.id.angemeldete);
+        teilgenommene =(TextView) findViewById(R.id.teilgenommene);
         //test.setOnClickListener(this);
 
 
@@ -124,94 +125,83 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
         databasePhotorun = FirebaseDatabase.getInstance().getReference("Photorun").child(photorun_id).child("participants");
 
-
-
-
-
-
-
-
         listViewUsers = (ListView) findViewById(R.id.PhotoRunList);
 
         //list to store Photoruns
         users = new ArrayList<>();
 
-        test.setOnClickListener(new View.OnClickListener() {
+        teilgenommene.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                angemeldete.setBackgroundResource(R.color.grey_300);
+                teilgenommene.setBackgroundResource(R.color.colorAccent);
+                    databasePhotorun = FirebaseDatabase.getInstance().getReference("Photorun").child(photorun_id).child("attendees");
+                    databasePhotorun.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            users.clear();
+
+                            for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+
+                                String user = userSnapshot.getKey();
+
+
+                                users.add(user);
+                                //findViewById(R.id.progressBar).setVisibility(View.GONE);
+
+                            }
+
+                            ViewAttendeesListAdapter adapter = new ViewAttendeesListAdapter(ViewSinglePhotoRun.this, users);
+
+                            listViewUsers.setAdapter(adapter);
+
+                        }
+
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+
+            });
+            }
+        });
+
+        angemeldete.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                if (ViewPhotorunList.s==0) {
-                    databasePhotorun = FirebaseDatabase.getInstance().getReference("Photorun").child(photorun_id).child("attendees");
-                    test.setText("Zeige Angemeldete");
-                    databasePhotorun.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                teilgenommene.setBackgroundResource(R.color.grey_300);
+                angemeldete.setBackgroundResource(R.color.colorAccent);
+                databasePhotorun = FirebaseDatabase.getInstance().getReference("Photorun").child(photorun_id).child("participants");
+                databasePhotorun.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                            users.clear();
+                        users.clear();
 
-                            for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                        for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
 
-                                String user = userSnapshot.getKey();
+                            String user = userSnapshot.getKey();
 
 
-                                users.add(user);
-                                //findViewById(R.id.progressBar).setVisibility(View.GONE);
-
-                            }
-
-                            ViewAttendeesListAdapter adapter = new ViewAttendeesListAdapter(ViewSinglePhotoRun.this, users);
-
-                            listViewUsers.setAdapter(adapter);
+                            users.add(user);
+                            //findViewById(R.id.progressBar).setVisibility(View.GONE);
 
                         }
 
+                        ViewAttendeesListAdapter adapter = new ViewAttendeesListAdapter(ViewSinglePhotoRun.this, users);
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                        listViewUsers.setAdapter(adapter);
 
-                        }
-                    });
-
-
-                }if(ViewPhotorunList.s==1){
-                    databasePhotorun = FirebaseDatabase.getInstance().getReference("Photorun").child(photorun_id).child("participants");
-                    test.setText("Zeige Teilgenommene");
-                    databasePhotorun.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-
-                            users.clear();
-
-                            for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-
-                                String user = userSnapshot.getKey();
+                    }
 
 
-                                users.add(user);
-                                //findViewById(R.id.progressBar).setVisibility(View.GONE);
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-                            }
+                    }
 
-                            ViewAttendeesListAdapter adapter = new ViewAttendeesListAdapter(ViewSinglePhotoRun.this, users);
-
-                            listViewUsers.setAdapter(adapter);
-
-                        }
-
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-
-
-                }
-                if(ViewPhotorunList.s==1){
-                    ViewPhotorunList.s=0;
-                }else{
-                    ViewPhotorunList.s=1;
-                }
-
+                });
             }
         });
 

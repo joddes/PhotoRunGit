@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -192,20 +193,41 @@
         android:id="@+id/PhotoRunList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/teilgenommen"
-        android:layout_marginBottom="50dp"/>
+        android:layout_below="@+id/teilUanw"
+        android:layout_marginBottom="50dp" />
 
-    <TextView
+
+
+    <android.support.percent.PercentRelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:text="Zeige Teilgenommene"
-        android:layout_below="@+id/descriptionTV"
-        android:background="@color/colorAccent"
-        android:textAlignment="center"
-        android:textSize="16dp"
-        android:textColor="@color/white"
-        android:id="@+id/teilgenommen"
-        android:paddingTop="5dp"/>
+        android:background="@color/colorPrimary"
+        android:id="@+id/teilUanw"
+        android:layout_below="@+id/descriptionTV">
+        <TextView
+            app:layout_widthPercent="50%"
+            android:layout_height="30dp"
+            android:text="Zeige Angemeldete"
+            android:background="@color/colorAccent"
+            android:textAlignment="center"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            android:id="@+id/angemeldete"
+            android:paddingTop="5dp"/>
+
+        <TextView
+            app:layout_widthPercent="50%"
+            android:layout_height="30dp"
+            android:text="Zeige Teilgenommene"
+            android:background="@color/colorAccent"
+            android:textAlignment="center"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            android:id="@+id/teilgenommene"
+            android:paddingTop="5dp"
+            android:layout_alignParentRight="true"/>
+        </android.support.percent.PercentRelativeLayout>
 
 
     <android.support.design.widget.FloatingActionButton
