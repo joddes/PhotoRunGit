@@ -90,7 +90,7 @@ public class ViewPhotorunList extends AppCompatActivity implements View.OnClickL
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //getting the selected artist
                 Photorun photorun = photoruns.get(i);
-                RelativeLayout lala = (RelativeLayout) findViewById(R.id.layout_photorun_list);
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
                 //creating an intent
                 Intent intent = new Intent(getApplicationContext(), ViewSinglePhotoRun.class);
                 //putting artist name and id to intent
