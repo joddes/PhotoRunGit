@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -55,6 +56,10 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
 
     private TextView toolbar_Textview;
 
+    private Button followersbtn;
+
+    private Button followingbtn;
+
     String userID, mail, phonenumber, name, hobbies, address, role, currentUserID;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -69,6 +74,8 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
 
     ListView listViewPhotoruns;
     List<String> photoruns;
+
+    public static final String USER = "com.example.janda.photorun.models.user_id";
 
 
     @Override
@@ -141,6 +148,12 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
         //Floating button settings
         followBtn = (FloatingActionButton) findViewById(R.id.Follow);
         followBtn.setOnClickListener(this);
+
+        followersbtn = (Button) findViewById(R.id.followersbtn);
+        followersbtn.setOnClickListener(this);
+
+        followingbtn = (Button) findViewById(R.id.followingbtn);
+        followingbtn.setOnClickListener(this);
 
         //Create Button
         final ImageButton profileBtn = (ImageButton) findViewById(R.id.Profilbtn);
@@ -526,6 +539,24 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
                 entfolgen();
                 findViewById(R.id.Follow).setBackgroundResource(R.drawable.follow);
             }
+        }
+        if(view == followersbtn){
+            Intent intent = new Intent(getApplicationContext(), ViewAttendeesList.class);
+
+
+
+            //putting artist name and id to intent
+            intent.putExtra(USER, userID);
+            //starting the activity with intent
+            startActivity(intent);
+
+        }
+        if(view == followingbtn){
+            Intent intent = new Intent(getApplicationContext(), ViewTeilnehmerliste.class);
+
+            intent.putExtra(USER, userID);
+
+            startActivity(intent);
         }
     }
 

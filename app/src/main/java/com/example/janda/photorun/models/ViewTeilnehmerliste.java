@@ -5,17 +5,24 @@ package com.example.janda.photorun.models;
  */
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.janda.photorun.Chat.ViewUserList;
 import com.example.janda.photorun.Photorun.ViewPhotorunList;
+import com.example.janda.photorun.Photorun.ViewSinglePhotoRun;
 import com.example.janda.photorun.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,6 +34,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.janda.photorun.Login.ProfileActivity;
+
+import static com.example.janda.photorun.Chat.ViewUserList.USER_ID;
 
 /**
  * Created by Tim Seemann on 09.10.2017.
@@ -46,6 +55,8 @@ public class ViewTeilnehmerliste extends AppCompatActivity {
 
     private String uebergebeneID;
 
+    public String clickedUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,13 +64,13 @@ public class ViewTeilnehmerliste extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        uebergebeneID = intent.getStringExtra(ViewPhotorunList.PHOTORUN_ID);
+        uebergebeneID = intent.getStringExtra(ViewProfile.USER);
 
 
         //Liste von Photoruns anzeigen
 
 
-        databasePhotorun = FirebaseDatabase.getInstance().getReference("Photorun").child(uebergebeneID).child("attendees");
+        databasePhotorun = FirebaseDatabase.getInstance().getReference("User").child(uebergebeneID).child("following");
         listViewUsers = (ListView) findViewById(R.id.PhotoRunList);
 
         //list to store Photoruns
@@ -68,7 +79,7 @@ public class ViewTeilnehmerliste extends AppCompatActivity {
 
         //TOP TOOLBAR
         toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
-        toolbar_Textview.setText("Anwesende Teilnehmer");
+        toolbar_Textview.setText("Follower");
 
         //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         //TOP TOOLBAR------------------------------------------------------------------
@@ -145,6 +156,29 @@ public class ViewTeilnehmerliste extends AppCompatActivity {
             }
         });
 //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+        listViewUsers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //getting the selected artist
+                clickedUser = users.get(i);
+
+                //creating an intent
+                Intent intent = new Intent(getApplicationContext(), ViewProfile.class);
+
+                //putting artist name and id to intent
+                intent.putExtra(USER_ID, clickedUser);
+                //starting the activity with intent
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ViewTeilnehmerliste.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(intent, options.toBundle());
+
+            }
+        });
 
     }
 

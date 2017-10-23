@@ -1,11 +1,18 @@
 package com.example.janda.photorun.models;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.janda.photorun.Photorun.ViewPhotorunList;
 
@@ -20,6 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.janda.photorun.Chat.ViewUserList.USER_ID;
+
 /**
  * Created by Tim Seemann on 09.10.2017.
  */
@@ -33,9 +42,11 @@ public class ViewAttendeesList extends AppCompatActivity {
     DatabaseReference databasePhotorun;
 
     ListView listViewUsers;
-    List<String> users;
+    List<String> followers;
 
     private String uebergebeneID;
+
+    private String clickedUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,22 +55,46 @@ public class ViewAttendeesList extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        uebergebeneID = intent.getStringExtra(ViewPhotorunList.PHOTORUN_ID);
+        uebergebeneID = intent.getStringExtra(ViewProfile.USER);
 
 
         //Liste von Photoruns anzeigen
 
 
-        databasePhotorun = FirebaseDatabase.getInstance().getReference("Photorun").child(uebergebeneID).child("participants");
+        databasePhotorun = FirebaseDatabase.getInstance().getReference("User").child(uebergebeneID).child("followers");
         listViewUsers = (ListView) findViewById(R.id.PhotoRunList);
 
         //list to store Photoruns
-        users = new ArrayList<>();
+        followers = new ArrayList<>();
 
 
         //TOP TOOLBAR
         toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
-        toolbar_Textview.setText("Alle Anmeldungen");
+        toolbar_Textview.setText("Followers");
+
+        listViewUsers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //getting the selected artist
+                clickedUser = followers.get(i);
+
+                //creating an intent
+                Intent intent = new Intent(getApplicationContext(), ViewProfile.class);
+
+                //putting artist name and id to intent
+                intent.putExtra(USER_ID, clickedUser);
+                //starting the activity with intent
+                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ViewAttendeesList.this,
+                                lala,
+                                ViewCompat.getTransitionName(lala));
+                startActivity(intent, options.toBundle());
+
+            }
+        });
+
     }
 
 
@@ -77,19 +112,20 @@ public class ViewAttendeesList extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                users.clear();
+                followers.clear();
+
 
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
 
                     String user = userSnapshot.getKey();
 
 
-                    users.add(user);
+                    followers.add(user);
                     findViewById(R.id.progressBar).setVisibility(View.GONE);
 
                 }
 
-                ViewAttendeesListAdapter adapter = new ViewAttendeesListAdapter(ViewAttendeesList.this, users);
+                ViewAttendeesListAdapter adapter = new ViewAttendeesListAdapter(ViewAttendeesList.this, followers);
 
                 listViewUsers.setAdapter(adapter);
 
