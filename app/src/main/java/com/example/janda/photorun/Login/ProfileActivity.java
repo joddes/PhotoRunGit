@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -29,6 +30,9 @@ import com.example.janda.photorun.Photorun.ViewPhotorunList;
 import com.example.janda.photorun.Photorun.ViewSinglePhotoRun;
 import com.example.janda.photorun.models.CreateProfile;
 import com.example.janda.photorun.models.Photorun;
+import com.example.janda.photorun.models.ViewAttendeesList;
+import com.example.janda.photorun.models.ViewProfile;
+import com.example.janda.photorun.models.ViewTeilnehmerliste;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -75,6 +79,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     ListView listViewPhotoruns;
     List<String> photoruns;
+
+    private Button followersbtn;
+
+    private Button followingbtn;
 
 
     @Override
@@ -123,6 +131,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         //list to store Photoruns
         photoruns = new ArrayList<>();
+
+        followersbtn = (Button) findViewById(R.id.followersbtn);
+        followersbtn.setOnClickListener(this);
+
+        followingbtn = (Button) findViewById(R.id.followingbtn);
+        followingbtn.setOnClickListener(this);
 
 
         listViewPhotoruns.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -465,6 +479,23 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             finish();
             //starting login activity
             startActivity(new Intent(this, CreateProfile.class));
+        }if(view == followersbtn){
+            Intent intent = new Intent(getApplicationContext(), ViewAttendeesList.class);
+
+
+
+            //putting artist name and id to intent
+            intent.putExtra(ViewProfile.USER, userID);
+            //starting the activity with intent
+            startActivity(intent);
+
+        }
+        if(view == followingbtn){
+            Intent intent = new Intent(getApplicationContext(), ViewTeilnehmerliste.class);
+
+            intent.putExtra(ViewProfile.USER, userID);
+
+            startActivity(intent);
         }
 
 

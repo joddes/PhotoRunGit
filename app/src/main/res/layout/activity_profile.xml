@@ -207,6 +207,28 @@
         android:text="Followers"
         android:textColor="@color/grey_400"/>
 
+    <Button
+        android:id="@+id/followersbtn"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:text=""
+        android:background="@null"
+        android:layout_alignBaseline="@+id/FollowerTextView"
+        android:layout_alignBottom="@+id/FollowerTextView"
+        android:layout_alignLeft="@+id/FollowingSSS"
+        android:layout_alignStart="@+id/FollowingSSS" />
+
+    <Button
+        android:id="@+id/followingbtn"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:text=""
+        android:background="@null"
+        android:layout_alignBaseline="@+id/FollowingTextView"
+        android:layout_alignBottom="@+id/FollowingTextView"
+        android:layout_alignRight="@+id/FollowingTTT"
+        android:layout_alignEnd="@+id/FollowingTTT" />
+
     <include layout="@layout/layout_bottom_navigation" />
     <include layout="@layout/help_seite" />
 </RelativeLayout>
