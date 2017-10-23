@@ -469,6 +469,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         });
 
     }
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onClick(View view) {
 
@@ -487,7 +488,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             //putting artist name and id to intent
             intent.putExtra(ViewProfile.USER, userID);
             //starting the activity with intent
-            startActivity(intent);
+            RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+            ActivityOptionsCompat options = ActivityOptionsCompat.
+                    makeSceneTransitionAnimation(ProfileActivity.this,
+                            lala,
+                            ViewCompat.getTransitionName(lala));
+            startActivity(intent, options.toBundle());
 
         }
         if(view == followingbtn){
@@ -495,7 +501,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
             intent.putExtra(ViewProfile.USER, userID);
 
-            startActivity(intent);
+            RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
+            ActivityOptionsCompat options = ActivityOptionsCompat.
+                    makeSceneTransitionAnimation(ProfileActivity.this,
+                            lala,
+                            ViewCompat.getTransitionName(lala));
+            startActivity(intent, options.toBundle());
         }
 
 
