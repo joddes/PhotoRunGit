@@ -82,6 +82,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
 //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         //TOP TOOLBAR------------------------------------------------------------------
         TextView toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
@@ -249,6 +250,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
        databaseWalks = FirebaseDatabase.getInstance().getReference().child("Photorun");
+
     }
 
     public void geoCode(String eventLocation) throws IOException {
@@ -260,9 +262,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Address address = addressList.get(0);
         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
         if(ViewSinglePhotoRun.mapInd==1) {
-            locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Photorun: " + title).snippet("Startpunkt: " + eventLocation));
+            locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Photorun: " + title).snippet(eventLocation));
+
         }else{
-            locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Photorun: " + photorun_title).snippet("Startpunkt: " + eventLocation));
+            locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Photorun: " + photorun_title).snippet(eventLocation));
+
 
         }
 
@@ -282,15 +286,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Intent intent = getIntent();
             startpoint = intent.getStringExtra(ViewSinglePhotoRun.PHOTORUN_STARTPOINT);
             title = intent.getStringExtra(ViewSinglePhotoRun.PHOTORUN_TITLE);
+            endpoint = intent.getStringExtra(ViewSinglePhotoRun.PHOTORUN_ENDPOINT);
 
-            String location = startpoint;
-            Button Btype = (Button)findViewById(R.id.Btype);
-            Btype.setText("Ziel");
+
+            //String location = startpoint;
+            //Button Btype = (Button)findViewById(R.id.Btype);
+            //Btype.setText("Ziel");
             findViewById(R.id.imageView).setVisibility(View.VISIBLE);
 
             try {
+                geoCode(endpoint);
                 geoCode(startpoint);
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 15));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 13));
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -302,6 +310,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             });
 
+        }
+        else{
+
+            showAllWalks();
         }
     }
 
