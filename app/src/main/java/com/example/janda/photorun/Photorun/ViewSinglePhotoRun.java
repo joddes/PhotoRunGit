@@ -10,10 +10,8 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
-
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -21,12 +19,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.janda.photorun.Chat.Chat;
 import com.example.janda.photorun.Chat.ViewUserList;
 import com.example.janda.photorun.GoogleMaps.MapsActivity;
 import com.example.janda.photorun.Login.ProfileActivity;
 import com.example.janda.photorun.R;
-import com.example.janda.photorun.models.User;
+import com.example.janda.photorun.models.Photorun;
 import com.example.janda.photorun.models.ViewAttendeesList;
 import com.example.janda.photorun.models.ViewAttendeesListAdapter;
 import com.example.janda.photorun.models.ViewProfile;
@@ -42,7 +39,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.janda.photorun.Chat.ViewUserList.USER_ID;
-import static com.example.janda.photorun.Chat.ViewUserList.USER_NAME;
 
 
 public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClickListener  {
@@ -84,6 +80,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,8 +108,6 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         angemeldete =(TextView) findViewById(R.id.angemeldete);
         teilgenommene =(TextView) findViewById(R.id.teilgenommene);
         //test.setOnClickListener(this);
-
-
 
         //viewAtt = (AppCompatButton) findViewById(R.id.attendee_list);
         //viewAtt.setOnClickListener(this);
@@ -557,63 +552,6 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
     }
 
-  /* public void checkPhotorun(){
-
-       /*
-       maxParticipators: Maximale Anzahl der Teilnehmer (Long)
-        - maxParticipatorsRef: Datenbank-Referenz
-        - maxParticipatorsString: Wertz aus Firebase als String (aktuell)
-
-       curParticipators: Aktuelle Anzahl der Teilnehmer (Long)
-        - ...
-        */
-
-        //get all the values needed to check it there are free spaces left
-     /*  mDatabase.child("max_participators").addListenerForSingleValueEvent(new ValueEventListener() {
-           @Override
-           public void onDataChange(DataSnapshot dataSnapshot) {
-               String maxPartBuffer = dataSnapshot.getValue(String.class);
-
-           }
-
-           @Override
-           public void onCancelled(DatabaseError databaseError) {
-
-           }
-       });
-
-       mDatabase.addChildEventListener(new ChildEventListener() {
-           @Override
-           public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-               curPart = dataSnapshot.child("participants").getChildrenCount();
-               maxPartBuffer = dataSnapshot.child("max_participators").getValue(String.class);
-               joinPhotorun();
-           }
-
-           @Override
-           public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-           }
-
-           @Override
-           public void onChildRemoved(DataSnapshot dataSnapshot) {
-               curPart = dataSnapshot.child("participants").getChildrenCount();
-               maxPartBuffer = dataSnapshot.child("max_participators").getValue(String.class);
-               joinPhotorun();
-           }
-
-           @Override
-           public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-           }
-
-           @Override
-           public void onCancelled(DatabaseError databaseError) {
-               maxPart = 5;
-               curPart = 0;
-               joinPhotorun();
-           }
-       });} */
 
 
        public void joinPhotorun(){
@@ -647,12 +585,57 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
 
        }
+    public void deletePhotorun() {
+
+        final String currentID = mAuth.getInstance().getCurrentUser().getUid();
+        mDatabase.child(photorun_id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Photorun owner = dataSnapshot.getValue(Photorun.class);
+                String ownerID = owner.getOwnerName();
+
+                if (ownerID.equals(currentID)) {
+
+                    mDatabase.child(photorun_id).removeValue();
+                    Intent goToList = new Intent(getApplicationContext(), ViewPhotorunList.class);
+                    ViewSinglePhotoRun.this.startActivity(goToList);
+
+                } else {
+                    Toast.makeText(ViewSinglePhotoRun.this, "Nur der Ersteller des Photoruns ist berechtigt diesen zu löschen.", Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+
+        });
+    }
+
+
+    public void abmelden(){
+        final String currentID = mAuth.getInstance().getCurrentUser().getUid();
+        mDatabase.child(photorun_id).child("participants").child(currentID).removeValue();
+        mDatabase.child("attendees").child(currentID).removeValue();
+        userDatabase.child(currentID).child("participatedRuns").child(photorun_id).removeValue();
+
+        Toast.makeText(ViewSinglePhotoRun.this, "Du hast dich erfolgreich vom Photorun abgemeldet. ", Toast.LENGTH_LONG).show();
+
+    }
+
 
 
 
     public void onClick(View view){
         if (view == joinRunButton){
             joinPhotorun();
+            /*Intent intent = new Intent(getApplicationContext(), CreateRun.class);
+            intent.putExtra(ViewPhotorunList.PHOTORUN_ID, photorun_id);
+            startActivity(intent);*/
         }
         if(view == viewAtt){
             finish();

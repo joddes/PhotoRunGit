@@ -20,7 +20,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.janda.photorun.Chat.Chat;
 import com.example.janda.photorun.Chat.ViewUserList;
 import com.example.janda.photorun.GoogleMaps.MapsActivity;
 import com.example.janda.photorun.Helpers.DatePickerFragment;
@@ -29,8 +28,11 @@ import com.example.janda.photorun.Login.ProfileActivity;
 import com.example.janda.photorun.R;
 import com.example.janda.photorun.models.Photorun;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,12 +48,14 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
     EditText TitleEditText, Estimated_durationEditText, Start_pointEditText, End_pointEditText ,Max_participatorsEditText, DescriptionEditText;
     private TextView toolbar_Textview, DateEditText,Start_timeEditText;
 
-    private DatabaseReference mDatabaseRefrence;
+    private DatabaseReference mDatabaseRefrence, photorunDB;
 
     private DatabaseReference photorunsEndPoint;
     private DatabaseReference photorun_settingsEndPoint;
 
     private FirebaseAuth mAuth;
+
+    private String extraPhotorunID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,7 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.activity_create_run);
 
         mDatabaseRefrence = FirebaseDatabase.getInstance().getReference();
+        photorunDB = mDatabaseRefrence.child("Photorun");
 
         photorunsEndPoint = mDatabaseRefrence.child("Photorun");
         photorun_settingsEndPoint = mDatabaseRefrence.child("photorun_settings");
@@ -78,6 +83,8 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
 
         Estimated_durationEditText = (EditText) findViewById(R.id.estimated_duration);
         DescriptionEditText = (EditText) findViewById(R.id.description);
+
+        extraPhotorunID = getIntent().getStringExtra(ViewPhotorunList.PHOTORUN_ID);
 
 //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         //TOP TOOLBAR------------------------------------------------------------------
@@ -283,6 +290,75 @@ public class CreateRun extends AppCompatActivity implements View.OnClickListener
         Estimated_durationEditText.setText("");
         DescriptionEditText.setText("");
 
+    }
+
+    public void editRun(){
+
+        final String currentID = mAuth.getInstance().getCurrentUser().getUid();
+
+        photorunDB.child(extraPhotorunID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Photorun owner = dataSnapshot.getValue(Photorun.class);
+                String ownerID = owner.getOwnerName();
+
+                if (ownerID.equals(currentID)) {
+
+                    String title = TitleEditText.getText().toString().trim();
+                    String date = DateEditText.getText().toString().trim();
+                    String start_point = Start_pointEditText.getText().toString().trim();
+                    String end_point = End_pointEditText.getText().toString().trim();
+                    String starting_time = Start_timeEditText.getText().toString().trim();
+                    String estimated_duration = Estimated_durationEditText.getText().toString().trim();
+                    String description = DescriptionEditText.getText().toString().trim();
+
+                    DatabaseReference thisRun = mDatabaseRefrence.child("Photorun").child(extraPhotorunID);
+
+                    if (!TextUtils.isEmpty(title)) {
+                        thisRun.child("title").setValue(title);
+                    }
+
+                    if (!TextUtils.isEmpty(date)) {
+                        thisRun.child("date").setValue(date);
+                    }
+
+                    if (!TextUtils.isEmpty(start_point)) {
+                        thisRun.child("start_point").setValue(start_point);
+                    }
+
+                    if (!TextUtils.isEmpty(end_point)) {
+                        thisRun.child("end_point").setValue(end_point);
+                    }
+
+                    if (!TextUtils.isEmpty(starting_time)) {
+                        thisRun.child("starting_time").setValue(starting_time);
+                    }
+
+                    if (!TextUtils.isEmpty(estimated_duration)) {
+                        thisRun.child("estimated_duration").setValue(estimated_duration);
+                    }
+
+                    if (!TextUtils.isEmpty(description)) {
+                        thisRun.child("description").setValue(description);
+                    }
+
+                    Toast.makeText(CreateRun.this, "PhotoRun aktualisiert..", Toast.LENGTH_LONG).show();
+                }
+                else{
+
+                    Toast.makeText(CreateRun.this, "Nur der Ersteller kann einen PhotoRun bearbeiten.", Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+
+        });
     }
 
     @Override
