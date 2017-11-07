@@ -3,19 +3,21 @@
     package="com.example.janda.photorun">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-library android:name="com.google.android.maps" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="true"/>
-
+        android:required="true" />
 
     <!--
           The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
           Google Maps Android API v2, but you must specify either coarse or fine
           location permissions for the 'MyLocation' functionality.
-     -->
+    -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
@@ -23,17 +25,20 @@
         android:allowBackup="true"
         android:icon="@drawable/photo_logo"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@drawable/photo_logo"
         android:supportsRtl="true"
-        android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login.LoginActivity">
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Login.ProfileActivity" />
         <activity android:name=".Photorun.CreateRun" />
         <activity android:name=".Photorun.ViewSinglePhotoRun" />
@@ -41,14 +46,16 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".models.ViewProfile" />
-        <activity android:name=".Chat.Chat"
-            android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".GoogleMaps.MapsActivity"/>
-        <activity android:name=".models.CreateProfile"></activity>
-        <activity android:name=".models.ViewAttendeesList"></activity>
-        <activity android:name=".models.ViewTeilnehmerliste"></activity>
-        <activity android:name=".Chat.ViewUserList"
-            android:windowSoftInputMode="stateHidden"></activity>
+        <activity
+            android:name=".Chat.Chat"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".GoogleMaps.MapsActivity" />
+        <activity android:name=".models.CreateProfile" />
+        <activity android:name=".models.ViewAttendeesList" />
+        <activity android:name=".models.ViewTeilnehmerliste" />
+        <activity
+            android:name=".Chat.ViewUserList"
+            android:windowSoftInputMode="stateHidden" />
 
         <!--
               The API key for Google Maps-based APIs is defined as a string resource.
@@ -57,20 +64,15 @@
               You need a different API key for each encryption key, including the release key that is used to
               sign the APK for publishing.
               You can define the keys for the debug and release targets in src/debug/ and src/release/.
-         -->
-
-
-
+        -->
 
         //android:label="@string/title_activity_maps">
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAIIrnKYDhv192Rf6vvkw6MBJEv77GkYYk" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
     </application>
 
 </manifest>

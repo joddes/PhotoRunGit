@@ -206,8 +206,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Intent myIntent = new Intent(MapsActivity.this, ProfileActivity.class);
                 findViewById(R.id.menu4).setBackgroundResource(R.color.white);
                 profileBtn.setBackgroundResource(R.drawable.go_profile_icon_orange);
-                findViewById(R.id.menu3).setBackgroundResource(R.color.colorAccent);
-                runBtn.setBackgroundResource(R.drawable.go_run_icon);
+                findViewById(R.id.menu2).setBackgroundResource(R.color.colorAccent);
+                mapBtn.setBackgroundResource(R.drawable.go_map_icon);
                 RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation(MapsActivity.this,
