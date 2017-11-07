@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.util.Log;
 import android.view.View;
@@ -33,8 +36,15 @@ import com.example.janda.photorun.models.Photorun;
 import com.example.janda.photorun.models.User;
 import com.example.janda.photorun.models.ViewProfile;
 import com.firebase.client.Firebase;
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -43,6 +53,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.StreetViewPanoramaCamera;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,26 +65,34 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
 
-
+    private static final int REQUEST_FINE_LOCATION = 0;
     private GoogleMap mMap;
     private Marker locationMarker;
-    private DatabaseReference mDatabase;
-    private String startpoint,endpoint,title;
+    private String startpoint, endpoint, title;
     private Geocoder geocoder;
     private DatabaseReference databaseWalks;
     private String eventID;
+    private FirebaseAuth mAuth;
+    final String username = mAuth.getInstance().getCurrentUser().getUid();
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("User").child(username);
+
+    private LocationRequest mLocationRequest;
+    private long UPDATE_INTERVAL = 10 * 12000;  /* 120 secs */
+    private long FASTEST_INTERVAL = 30000; /* 30 sec */
+
+
     String photorun_id, photorun_title;
     String locationAll;
     List<Photorun> photoruns;
 
 
-
+    GeoFire geoFire = new GeoFire(mDatabase);
 
 
     @Override
@@ -101,7 +121,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             public void onClick(View view) {
                 Intent myIntent = new Intent(MapsActivity.this, ViewPhotorunList.class);
-                ViewSinglePhotoRun.mapInd=0;
+                ViewSinglePhotoRun.mapInd = 0;
                 finish();
 
                 startActivity(myIntent);
@@ -135,10 +155,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final ImageButton runBtn = (ImageButton) findViewById(R.id.Photorunbtn);
         final ImageButton searchBtn = (ImageButton) findViewById(R.id.Suchbtn);
         final ImageButton mapBtn = (ImageButton) findViewById(R.id.Mapbtn);
-        if(ViewSinglePhotoRun.mapInd==1){
+        if (ViewSinglePhotoRun.mapInd == 1) {
             findViewById(R.id.menu3).setBackgroundResource(R.color.white);
             runBtn.setBackgroundResource(R.drawable.go_run_icon_orange);
-        }else{
+        } else {
             findViewById(R.id.menu2).setBackgroundResource(R.color.white);
             mapBtn.setBackgroundResource(R.drawable.go_map_icon_orange);
         }
@@ -159,7 +179,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         makeSceneTransitionAnimation(MapsActivity.this,
                                 lala,
                                 ViewCompat.getTransitionName(lala));
-                ViewSinglePhotoRun.mapInd=0;
+                ViewSinglePhotoRun.mapInd = 0;
                 startActivity(myIntent, options.toBundle());
             }
         });
@@ -193,7 +213,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         makeSceneTransitionAnimation(MapsActivity.this,
                                 lala,
                                 ViewCompat.getTransitionName(lala));
-                ViewSinglePhotoRun.mapInd=0;
+                ViewSinglePhotoRun.mapInd = 0;
                 startActivity(myIntent, options.toBundle());
             }
         });
@@ -213,7 +233,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         makeSceneTransitionAnimation(MapsActivity.this,
                                 lala,
                                 ViewCompat.getTransitionName(lala));
-                ViewSinglePhotoRun.mapInd=0;
+                ViewSinglePhotoRun.mapInd = 0;
                 startActivity(myIntent, options.toBundle());
 
             }
@@ -233,7 +253,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 photoruns.clear();
 
 
-                for(DataSnapshot photorunSnapshot: dataSnapshot.getChildren()){
+                for (DataSnapshot photorunSnapshot : dataSnapshot.getChildren()) {
 
                     Photorun photorun = photorunSnapshot.getValue(Photorun.class);
 
@@ -249,7 +269,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-       databaseWalks = FirebaseDatabase.getInstance().getReference().child("Photorun");
+        databaseWalks = FirebaseDatabase.getInstance().getReference().child("Photorun");
+        startLocationUpdates();
 
     }
 
@@ -261,10 +282,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         List<Address> addressList = geocoder.getFromLocationName(eventLocation, 1);
         Address address = addressList.get(0);
         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-        if(ViewSinglePhotoRun.mapInd==1) {
+        if (ViewSinglePhotoRun.mapInd == 1) {
             locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Photorun: " + title).snippet(eventLocation));
 
-        }else{
+        } else {
             locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Photorun: " + photorun_title).snippet(eventLocation));
 
 
@@ -278,11 +299,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMyLocationEnabled(true);
+        if (checkPermissions()) {
+            mMap.setMyLocationEnabled(true);
+        }
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        if(ViewSinglePhotoRun.mapInd==1) {
+        if (ViewSinglePhotoRun.mapInd == 1) {
             Intent intent = getIntent();
             startpoint = intent.getStringExtra(ViewSinglePhotoRun.PHOTORUN_STARTPOINT);
             title = intent.getStringExtra(ViewSinglePhotoRun.PHOTORUN_TITLE);
@@ -295,8 +319,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             findViewById(R.id.imageView).setVisibility(View.VISIBLE);
 
             try {
+
+
                 geoCode(endpoint);
                 geoCode(startpoint);
+
+
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 13));
 
             } catch (IOException e) {
@@ -310,28 +338,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             });
 
-        }
-        else{
+        } else {
 
             showAllWalks();
         }
+
     }
 
 
-
     public void showDestination(View view) throws IOException {
-        if(ViewSinglePhotoRun.mapInd==1) {
+        if (ViewSinglePhotoRun.mapInd == 1) {
             Intent intent = getIntent();
             endpoint = intent.getStringExtra(ViewSinglePhotoRun.PHOTORUN_ENDPOINT);
             String location = endpoint;
 
             geoCode(endpoint);
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 15));
-        }else{
+        } else {
             showAllWalks();
         }
     }
-
 
 
     public void onSearch(View view) {
@@ -340,7 +366,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (location != null || !location.equals("")) {
             try {
                 geoCode(location);
+                locationMarker.hideInfoWindow();
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 15));
+
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -355,7 +383,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void showAllWalks() {
 
-        for(int i=0;i<photoruns.size();i++) {
+        for (int i = 0; i < photoruns.size(); i++) {
             Photorun photorun = photoruns.get(i);
             photorun_id = photorun.getStart_point();
             photorun_title = photorun.getTitle();
@@ -373,5 +401,86 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         });
+
+
     }
+
+
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>LOCATION TRACKER<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+    private boolean checkPermissions() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            requestPermissions();
+            return false;
+        }
+    }
+
+    private void requestPermissions() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                REQUEST_FINE_LOCATION);
+    }
+
+    protected void startLocationUpdates() {
+
+        // Create the location request to start receiving updates
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(UPDATE_INTERVAL);
+        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
+
+        // Create LocationSettingsRequest object using location request
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
+        builder.addLocationRequest(mLocationRequest);
+        LocationSettingsRequest locationSettingsRequest = builder.build();
+
+        // Check whether location settings are satisfied
+        // https://developers.google.com/android/reference/com/google/android/gms/location/SettingsClient
+        SettingsClient settingsClient = LocationServices.getSettingsClient(this);
+        settingsClient.checkLocationSettings(locationSettingsRequest);
+
+        // new Google API SDK v11 uses getFusedLocationProviderClient(this)
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        getFusedLocationProviderClient(this).requestLocationUpdates(mLocationRequest, new LocationCallback() {
+                    @Override
+                    public void onLocationResult(LocationResult locationResult) {
+                        // do work here
+                        onLocationChanged(locationResult.getLastLocation());
+                    }
+                },
+                Looper.myLooper());
+    }
+
+    public void onLocationChanged(Location location) {
+        // New location has now been determined
+        String msg = "Updated Location: " +
+                Double.toString(location.getLatitude()) + "," +
+                Double.toString(location.getLongitude());
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        // You can now create a LatLng Object for use with maps
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        geoFire.setLocation("location", new GeoLocation(location.getLatitude(), location.getLongitude()));
+    }
+
+
+
+
+
+
 }
+
+
+
