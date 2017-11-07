@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.example.janda.photorun"
         minSdkVersion 15
@@ -10,6 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -47,6 +48,10 @@ dependencies {
     //Universal image loader
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.android.support:percent:26.+'
+    compile 'com.android.support:multidex:1.0.1'
+// for photos
+    compile 'com.google.firebase:firebase-storage:11.0.4'
+    compile 'com.github.bumptech.glide:glide:4.0.0'
 }
 //Firebase
 apply plugin: 'com.google.gms.google-services'
