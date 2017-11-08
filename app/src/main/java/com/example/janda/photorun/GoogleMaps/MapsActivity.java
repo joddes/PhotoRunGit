@@ -48,7 +48,6 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -67,11 +66,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.janda.photorun.Photorun.PersonalListadapter.photorun;
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickListener {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
 
     private static final int REQUEST_FINE_LOCATION = 0;
@@ -84,9 +82,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private FirebaseAuth mAuth;
     final String username = mAuth.getInstance().getCurrentUser().getUid();
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("User").child(username);
-
-    public static final String PHOTORUN_TITLE = "com.example.janda.photorun.models.title";
-    public static final String PHOTORUN_ID = "com.example.janda.photorun.models.photorun_id";
 
     private LocationRequest mLocationRequest;
     private long UPDATE_INTERVAL = 10 * 12000;  /* 120 secs */
@@ -318,8 +313,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         List<Address> addressList = geocoder.getFromLocationName(eventLocation, 1);
         Address address = addressList.get(0);
         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-
-
         if (ViewSinglePhotoRun.mapInd == 1) {
             locationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Photorun: " + title).snippet(eventLocation));
 
@@ -329,7 +322,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         }
 
-        locationMarker.hideInfoWindow();
+        locationMarker.showInfoWindow();
 
     }
 
@@ -381,8 +374,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             showAllWalks();
             showAllUsers();
         }
-
-        mMap.setOnInfoWindowClickListener(this);
 
     }
 
@@ -436,21 +427,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 e.printStackTrace();
             }
         }
-        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-            public void onInfoWindowClick(Marker marker) {
-                RelativeLayout lala = (RelativeLayout) findViewById(R.id.bottom_navigation_bar);
 
-                Intent intent = new Intent(getApplicationContext(), ViewSinglePhotoRun.class);
-                //putting artist name and id to intent
-                intent.putExtra(PHOTORUN_ID, photorun.getPhotorun_id());
-                intent.putExtra(PHOTORUN_TITLE, photorun.getTitle());
-                ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation(MapsActivity.this,
-                                lala,
-                                ViewCompat.getTransitionName(lala));
-                //starting the activity with intent
-                startActivity(intent, options.toBundle());
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            public void onInfoWindowClick(Marker marker) {
+
 
             }
         });
@@ -528,10 +508,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         geoFire.setLocation("location", new GeoLocation(location.getLatitude(), location.getLongitude()));
     }
 
-    @Override
-    public void onInfoWindowClick(Marker marker) {
 
-<<<<<<< HEAD
     //-----------------------------------All User Locations------------------------------------------
 
     public void showAllUsers() {
@@ -550,12 +527,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-=======
-        Toast.makeText(this, "Info window clicked",
-                Toast.LENGTH_SHORT).show();
-
-    }
->>>>>>> cb18e5cbd00e8421dcde0316efa85bcee31ab429
 }
 
 

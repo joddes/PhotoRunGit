@@ -356,28 +356,6 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
             }
         });
         displayPhotoRun(userID);
-
-        DatabaseReference image = mRef.child(userID).child("profileImageUrl");
-        image.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                profileimage = dataSnapshot.getValue(String.class);
-
-                StorageReference profileStore = mStorage.getReferenceFromUrl(profileimage);
-
-                String buffer = profileStore.toString();
-
-
-
-                Glide.with(ViewProfile.this).using(new FirebaseImageLoader()).load(profileStore).into(mProfilePicture);
-                //Glide.with(getApplicationContext()).load("gs://photorun-3f474.appspot.com/profile_images/NPhoue6JzZRJbtkGUNJyeoKP8QF2").into(mProfilePicture);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     public void displayPhotoRun(String userID) {
@@ -492,7 +470,27 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
         //Glide.with(ViewProfile.this).using(new FirebaseImageLoader()).load(imageUrl).into(mProfilePicture);
 
 
+       DatabaseReference image = mRef.child(userID).child("profileImageUrl");
+        image.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                profileimage = dataSnapshot.getValue(String.class);
 
+                StorageReference profileStore = mStorage.getReferenceFromUrl(profileimage);
+
+                String buffer = profileStore.toString();
+
+                Toast.makeText(ViewProfile.this, "Test" + buffer , Toast.LENGTH_SHORT).show();
+
+                Glide.with(ViewProfile.this).using(new FirebaseImageLoader()).load(profileStore).into(mProfilePicture);
+                //Glide.with(getApplicationContext()).load("gs://photorun-3f474.appspot.com/profile_images/NPhoue6JzZRJbtkGUNJyeoKP8QF2").into(mProfilePicture);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void follow(){
