@@ -46,28 +46,31 @@ public class ViewUserList extends AppCompatActivity implements View.OnClickListe
     private TextView toolbar_Textview;
     int sw=0;
     public static int s = 0;
-    DatabaseReference databaseUserList;
+    DatabaseReference databaseUserList, databaseFriends;
 
     String actualUser;
     private FirebaseAuth mAuth;
 
     ListView listViewUser;
     List<User> users;
+    List<User> friends;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
 
-
+        actualUser = mAuth.getInstance().getCurrentUser().getUid();
         //Liste von Photoruns anzeigen
         databaseUserList = FirebaseDatabase.getInstance().getReference("User");
+        databaseFriends = FirebaseDatabase.getInstance().getReference("User").child("vApowYKVGFPofyuXQ0nOZpU479r1").child("following");
         listViewUser = (ListView) findViewById(R.id.usersList);
 
         //list to store Photoruns
         users = new ArrayList<>();
+        friends = new ArrayList<>();
 
-        actualUser = mAuth.getInstance().getCurrentUser().getUid();
+
 
         //Create Button
         /*final FloatingActionButton createButton = (FloatingActionButton) findViewById(R.id.goToCreateRun);
@@ -116,6 +119,33 @@ public class ViewUserList extends AppCompatActivity implements View.OnClickListe
                 public void onClick(View view) {
                     if(sw==0) {
                         findViewById(R.id.nachrichten_switch).startAnimation(slide_left_50);
+                        databaseFriends.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                friends.clear();
+
+
+                                for(DataSnapshot photorunSnapshot: dataSnapshot.getChildren()){
+
+                                    User user = photorunSnapshot.getValue(User.class);
+
+                                        friends.add(user);
+
+                                    findViewById(R.id.progressBar).setVisibility(View.GONE);
+                                }
+
+                                ViewUserAdapter adapter = new ViewUserAdapter(ViewUserList.this, friends);
+
+                                listViewUser.setAdapter(adapter);
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                         sw = 1;
                     }
                 }
@@ -257,7 +287,7 @@ public class ViewUserList extends AppCompatActivity implements View.OnClickListe
         super.onStart();
         findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
-        databaseUserList.addValueEventListener(new ValueEventListener() {
+        databaseFriends.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
