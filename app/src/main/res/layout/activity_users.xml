@@ -28,7 +28,7 @@
         <TextView
             app:layout_widthPercent="50%"
             android:layout_height="40dp"
-            android:text="Alle Benutzer"
+            android:text="Deine Nachrichten"
             android:textSize="20sp"
             android:textAlignment="center"
             android:paddingTop="10sp"
@@ -39,7 +39,7 @@
             app:layout_widthPercent="50%"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
-            android:text="Freunde"
+            android:text="Alle Benutzer"
             android:textSize="20sp"
             android:textAlignment="center"
             android:paddingTop="10sp"
