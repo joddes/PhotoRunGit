@@ -131,6 +131,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+
         //Help Button, muss auf jeder Seite sein
         final ImageButton helpBtn = (ImageButton) findViewById(R.id.help_icon);
         final Animation slide_left = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
@@ -322,7 +323,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         }
 
-        locationMarker.showInfoWindow();
+        locationMarker.hideInfoWindow();
 
     }
 
@@ -372,7 +373,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } else {
 
             showAllWalks();
-            showAllUsers();
+
         }
 
     }
@@ -388,7 +389,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 15));
         } else {
             showAllWalks();
-            showAllUsers();
+
         }
     }
 
@@ -502,7 +503,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String msg = "Updated Location: " +
                 Double.toString(location.getLatitude()) + "," +
                 Double.toString(location.getLongitude());
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         // You can now create a LatLng Object for use with maps
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         geoFire.setLocation("location", new GeoLocation(location.getLatitude(), location.getLongitude()));
@@ -511,23 +512,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     //-----------------------------------All User Locations------------------------------------------
 
-    public void showAllUsers() {
-
-        for (int i = 0; i < users.size(); i++) {
-            User user = users.get(i);
-            user_name = user.getFull_name();
-            user_location = user.getLocation();
-
-
-            Toast.makeText(this, user_location.toString(),Toast.LENGTH_LONG).show();
-
-
-        }
-
-
-    }
 
 }
+
+
+
+
 
 
    /*private void addUserMarkersToMap(GoogleMap map) {
