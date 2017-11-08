@@ -22,6 +22,7 @@ public class User {
     private Map<String, String> following;
     private Map<String, String> followers;
     private String profileimageUrl;
+    private String titleImageUrl;
     private GeoLocation location;
 
     public User(String user_id, String email, String full_name, String address, String phonenumber, String role, String personalInf) {
@@ -63,6 +64,33 @@ public class User {
         this.following = following;
         this.followers = followers;
         this.profileimageUrl = profileimageUrl;
+    }
+
+    public User(String user_id, String email, String full_name, String address, String phonenumber, String role, String personalInf, Map<String, String> createdRuns, Map<String, String> participatedRuns, Map<String, String> following, Map<String, String> followers, String profileimageUrl, String titleImageUrl, GeoLocation location) {
+        this.user_id = user_id;
+        this.email = email;
+        this.full_name = full_name;
+        this.address = address;
+        this.phonenumber = phonenumber;
+        this.role = role;
+        this.personalInf = personalInf;
+        this.createdRuns = createdRuns;
+        this.participatedRuns = participatedRuns;
+        this.following = following;
+        this.followers = followers;
+        this.profileimageUrl = profileimageUrl;
+        this.titleImageUrl = titleImageUrl;
+        this.location = location;
+    }
+
+
+
+    public String getTitleImageUrl() {
+        return titleImageUrl;
+    }
+
+    public void setTitleImageUrl(String titleImageUrl) {
+        this.titleImageUrl = titleImageUrl;
     }
 
     public String getProfileimageUrl() {
