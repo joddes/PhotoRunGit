@@ -80,14 +80,11 @@ public class Chat extends AppCompatActivity {
         Firebase.setAndroidContext(this);
         reference1 = new Firebase("https://photorun-3f474.firebaseio.com/messages/" + username + "_" + chatWith_id);
         reference2 = new Firebase("https://photorun-3f474.firebaseio.com/messages/" + chatWith_id + "_" + username);
-        reference4 = new Firebase("https://photorun-3f474.firebaseio.com/messages/" + username + "_" + chatWith_id + "/000");
+        //reference4 = new Firebase("https://photorun-3f474.firebaseio.com/messages/" + username + "_" + chatWith_id + "/000");
         reference3 = new Firebase("https://photorun-3f474.firebaseio.com/messages/" + chatWith_id + "_" + username + "/000" + "/newMessages");
-        mRef.child(chatWith_id + "_" + username).child("000").child("message").setValue("");
-        mRef.child(chatWith_id + "_" + username).child("000").child("user").setValue("");
 
-        mRef.child(username + "_" + chatWith_id).child("000").child("message").setValue("");
-        mRef.child(username + "_" + chatWith_id).child("000").child("user").setValue("");
-        mRef.child(username + "_" + chatWith_id).child("000").child("newMessages").setValue("0");
+        mRef.child(username + "_" + chatWith_id).child("000").removeValue();
+
         reference3.addValueEventListener(new com.firebase.client.ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -99,7 +96,6 @@ public class Chat extends AppCompatActivity {
 
             }
         });
-
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +109,8 @@ public class Chat extends AppCompatActivity {
                     reference1.push().setValue(map);
                     reference2.push().setValue(map);
                     messageArea.setText("");
+                    mRef.child(chatWith_id + "_" + username).child("000").child("message").setValue("");
+                    mRef.child(chatWith_id + "_" + username).child("000").child("user").setValue("");
                     if(test==null){
                         reference3.setValue(1);
                     }else {
