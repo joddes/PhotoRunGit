@@ -15,6 +15,7 @@ import com.example.janda.photorun.R;
 import com.example.janda.photorun.models.Photorun;
 import com.example.janda.photorun.models.User;
 import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
@@ -36,6 +37,7 @@ public class ViewUserAdapter extends ArrayAdapter<User> {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mRef;
+    Firebase reference3;
     public ViewUserAdapter(Activity context, List<User> userList){
         super(context, R.layout.layout_user_list, userList);
         this.context = context;
@@ -53,20 +55,28 @@ public class ViewUserAdapter extends ArrayAdapter<User> {
         final ImageView newMessage = (ImageView) listViewItem.findViewById(R.id.newMessages);
 
         User user = userList.get(position);
-        String chatWith_id = user.getUser_id();
+        final String chatWith_id = user.getUser_id();
         final String username = mAuth.getInstance().getCurrentUser().getUid();
         mRef = FirebaseDatabase.getInstance().getReference().child("messages");
-        DatabaseReference neue = mRef.child(username + "_" + chatWith_id).child("000").child("newMessages");
-
-        neue.addValueEventListener(new ValueEventListener() {
+        mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) {
-                    neu = dataSnapshot.getValue(String.class);
+                if(dataSnapshot.hasChildren()) {
+                    DatabaseReference neue = mRef.child(username + "_" + chatWith_id).child("000");
+                    neue.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.hasChildren()) {
+                                newMessage.setVisibility(View.VISIBLE);
 
-                    if (!neu.equals("0")) {
-                        newMessage.setVisibility(View.VISIBLE);
-                    }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
 
