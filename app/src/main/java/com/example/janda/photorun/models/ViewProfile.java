@@ -1,7 +1,6 @@
 package com.example.janda.photorun.models;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -16,11 +15,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.janda.photorun.Chat.ViewUserList;
 import com.example.janda.photorun.GoogleMaps.MapsActivity;
 import com.example.janda.photorun.Login.LoginActivity;
@@ -28,6 +29,7 @@ import com.example.janda.photorun.Photorun.PersonalListadapter;
 import com.example.janda.photorun.Photorun.ViewPhotorunList;
 import com.example.janda.photorun.Photorun.ViewSinglePhotoRun;
 import com.example.janda.photorun.R;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +37,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +64,12 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
 
     private Button followingbtn;
 
-    String userID, mail, phonenumber, name, hobbies, address, role, currentUserID;
+    private FirebaseStorage mStorage;
+
+    String userID, mail, phonenumber, name, hobbies, address, role, currentUserID, profileimage;
+
+    private ImageView mProfilePicture;
+    private String profileImageUrl;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -94,9 +103,11 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
         //initializing firebase authentication object
         firebaseAuth = FirebaseAuth.getInstance();
 
-
+        mStorage = FirebaseStorage.getInstance();
 
         //initializing views
+        mProfilePicture = (ImageView) findViewById(R.id.user_profil_photo);
+
         textViewUserEmail = (TextView) findViewById(R.id.mail);
         textViewaddress = (TextView) findViewById(R.id.address);
         textViewhobbies = (TextView) findViewById(R.id.personal_information);
@@ -113,6 +124,8 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
 
         //list to store Photoruns
         photoruns = new ArrayList<>();
+
+
 
 
         listViewPhotoruns.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -452,8 +465,34 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
             }
         });
 
+        //StorageReference profileStore = mStorage.getReferenceFromUrl()
 
+        //Glide.with(ViewProfile.this).using(new FirebaseImageLoader()).load(imageUrl).into(mProfilePicture);
+
+
+       DatabaseReference image = mRef.child(userID).child("profileImageUrl");
+        image.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                profileimage = dataSnapshot.getValue(String.class);
+
+                StorageReference profileStore = mStorage.getReferenceFromUrl(profileimage);
+
+                String buffer = profileStore.toString();
+
+                Toast.makeText(ViewProfile.this, "Test" + buffer , Toast.LENGTH_SHORT).show();
+
+                Glide.with(ViewProfile.this).using(new FirebaseImageLoader()).load(profileStore).into(mProfilePicture);
+                //Glide.with(getApplicationContext()).load("gs://photorun-3f474.appspot.com/profile_images/NPhoue6JzZRJbtkGUNJyeoKP8QF2").into(mProfilePicture);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
+
     public void follow(){
         String currentUserID = mAuth.getInstance().getCurrentUser().getUid();
 
