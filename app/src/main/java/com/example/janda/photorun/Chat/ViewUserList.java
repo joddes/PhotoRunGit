@@ -44,7 +44,7 @@ public class ViewUserList extends AppCompatActivity implements View.OnClickListe
     public static final String USER_NAME = "com.example.janda.photorun.models.full_name";
 
     private TextView toolbar_Textview;
-
+    int sw=0;
     public static int s = 0;
     DatabaseReference databaseUserList;
 
@@ -80,6 +80,8 @@ public class ViewUserList extends AppCompatActivity implements View.OnClickListe
             }
         });*/
 
+
+
         listViewUser.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
@@ -103,6 +105,31 @@ public class ViewUserList extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+
+        final TextView chat_switch = (TextView) findViewById(R.id.messages);
+        final TextView chat_switch_left = (TextView) findViewById(R.id.user);
+        final Animation slide_right_50 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right_50);
+        final Animation slide_left_50 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left_50);
+
+            chat_switch_left.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View view) {
+                    if(sw==0) {
+                        findViewById(R.id.nachrichten_switch).startAnimation(slide_left_50);
+                        sw = 1;
+                    }
+                }
+            });
+
+            chat_switch.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View view) {
+                    if (sw == 1) {
+                        findViewById(R.id.nachrichten_switch).startAnimation(slide_right_50);
+                        sw = 0;
+                    }
+                }
+            });
 
 //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         //TOP TOOLBAR------------------------------------------------------------------

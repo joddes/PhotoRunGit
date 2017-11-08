@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#ffffff">
 
-    <EditText
+    <!--<EditText
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="50dp"
@@ -18,7 +19,41 @@
         android:id="@+id/search_user_button"
         android:layout_alignParentRight="true"
         android:layout_marginTop="50dp"
-        android:text="search" />
+        android:text="search" />-->
+    <android.support.percent.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:background="@color/colorAccent">
+        <TextView
+            app:layout_widthPercent="50%"
+            android:layout_height="40dp"
+            android:text="Deine Nachrichten"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:paddingTop="10sp"
+            android:textColor="#90000000"
+            android:id="@+id/messages"/>
+
+        <TextView
+            app:layout_widthPercent="50%"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:text="Alle Benutzer"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:paddingTop="10sp"
+            android:textColor="#90000000"
+            android:id="@+id/user"/>
+
+        <TextView
+            android:id="@+id/nachrichten_switch"
+            android:layout_height="10dp"
+            app:layout_widthPercent="50%"
+            android:layout_alignParentBottom="true"
+            android:background="@color/deep_orange_700"/>
+    </android.support.percent.PercentRelativeLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,7 +66,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/usersList"
         android:layout_marginBottom="50dp"
-        android:layout_below="@+id/search_user"/>
+        android:layout_marginTop="100dp"/>
 
     <ProgressBar
         android:layout_width="200dp"

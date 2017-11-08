@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.janda.photorun.GoogleMaps.MapsActivity;
 import com.example.janda.photorun.Login.ProfileActivity;
@@ -32,7 +33,10 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,12 +50,15 @@ public class Chat extends AppCompatActivity {
     ImageView sendButton;
     EditText messageArea;
     ScrollView scrollView;
-    Firebase reference1, reference2;
+    Firebase reference1, reference2, reference3, reference4, reference5, reference6;
     TextView toolbar_Textview;
+    int nm, newMessages;
+    String test;
 
     String chatWith_id;
     String chatWith_name;
     private FirebaseAuth mAuth;
+    private DatabaseReference mRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +69,8 @@ public class Chat extends AppCompatActivity {
         chatWith_name = intent.getStringExtra(ViewUserList.USER_NAME);
 
         final String username = mAuth.getInstance().getCurrentUser().getUid();
+        mRef = FirebaseDatabase.getInstance().getReference().child("messages");
+
         layout = (LinearLayout) findViewById(R.id.layout1);
         layout_2 = (RelativeLayout)findViewById(R.id.layout2);
         sendButton = (ImageView)findViewById(R.id.sendButton);
@@ -71,6 +80,26 @@ public class Chat extends AppCompatActivity {
         Firebase.setAndroidContext(this);
         reference1 = new Firebase("https://photorun-3f474.firebaseio.com/messages/" + username + "_" + chatWith_id);
         reference2 = new Firebase("https://photorun-3f474.firebaseio.com/messages/" + chatWith_id + "_" + username);
+        reference4 = new Firebase("https://photorun-3f474.firebaseio.com/messages/" + username + "_" + chatWith_id + "/000");
+        reference3 = new Firebase("https://photorun-3f474.firebaseio.com/messages/" + chatWith_id + "_" + username + "/000" + "/newMessages");
+        mRef.child(chatWith_id + "_" + username).child("000").child("message").setValue("");
+        mRef.child(chatWith_id + "_" + username).child("000").child("user").setValue("");
+
+        mRef.child(username + "_" + chatWith_id).child("000").child("message").setValue("");
+        mRef.child(username + "_" + chatWith_id).child("000").child("user").setValue("");
+        mRef.child(username + "_" + chatWith_id).child("000").child("newMessages").setValue("0");
+        reference3.addValueEventListener(new com.firebase.client.ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                test = dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +113,12 @@ public class Chat extends AppCompatActivity {
                     reference1.push().setValue(map);
                     reference2.push().setValue(map);
                     messageArea.setText("");
+                    if(test==null){
+                        reference3.setValue(1);
+                    }else {
+                        int ss = Integer.parseInt(test);
+                        reference3.setValue(ss + 1);
+                    }
                 }
             }
         });
@@ -108,46 +143,48 @@ public class Chat extends AppCompatActivity {
             }
         });
 
-        reference1.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            reference1.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                Map map = dataSnapshot.getValue(Map.class);
-                String message = map.get("message").toString();
-                String userName = map.get("user").toString();
+                    Map map = dataSnapshot.getValue(Map.class);
 
-                if(userName.equals(username)){
-                    addMessageBox("You:\n" + message, 1);
+                    String message = map.get("message").toString();
+                    String userName = map.get("user").toString();
+                    if(userName.equals("")){}
+                    else {
+                        if (userName.equals(username)) {
+                            addMessageBox("You:\n" + message, 1);
+                        } else {
+                            addMessageBox(chatWith_name + ":\n" + message, 2);
+                        }
+                    }
                 }
-                else{
-                    addMessageBox(chatWith_name + ":\n" + message, 2);
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+
                 }
-            }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
 
 
-            }
+                }
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
 
-            }
-        });
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+
+                }
+            });
 
         //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         //TOP TOOLBAR------------------------------------------------------------------
