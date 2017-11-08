@@ -68,7 +68,7 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
 
     String userID, mail, phonenumber, name, hobbies, address, role, currentUserID, profileimage;
 
-    private ImageView mProfilePicture;
+    private ImageView mProfilePicture, mTitlePicture;
     private String profileImageUrl;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -107,6 +107,7 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
 
         //initializing views
         mProfilePicture = (ImageView) findViewById(R.id.user_profil_photo);
+        mTitlePicture = (ImageView) findViewById(R.id.user_background_photo);
 
         textViewUserEmail = (TextView) findViewById(R.id.mail);
         textViewaddress = (TextView) findViewById(R.id.address);
@@ -334,6 +335,7 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
         //findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
 
+
         databasePhotorunUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -470,20 +472,24 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
         //Glide.with(ViewProfile.this).using(new FirebaseImageLoader()).load(imageUrl).into(mProfilePicture);
 
 
-       DatabaseReference image = mRef.child(userID).child("profileImageUrl");
+       final DatabaseReference image = mRef.child(userID).child("profileImageUrl");
         image.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                try{
                 profileimage = dataSnapshot.getValue(String.class);
 
                 StorageReference profileStore = mStorage.getReferenceFromUrl(profileimage);
 
-                String buffer = profileStore.toString();
-
-                Toast.makeText(ViewProfile.this, "Test" + buffer , Toast.LENGTH_SHORT).show();
-
                 Glide.with(ViewProfile.this).using(new FirebaseImageLoader()).load(profileStore).into(mProfilePicture);
                 //Glide.with(getApplicationContext()).load("gs://photorun-3f474.appspot.com/profile_images/NPhoue6JzZRJbtkGUNJyeoKP8QF2").into(mProfilePicture);
+            }catch (IllegalArgumentException e){
+                    String defaultRefUrl = "https://firebasestorage.googleapis.com/v0/b/photorun-3f474.appspot.com/o/profile_images%2Fprofile_photo.png?alt=media&token=38a41782-c029-45f3-9bb9-71d0580e8818";
+                    StorageReference defaultImage = mStorage.getReferenceFromUrl(defaultRefUrl);
+
+                    Glide.with(ViewProfile.this).using(new FirebaseImageLoader()).load(defaultImage).into(mProfilePicture);
+
+                }
             }
 
             @Override

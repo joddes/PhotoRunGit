@@ -1,16 +1,13 @@
 package com.example.janda.photorun.Login;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
@@ -18,30 +15,32 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.janda.photorun.Chat.ViewUserList;
 import com.example.janda.photorun.GoogleMaps.MapsActivity;
 import com.example.janda.photorun.Photorun.PersonalListadapter;
 import com.example.janda.photorun.Photorun.ViewPhotorunList;
 import com.example.janda.photorun.Photorun.ViewSinglePhotoRun;
+import com.example.janda.photorun.R;
 import com.example.janda.photorun.models.CreateProfile;
-import com.example.janda.photorun.models.Photorun;
 import com.example.janda.photorun.models.ViewAttendeesList;
 import com.example.janda.photorun.models.ViewProfile;
 import com.example.janda.photorun.models.ViewTeilnehmerliste;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import com.example.janda.photorun.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +52,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     //firebase auth object
     private FirebaseAuth firebaseAuth;
+
+    private FirebaseStorage mStorage;
 
     //view objects
     private TextView textViewUserEmail, textViewphone, textViewname, textViewhobbies, textViewaddress, textViewrole, textViewFollowers, textViewFollowing;
@@ -74,6 +75,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     private FloatingActionButton settingsBtn;
 
+    private ImageView mProfilePicture, mTitlePicture;
+
     DatabaseReference databasePhotorunUser;
     FirebaseAuth mAuth;
 
@@ -83,6 +86,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private Button followersbtn;
 
     private Button followingbtn;
+
+    private String profileimage;
 
 
     @Override
@@ -102,13 +107,16 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         firebaseAuth = FirebaseAuth.getInstance();
 
 
-
+        mStorage = FirebaseStorage.getInstance();
 
         //if the User is not logged in
         //that means current User will return null
 
 
         //initializing views
+        mProfilePicture = (ImageView) findViewById(R.id.user_profil_photo);
+        mTitlePicture = (ImageView) findViewById(R.id.user_background_photo);
+
         textViewUserEmail = (TextView) findViewById(R.id.mail);
         textViewaddress = (TextView) findViewById(R.id.address);
         textViewhobbies = (TextView) findViewById(R.id.personal_information);
@@ -336,12 +344,40 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
 
+        DatabaseReference image = mRef.child(userID).child("profileImageUrl");
+        image.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try{
+                    profileimage = dataSnapshot.getValue(String.class);
+
+                    StorageReference profileStore = mStorage.getReferenceFromUrl(profileimage);
+
+                    Glide.with(ProfileActivity.this).using(new FirebaseImageLoader()).load(profileStore).into(mProfilePicture);
+                    //Glide.with(getApplicationContext()).load("gs://photorun-3f474.appspot.com/profile_images/NPhoue6JzZRJbtkGUNJyeoKP8QF2").into(mProfilePicture);
+                }catch (IllegalArgumentException e){
+                    String defaultRefUrl = "https://firebasestorage.googleapis.com/v0/b/photorun-3f474.appspot.com/o/profile_images%2Fprofile_photo.png?alt=media&token=38a41782-c029-45f3-9bb9-71d0580e8818";
+                    StorageReference defaultImage = mStorage.getReferenceFromUrl(defaultRefUrl);
+
+                    Glide.with(ProfileActivity.this).using(new FirebaseImageLoader()).load(defaultImage).into(mProfilePicture);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         //findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+
+
 
 
         databasePhotorunUser.addValueEventListener(new ValueEventListener() {

@@ -24,18 +24,23 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.janda.photorun.Chat.ViewUserList;
 import com.example.janda.photorun.GoogleMaps.MapsActivity;
 import com.example.janda.photorun.Login.ProfileActivity;
 import com.example.janda.photorun.Photorun.ViewPhotorunList;
 import com.example.janda.photorun.Photorun.ViewSinglePhotoRun;
 import com.example.janda.photorun.R;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -62,13 +67,15 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
 
     private Uri resultUriProfile, resultUriTitle;
 
-    private String profileImageUrl, imageUrl;
+    private String profileImageUrl, imageUrl, profileimage;
 
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     private Map following, followers;
     String nameMark;
     String ubername= ProfileActivity.ubergabeName;
+
+    private FirebaseStorage mStorage;
 
 
     private String aktuelleUserID;
@@ -84,6 +91,9 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         //databaseProfiles = FirebaseDatabase.getInstance().getReference().child("User").child(aktuelleUserID);
         //Test: Toast.makeText(CreateProfile.this, databaseProfiles.getKey(), Toast.LENGTH_SHORT).show();
 
+        mStorage = FirebaseStorage.getInstance();
+
+        mRef = FirebaseDatabase.getInstance().getReference().child("User");
 
         submitButton = (FloatingActionButton) findViewById(R.id.submit_user);
         submitButton.setOnClickListener(this);
@@ -235,7 +245,32 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
             }
         });
 //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        aktuelleUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference image = mRef.child(aktuelleUserID).child("profileImageUrl");
+        image.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try{
+                    profileimage = dataSnapshot.getValue(String.class);
 
+                    StorageReference profileStore = mStorage.getReferenceFromUrl(profileimage);
+
+                    Glide.with(CreateProfile.this).using(new FirebaseImageLoader()).load(profileStore).into(mProfilePhoto);
+                    //Glide.with(getApplicationContext()).load("gs://photorun-3f474.appspot.com/profile_images/NPhoue6JzZRJbtkGUNJyeoKP8QF2").into(mProfilePicture);
+                }catch (IllegalArgumentException e){
+                    String defaultRefUrl = "https://firebasestorage.googleapis.com/v0/b/photorun-3f474.appspot.com/o/profile_images%2Fprofile_photo.png?alt=media&token=38a41782-c029-45f3-9bb9-71d0580e8818";
+                    StorageReference defaultImage = mStorage.getReferenceFromUrl(defaultRefUrl);
+
+                    Glide.with(CreateProfile.this).using(new FirebaseImageLoader()).load(defaultImage).into(mProfilePhoto);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
 
@@ -285,6 +320,8 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
 
         databaseProfiles.child("User").child(aktuelleUserID).setValue(newUserTest);
 
+        setProfilePicture();
+
         Toast.makeText(this, "Profil erstellt..", Toast.LENGTH_LONG).show();
 
     }
@@ -321,6 +358,7 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         if(!TextUtils.isEmpty(rolle)) {
             databaseProfiles.child("User").child(aktuelleUserID).child("role").setValue(rolle);
         }
+        setProfilePicture();
 
         Toast.makeText(this, "Profil aktualisiert..", Toast.LENGTH_LONG).show();
     }
@@ -483,11 +521,11 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
            intent.setType("image/*");
            startActivityForResult(intent, 1); //keep track of numbers what they are doing
         }
-        if (view == mTitlePhoto){
+        /*if (view == mTitlePhoto){
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");
             startActivityForResult(intent, 2); //keep track of numbers what they are doing
-        }
+        }*/
 
     }
     @Override
