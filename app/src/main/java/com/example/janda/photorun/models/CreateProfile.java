@@ -1,8 +1,13 @@
 package com.example.janda.photorun.models;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -14,6 +19,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,18 +27,21 @@ import android.widget.Toast;
 import com.example.janda.photorun.Chat.ViewUserList;
 import com.example.janda.photorun.GoogleMaps.MapsActivity;
 import com.example.janda.photorun.Login.ProfileActivity;
-import com.example.janda.photorun.Photorun.CreateRun;
 import com.example.janda.photorun.Photorun.ViewPhotorunList;
 import com.example.janda.photorun.Photorun.ViewSinglePhotoRun;
 import com.example.janda.photorun.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -45,9 +54,15 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
 
     private EditText name, phonenumber, personal_information, address, role;
 
-    private DatabaseReference databaseProfiles;
+    private DatabaseReference databaseProfiles, mDatabase;
 
     private TextView email;
+
+    private ImageView mProfilePhoto;
+
+    private Uri resultUri;
+
+    private String profileImageUrl, imageUrl;
 
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -74,8 +89,6 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         submitButton.setOnClickListener(this);
 
 
-
-
         name = (EditText) findViewById(R.id.name);
 
         phonenumber = (EditText) findViewById(R.id.phonenumber);
@@ -90,10 +103,15 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
 
         role = (EditText) findViewById(R.id.role);
 
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("User");
 
-        //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        //TOP TOOLBAR------------------------------------------------------------------
-        TextView toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
+
+        mProfilePhoto = (ImageView) findViewById(R.id.user_profil_photo);
+        mProfilePhoto.setOnClickListener(this);
+
+                //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+                //TOP TOOLBAR------------------------------------------------------------------
+                TextView toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
         toolbar_Textview.setText("Profil Bearbeiten");
         TextView help_Textview = (TextView) findViewById(R.id.help_inhalt);
         help_Textview.setText("Hier haben Sie die Möglichkeit, die anderen User auf sich aufmerksam zu machen!\n" +
@@ -219,15 +237,8 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
 
 
 
-
-
-
-
-
-
-
-
     }
+
 
     public void createProfile(){
         databaseProfiles =  FirebaseDatabase.getInstance().getReference();
@@ -265,16 +276,71 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         }
 
 
+
+// start profile picture stuff
+        if (resultUri != null){
+            //define the location where the image goes
+            StorageReference filePath = FirebaseStorage.getInstance().getReference().child("profile_images").child(aktuelleUserID);
+            Bitmap bitmap = null;
+
+            try {
+                //get image from result uri location
+                bitmap = MediaStore.Images.Media.getBitmap(getApplication().getContentResolver(), resultUri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // image compression
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            //20 is factor by which image is compressed, might require some adjustment for other uses because is quite small
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+            final byte[] data = baos.toByteArray();
+            UploadTask uploadTask = filePath.putBytes(data);
+
+            //listener to detect if upload was successful
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    finish();
+                    return;
+                }
+            });
+
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    String imageUrl = downloadUrl.toString();
+
+                   // Map newImage = new HashMap();
+                   // newImage.put("profileImageUrl", downloadUrl.toString());
+                    mDatabase.child(aktuelleUserID).child("profileImageUrl").setValue(imageUrl);
+
+                    finish();
+                    return;
+
+
+                }
+            });
+        }else {
+            finish();
+        }
+        //finish profile picture stuff
+
         //create phtoruns object
         User newUserTest = new User(user_id, email, full_name, addr, phone, rolle, personalinf);
 
 
         databaseProfiles.child("User").child(aktuelleUserID).setValue(newUserTest);
 
-
         Toast.makeText(this, "Profil erstellt..", Toast.LENGTH_LONG).show();
 
     }
+
+    public void setProfilePicture(){
+
+    }
+
     public void updateProfile(){
         databaseProfiles =  FirebaseDatabase.getInstance().getReference();
         aktuelleUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -308,9 +374,72 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
             databaseProfiles.child("User").child(aktuelleUserID).child("role").setValue(rolle);
         }
 
+        // start profile picture stuff
+        if (resultUri != null){
+            //define the location where the image goes
+            StorageReference filePath = FirebaseStorage.getInstance().getReference().child("profile_images").child(aktuelleUserID);
+            Bitmap bitmap = null;
+
+            try {
+                //get image from result uri location
+                bitmap = MediaStore.Images.Media.getBitmap(getApplication().getContentResolver(), resultUri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // image compression
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            //20 is factor by which image is compressed, might require some adjustment for other uses because is quite small
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+            final byte[] data = baos.toByteArray();
+            UploadTask uploadTask = filePath.putBytes(data);
+
+            //listener to detect if upload was successful
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    finish();
+                    return;
+                }
+            });
+
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    String imageUrl = downloadUrl.toString();
+
+                    // Map newImage = new HashMap();
+                    // newImage.put("profileImageUrl", downloadUrl.toString());
+                    mDatabase.child(aktuelleUserID).child("profileImageUrl").setValue(imageUrl);
+
+                    finish();
+                    return;
+
+
+                }
+            });
+        }else {
+            finish();
+        }
+        //finish profile picture stuff
+
         Toast.makeText(this, "Profil aktualisiert..", Toast.LENGTH_LONG).show();
     }
 
+
+    //result for clicking on profile picture, onclicklistener is defined above
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK){
+            final Uri imageUri = data.getData();
+            resultUri = imageUri;
+            mProfilePhoto.setImageURI(resultUri);
+
+
+        }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -322,6 +451,7 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
                 createProfile();
             }else{
                 updateProfile();
+                //setProfilePicture();
             }
             //go back to Create Photorun
 
@@ -331,6 +461,11 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
                             lala,
                             ViewCompat.getTransitionName(lala));
             startActivity(new Intent(this, ProfileActivity.class),options.toBundle());
+        }
+       if (view == mProfilePhoto){
+           Intent intent = new Intent(Intent.ACTION_PICK);
+           intent.setType("image/*");
+           startActivityForResult(intent, 1); //keep track of numbers what they are doing
         }
 
     }

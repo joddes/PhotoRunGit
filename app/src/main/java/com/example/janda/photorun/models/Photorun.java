@@ -18,6 +18,7 @@ public class Photorun {
     private String end_point;
     private String status;
     private Map<String, String> participants;
+    private Map<String, String> attendees;
     private String ownerName;
 
     public Photorun(String date, String description, String estimated_duration, String photorun_id, String starting_time, String title, String start_point, String end_point, String status, String ownerName) {
@@ -67,6 +68,14 @@ public class Photorun {
 
     public Photorun(){
 
+    }
+
+    public Map<String, String> getAttendees() {
+        return attendees;
+    }
+
+    public void setAttendees(Map<String, String> attendees) {
+        this.attendees = attendees;
     }
 
     public String getDate() {
