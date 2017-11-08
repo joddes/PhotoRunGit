@@ -36,6 +36,7 @@ import com.example.janda.photorun.models.Photorun;
 import com.example.janda.photorun.models.User;
 import com.example.janda.photorun.models.ViewProfile;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -87,12 +88,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private long FASTEST_INTERVAL = 30000; /* 30 sec */
 
 
-    String photorun_id, photorun_title;
+    String photorun_id, photorun_title, user_name;
     String locationAll;
     List<Photorun> photoruns;
+    List<User> users;
 
 
     GeoFire geoFire = new GeoFire(mDatabase);
+    GeoLocation user_location;
 
 
     @Override
@@ -272,6 +275,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         databaseWalks = FirebaseDatabase.getInstance().getReference().child("Photorun");
         startLocationUpdates();
 
+
+        DatabaseReference databaseAllUsers;
+        databaseAllUsers = FirebaseDatabase.getInstance().getReference().child("User");
+        //list to store Photoruns
+        users = new ArrayList<>();
+
+        databasePhotorun.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                users.clear();
+
+
+                for (DataSnapshot photorunSnapshot : dataSnapshot.getChildren()) {
+
+                    User user = photorunSnapshot.getValue(User.class);
+
+                    users.add(user);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void geoCode(String eventLocation) throws IOException {
@@ -341,6 +372,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } else {
 
             showAllWalks();
+            showAllUsers();
         }
 
     }
@@ -356,6 +388,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationMarker.getPosition(), 15));
         } else {
             showAllWalks();
+            showAllUsers();
         }
     }
 
@@ -476,11 +509,93 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
+    //-----------------------------------All User Locations------------------------------------------
+
+    public void showAllUsers() {
+
+        for (int i = 0; i < users.size(); i++) {
+            User user = users.get(i);
+            user_name = user.getFull_name();
+            user_location = user.getLocation();
 
 
+            Toast.makeText(this, user_location.toString(),Toast.LENGTH_LONG).show();
 
+
+        }
+
+
+    }
 
 }
+
+
+   /*private void addUserMarkersToMap(GoogleMap map) {
+
+        databaseEventanwesende.addValueEventListener(new com.firebase.client.ValueEventListener() {
+            @Override
+            public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
+                for (com.firebase.client.DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    try {
+                        String anwesendID = snapshot.getValue(String.class);
+                        databaseLocations = new Firebase(FIREBASE_URL).child("locations").child(anwesendID);
+                        databaseLocations.addValueEventListener(new com.firebase.client.ValueEventListener() {
+                            @Override
+                            public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot2) {
+                                UserLocation loc = dataSnapshot2.getValue(UserLocation.class);
+                                String id = loc.getUserID();
+                                Double latitude = loc.getLat();
+                                Double longitude = loc.getLng();
+                                final LatLng location = new LatLng(latitude, longitude);
+                                databaseProfiles = new Firebase(FIREBASE_URL).child("profiles").child(id);
+                                databaseProfiles.addListenerForSingleValueEvent(new com.firebase.client.ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot3) {
+                                        Person profil = dataSnapshot3.getValue(Person.class);
+                                        Name = profil.getVorname() + " " + profil.getName();
+                                        Rolle = profil.getRolle();
+                                        String id = profil.getPersonID();
+                                        if (profil.getPersonID().equals(ProfilAnsichtEigenesProfil.aktuelleUserID)) {
+                                            return;
+                                        } else {
+                                            locationMarker2 = mMap.addMarker(new MarkerOptions().position(location).title(Name).snippet(Rolle).
+                                                    icon(BitmapDescriptorFactory.fromResource(R.drawable.faceicon)));
+                                            allPersonMap.put(locationMarker2, id);
+                                            // hier Code für Marker verschieben, z.B. Blick in Hashmap, gibt es bereits einen Marker mit der ID, wenn ja, Marker von Map und Hashmap entfernen und neuen hinzufügen zu beidem
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(FirebaseError firebaseError) {
+
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onCancelled(FirebaseError firebaseError) {
+
+                            }
+                        });
+                    }catch (NullPointerException npp){
+                        // User Location nicht verfügbar
+                    }
+                }
+            }
+
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+    }
+
+
+
+
+}*/
 
 
 

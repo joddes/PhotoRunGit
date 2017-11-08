@@ -1,5 +1,7 @@
 package com.example.janda.photorun.models;
 
+import com.firebase.geofire.GeoLocation;
+
 import java.util.Map;
 
 /**
@@ -20,6 +22,7 @@ public class User {
     private Map<String, String> following;
     private Map<String, String> followers;
     private String profileimageUrl;
+    private GeoLocation location;
 
     public User(String user_id, String email, String full_name, String address, String phonenumber, String role, String personalInf) {
         this.user_id = user_id;
@@ -157,6 +160,14 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public GeoLocation getLocation() {
+        return location;
+    }
+
+    public void setLocation(GeoLocation location) {
+        this.location = location;
     }
 
     @Override
