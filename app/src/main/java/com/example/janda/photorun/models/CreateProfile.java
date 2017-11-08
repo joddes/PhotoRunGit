@@ -58,9 +58,9 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
 
     private TextView email;
 
-    private ImageView mProfilePhoto, mTitlePhoto;
+    private ImageView mProfilePhoto;
 
-    private Uri resultUriProfile, resultUriTitle;
+    private Uri resultUri;
 
     private String profileImageUrl, imageUrl;
 
@@ -108,9 +108,6 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
 
         mProfilePhoto = (ImageView) findViewById(R.id.user_profil_photo);
         mProfilePhoto.setOnClickListener(this);
-
-        mTitlePhoto = (ImageView) findViewById(R.id.user_background_photo);
-        mTitlePhoto.setOnClickListener(this);
 
                 //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                 //TOP TOOLBAR------------------------------------------------------------------
@@ -289,75 +286,17 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
 
     }
 
-    public void updateProfile(){
-        databaseProfiles =  FirebaseDatabase.getInstance().getReference();
-        aktuelleUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        String addr = address.getText().toString().trim();
-        String full_name = name.getText().toString().trim();
-        String email =  user.getEmail();
-        String user_id = aktuelleUserID;
-        String phone = phonenumber.getText().toString().trim();
-        String personalinf = personal_information.getText().toString().trim();
-        String rolle = role.getText().toString().trim();
-
-
-        if(!TextUtils.isEmpty(addr)) {
-            databaseProfiles.child("User").child(aktuelleUserID).child("address").setValue(addr);
-        }
-
-        if(!TextUtils.isEmpty(full_name)) {
-            databaseProfiles.child("User").child(aktuelleUserID).child("full_name").setValue(full_name);
-        }
-
-        if(!TextUtils.isEmpty(phone)) {
-            databaseProfiles.child("User").child(aktuelleUserID).child("phonenumber").setValue(phone);
-        }
-
-        if(!TextUtils.isEmpty(personalinf)) {
-            databaseProfiles.child("User").child(aktuelleUserID).child("personalInf").setValue(personalinf);
-        }
-
-        if(!TextUtils.isEmpty(rolle)) {
-            databaseProfiles.child("User").child(aktuelleUserID).child("role").setValue(rolle);
-        }
-
-        Toast.makeText(this, "Profil aktualisiert..", Toast.LENGTH_LONG).show();
-    }
-
-
-    //result for clicking on profile picture
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // profile pic
-        if (requestCode == 1 && resultCode == Activity.RESULT_OK){
-            final Uri imageUri = data.getData();
-            resultUriProfile = imageUri;
-            mProfilePhoto.setImageURI(resultUriProfile);
-
-
-        }
-        //title image
-        if (requestCode == 2 && resultCode == Activity.RESULT_OK){
-            final Uri imageUri = data.getData();
-            resultUriTitle = imageUri;
-            mProfilePhoto.setImageURI(resultUriTitle);
-        }
-
-    }
-
     public void setProfilePicture(){
+
         // start profile picture stuff
-        if (resultUriProfile != null){
+        if (resultUri != null){
             //define the location where the image goes
             StorageReference filePath = FirebaseStorage.getInstance().getReference().child("profile_images").child(aktuelleUserID);
             Bitmap bitmap = null;
 
             try {
                 //get image from result uri location
-                bitmap = MediaStore.Images.Media.getBitmap(getApplication().getContentResolver(), resultUriProfile);
+                bitmap = MediaStore.Images.Media.getBitmap(getApplication().getContentResolver(), resultUri);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -401,61 +340,55 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
 
     }
 
-    public void setTitlePicture(){
+    public void updateProfile(){
+        databaseProfiles =  FirebaseDatabase.getInstance().getReference();
+        aktuelleUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        // start title picture stuff
-        if (resultUriTitle != null){
-            //define the location where the image goes
-            StorageReference filePath = FirebaseStorage.getInstance().getReference().child("title_images").child(aktuelleUserID);
-            Bitmap bitmap = null;
-
-            try {
-                //get image from result uri location
-                bitmap = MediaStore.Images.Media.getBitmap(getApplication().getContentResolver(), resultUriTitle);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            // image compression
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            //20 is factor by which image is compressed, might require some adjustment for other uses because is quite small
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 30, baos);
-            final byte[] data = baos.toByteArray();
-            UploadTask uploadTask = filePath.putBytes(data);
-
-            //listener to detect if upload was successful
-            uploadTask.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    finish();
-                    return;
-                }
-            });
-
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                    String imageUrl = downloadUrl.toString();
-
-                    // Map newImage = new HashMap();
-                    // newImage.put("profileImageUrl", downloadUrl.toString());
-                    mDatabase.child(aktuelleUserID).child("titleImageUrl").setValue(imageUrl);
-
-                    finish();
-                    return;
+        String addr = address.getText().toString().trim();
+        String full_name = name.getText().toString().trim();
+        String email =  user.getEmail();
+        String user_id = aktuelleUserID;
+        String phone = phonenumber.getText().toString().trim();
+        String personalinf = personal_information.getText().toString().trim();
+        String rolle = role.getText().toString().trim();
 
 
-                }
-            });
-        }else {
-            finish();
+        if(!TextUtils.isEmpty(addr)) {
+            databaseProfiles.child("User").child(aktuelleUserID).child("address").setValue(addr);
         }
-        //finish title picture stuff
 
+        if(!TextUtils.isEmpty(full_name)) {
+            databaseProfiles.child("User").child(aktuelleUserID).child("full_name").setValue(full_name);
+        }
+
+        if(!TextUtils.isEmpty(phone)) {
+            databaseProfiles.child("User").child(aktuelleUserID).child("phonenumber").setValue(phone);
+        }
+
+        if(!TextUtils.isEmpty(personalinf)) {
+            databaseProfiles.child("User").child(aktuelleUserID).child("personalInf").setValue(personalinf);
+        }
+
+        if(!TextUtils.isEmpty(rolle)) {
+            databaseProfiles.child("User").child(aktuelleUserID).child("role").setValue(rolle);
+        }
+
+        Toast.makeText(this, "Profil aktualisiert..", Toast.LENGTH_LONG).show();
     }
 
 
+    //result for clicking on profile picture, onclicklistener is defined above
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK){
+            final Uri imageUri = data.getData();
+            resultUri = imageUri;
+            mProfilePhoto.setImageURI(resultUri);
+
+
+        }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -482,11 +415,6 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
            Intent intent = new Intent(Intent.ACTION_PICK);
            intent.setType("image/*");
            startActivityForResult(intent, 1); //keep track of numbers what they are doing
-        }
-        if (view == mTitlePhoto){
-            Intent intent = new Intent(Intent.ACTION_PICK);
-            intent.setType("image/*");
-            startActivityForResult(intent, 2); //keep track of numbers what they are doing
         }
 
     }
