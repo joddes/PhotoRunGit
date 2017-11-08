@@ -214,13 +214,13 @@
             android:textSize="15dp"
             android:textColor="@color/white"
             android:id="@+id/angemeldete"
-            android:paddingTop="5dp"/>
+            android:paddingTop="5dp" />
 
         <TextView
             app:layout_widthPercent="50%"
             android:layout_height="30dp"
             android:text="Zeige Teilgenommene"
-            android:background="@color/colorAccent"
+            android:background="@color/grey_300"
             android:textAlignment="center"
             android:textSize="15dp"
             android:textColor="@color/white"
