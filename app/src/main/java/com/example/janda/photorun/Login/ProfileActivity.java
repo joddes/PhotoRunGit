@@ -54,7 +54,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private FirebaseAuth firebaseAuth;
 
     private FirebaseStorage mStorage;
-
     //view objects
     private TextView textViewUserEmail, textViewphone, textViewname, textViewhobbies, textViewaddress, textViewrole, textViewFollowers, textViewFollowing;
    // private Button buttonLogout;

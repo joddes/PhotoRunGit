@@ -580,10 +580,10 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
         if(view == followBtn){
             if(fStatus==null){
                 follow();
-                findViewById(R.id.Follow).setBackgroundResource(R.drawable.unfollow);
+                followBtn.setImageDrawable(getResources().getDrawable(R.drawable.unfollow));
             }else{
                 entfolgen();
-                findViewById(R.id.Follow).setBackgroundResource(R.drawable.follow);
+                followBtn.setImageDrawable(getResources().getDrawable(R.drawable.follow));
             }
         }
         if(view == followersbtn){

@@ -38,6 +38,20 @@
         android:layout_below="@+id/layout_photorun_list"
         android:layout_marginLeft="5dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Löschen"
+        android:id="@+id/delete_walk"
+        android:textColor="@color/red_600"
+        android:layout_marginTop="65dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_alignParentRight="true" />
+
     <!--<ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"

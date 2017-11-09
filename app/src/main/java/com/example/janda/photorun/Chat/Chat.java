@@ -83,7 +83,7 @@ public class Chat extends AppCompatActivity {
         //reference4 = new Firebase("https://photorun-3f474.firebaseio.com/messages/" + username + "_" + chatWith_id + "/000");
         reference3 = new Firebase("https://photorun-3f474.firebaseio.com/messages/" + chatWith_id + "_" + username + "/000" + "/newMessages");
 
-        mRef.child(username + "_" + chatWith_id).child("000").removeValue();
+        mRef.child(username + "_" + chatWith_id).child("000").child("newMessages").removeValue();
 
         reference3.addValueEventListener(new com.firebase.client.ValueEventListener() {
             @Override

@@ -44,8 +44,9 @@ public class ViewUserList extends AppCompatActivity implements View.OnClickListe
     public static final String USER_NAME = "com.example.janda.photorun.models.full_name";
 
     private TextView toolbar_Textview;
-    int sw=0;
     public static int s = 0;
+    int sw = 0;
+    public static int swatch = 0;
     DatabaseReference databaseUserList;
 
     String actualUser;
@@ -116,7 +117,9 @@ public class ViewUserList extends AppCompatActivity implements View.OnClickListe
                 public void onClick(View view) {
                     if(sw==0) {
                         findViewById(R.id.nachrichten_switch).startAnimation(slide_left_50);
+                        swatch=1;
                         sw = 1;
+                        onStart();
                     }
                 }
             });
@@ -127,6 +130,8 @@ public class ViewUserList extends AppCompatActivity implements View.OnClickListe
                     if (sw == 1) {
                         findViewById(R.id.nachrichten_switch).startAnimation(slide_right_50);
                         sw = 0;
+                        swatch=0;
+                        onStart();
                     }
                 }
             });

@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         private EditText editTextEmail;
         private EditText editTextPasswordlogin;
         public static int logVar=0;
+        public static int sw = 0;
 
 
 

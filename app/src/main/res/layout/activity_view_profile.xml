@@ -5,6 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="176dp"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorAccent"/>
 
     <ImageView
         android:layout_width="match_parent"
@@ -14,6 +20,14 @@
         android:background="@drawable/user_profile_photo"
         android:layout_centerHorizontal="true"
         />
+    <TextView
+        android:layout_width="97dp"
+        android:layout_height="97dp"
+        android:layout_gravity="center"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp"
+        android:background="@color/colorAccent"/>
 
     <ImageView
         android:layout_width="95dp"

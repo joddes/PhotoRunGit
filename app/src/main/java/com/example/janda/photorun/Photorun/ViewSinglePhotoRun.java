@@ -45,7 +45,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
     //implements View.OnClickListener
     public static int mapInd;
-    private TextView title_Textview, Textview_date, date_Textview, startpoint_Textview, endpoint_Textview, starttime_Textview, duration_Textview, participants_Textview, description_Textview,toolbar_Textview;
+    private TextView delete_walk, title_Textview, Textview_date, date_Textview, startpoint_Textview, endpoint_Textview, starttime_Textview, duration_Textview, participants_Textview, description_Textview,toolbar_Textview;
 
     private FloatingActionButton joinRunButton, attendButton;
 
@@ -54,7 +54,7 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
     private String date, description, end_point, estimated_duration, max_participators, start_point, starting_time, title;
 
     private DatabaseReference mDatabase, joinDatabase, userDatabase;
-
+    int s;
     private FirebaseAuth mAuth;
     private TextView angemeldete, teilgenommene;
     private TextView test;
@@ -104,6 +104,10 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
         attendButton = (FloatingActionButton) findViewById(R.id.attendButton);
         attendButton.setOnClickListener(this);
+
+
+        delete_walk = (TextView) findViewById(R.id.delete_walk);
+        delete_walk.setOnClickListener(this);
 
         angemeldete =(TextView) findViewById(R.id.angemeldete);
         teilgenommene =(TextView) findViewById(R.id.teilgenommene);
@@ -570,8 +574,8 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
            mDatabase.child(photorun_id).child("participants").child(participatorID).setValue("enrolled");
            userDatabase.child(participatorID).child("participatedRuns").child(photorun_id).setValue("enrolled");
-
-           Toast.makeText(this, "Successfully joined...", Toast.LENGTH_LONG).show();
+            s = 1;
+           Toast.makeText(this, "Du hast dich erfolgreich zum Photowalk angemeldet", Toast.LENGTH_LONG).show();
        }
 
        public void attendPhotorun(){
@@ -622,8 +626,8 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         mDatabase.child(photorun_id).child("participants").child(currentID).removeValue();
         mDatabase.child("attendees").child(currentID).removeValue();
         userDatabase.child(currentID).child("participatedRuns").child(photorun_id).removeValue();
-
-        Toast.makeText(ViewSinglePhotoRun.this, "Du hast dich erfolgreich vom Photorun abgemeldet. ", Toast.LENGTH_LONG).show();
+        s = 0;
+        Toast.makeText(ViewSinglePhotoRun.this, "Du hast dich vom Photorun abgemeldet. ", Toast.LENGTH_LONG).show();
 
     }
 
@@ -632,7 +636,15 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
 
     public void onClick(View view){
         if (view == joinRunButton){
-            joinPhotorun();
+            final String currentID = mAuth.getInstance().getCurrentUser().getUid();
+            if(s == 1){
+                abmelden();
+                joinRunButton.setImageDrawable(getResources().getDrawable(R.drawable.join_icon));
+            }else{
+                joinPhotorun();
+                joinRunButton.setImageDrawable(getResources().getDrawable(R.drawable.delete_icon));
+            }
+
             /*Intent intent = new Intent(getApplicationContext(), CreateRun.class);
             intent.putExtra(ViewPhotorunList.PHOTORUN_ID, photorun_id);
             startActivity(intent);*/
@@ -654,6 +666,12 @@ public class ViewSinglePhotoRun extends AppCompatActivity implements View.OnClic
         if(view == attendButton) {
             attendPhotorun();
         }
+
+        if(view == delete_walk){
+
+                deletePhotorun();
+            }
+
         /*if(view == test){
 
             databasePhotorun = FirebaseDatabase.getInstance().getReference("Photorun").child(photorun_id).child("attendees");
