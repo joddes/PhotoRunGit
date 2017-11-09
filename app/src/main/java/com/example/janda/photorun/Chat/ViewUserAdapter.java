@@ -59,13 +59,15 @@ public class ViewUserAdapter extends ArrayAdapter<User> {
         //TextView textViewUserId = (TextView) listViewItem.findViewById(R.id.textViewUserId);
         final TextView textViewFullName = (TextView) listViewItem.findViewById(R.id.textViewFullName);
         final ImageView newMessage = (ImageView) listViewItem.findViewById(R.id.newMessages);
-        final ImageView mProfilePicture = (ImageView) listViewItem.findViewById(R.id.logo);
+
         //mTitlePicture = (ImageView) findViewById(R.id.user_background_photo);
-        mStorage = FirebaseStorage.getInstance();
+
         final User user = userList.get(position);
         final String chatWith_id = user.getUser_id();
         final String username = mAuth.getInstance().getCurrentUser().getUid();
         mRef = FirebaseDatabase.getInstance().getReference().child("messages");
+        final ImageView mProfilePicture = (ImageView) listViewItem.findViewById(R.id.logo);
+        mStorage = FirebaseStorage.getInstance();
         FirebaseDatabase.getInstance().getReference().child("User").child(chatWith_id).child("profileImageUrl").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
