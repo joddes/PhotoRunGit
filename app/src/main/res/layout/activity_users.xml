@@ -28,7 +28,7 @@
         <TextView
             app:layout_widthPercent="50%"
             android:layout_height="40dp"
-            android:text="Deine Nachrichten"
+            android:text="Deine Chats"
             android:textSize="20sp"
             android:textAlignment="center"
             android:paddingTop="10sp"

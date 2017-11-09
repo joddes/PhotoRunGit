@@ -60,7 +60,7 @@ public class ViewUserList extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
 
-
+        swatch = 0;
         //Liste von Photoruns anzeigen
         databaseUserList = FirebaseDatabase.getInstance().getReference("User");
         listViewUser = (ListView) findViewById(R.id.usersList);
@@ -139,7 +139,7 @@ public class ViewUserList extends AppCompatActivity implements View.OnClickListe
 //Die Navigationsleisten>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         //TOP TOOLBAR------------------------------------------------------------------
         toolbar_Textview = (TextView) findViewById(R.id.layout_top_bar);
-        toolbar_Textview.setText("Alle Benutzer");
+        toolbar_Textview.setText("Messenger");
         TextView help_Textview = (TextView) findViewById(R.id.help_inhalt);
         help_Textview.setText("Hier sehen Sie ein Liste aller derzeit angeboteten Photowalks.\n" +
                 "Falls Sie einen neuen Photowalk erstellen möchten, klicken Sie bitte unten rechts auf das Plussymbol.\n");
